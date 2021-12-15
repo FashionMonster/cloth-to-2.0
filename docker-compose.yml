@@ -1,0 +1,30 @@
+version: '3' #docker-composeの文法バージョン
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_local
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cloth-to
+      MYSQL_USER: cloth-to-dev
+      MYSQL_PASSWORD: cloth-to-dev
+      TZ: 'Asia/Tokyo' #コンテナ内でタイムゾーンを日本時間にするための変数
+    #コンテナ内のデータをホスト(コンテナ外)側の領域に永続化する定義
+    #「ホスト側:コンテナ側」で対応
+    volumes:
+      - type: bind
+        source: './docker/db/data'
+        target: '/var/lib/mysql' #MySQLデータ
+      - type: bind
+        source: './docker/db/my.cnf'
+        target: '/etc/mysql/conf.d/my.cnf' #MySQL設定ファイル
+      - type: bind
+        source: './docker/db/sql/create-tables.sql'
+        target: '/docker-entrypoint-initdb.d/create-tables.sql' #MySQL起動時の初期化スクリプト置き場(*.sql、*.shのファイルを使える)
+    #ポートフォワーディング(外部のポートと繋げる設定)
+    #volumesと同様に「ホスト側:コンテナ側」で対応
+    ports:
+      - '3306:3306'
+    #コンテナ起動時に実行するコマンド
+    #コンテナ内でmysqlデーモンを指定の文字セットで起動する
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
