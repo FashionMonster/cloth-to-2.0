@@ -9,6 +9,7 @@ const RESULT_MSG = {
     FIN_CREATE_GROUP: 'グループ登録完了しました',
   },
   ERR: {
+    //フロントエンド
     EMAIL_ALREADY_IN_USE: 'ユーザーID(メールアドレス)は\n既に使用されています',
     INVALID_EMAIL: 'ユーザーID(メールアドレス)の\n形式が不正です',
     OPERATION_NOT_ALLOWED: 'ユーザー登録処理は\n現在許可されていません',
@@ -19,6 +20,8 @@ const RESULT_MSG = {
     WRONG_PASSWORD_TOO_MANY: '複数回の認証に失敗しました。\n時間を置いて再度実行してください。',
     WORNG_EXTENSION: '.jpeg .jpg .gif .png 以外の\nファイルは選択不可です',
     OTHER: '予期しないエラーです。\n管理者に連絡して下さい',
+    //バックエンド
+    BAD_REQUEST: 'リクエストデータが不正です',
   },
 };
 

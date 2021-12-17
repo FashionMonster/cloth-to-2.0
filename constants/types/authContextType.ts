@@ -1,4 +1,4 @@
-import type { LoginUserInfo } from 'typeDef/common/loginUserInfo';
+import type { LoginUserInfo } from 'constants/types/loginUserInfo';
 
 //認証コンテキストの型定義
 type AuthContextType = {

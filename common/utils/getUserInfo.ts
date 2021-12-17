@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { isExistValue } from 'common/utils/isExistValue';
 import type { LoginUserInfo } from 'constants/types/loginUserInfo';
 
 //ユーザー情報取得
