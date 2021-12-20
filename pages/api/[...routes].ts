@@ -6,6 +6,7 @@ import express, { Express } from 'express';
 import helmet from 'helmet';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { AppModule } from '../../domains/usecases/app.module';
+import { CustomLoggerService } from '../../usecases/customLogger.service';
 
 export const config = {
   api: { bodyParser: false },
@@ -25,7 +26,7 @@ const handler = async (req: NextApiRequest, resp: NextApiResponse) => {
   const requestHandler = express();
 
   const app = await NestFactory.create(AppModule, new ExpressAdapter(requestHandler), {
-    logger: ['error', 'warn'],
+    logger: new CustomLoggerService(),
   });
 
   // https://docs.nestjs.com/faq/global-prefix
@@ -43,8 +44,6 @@ const handler = async (req: NextApiRequest, resp: NextApiResponse) => {
 
   // https://docs.nestjs.com/techniques/validation
   app.useGlobalPipes(new ValidationPipe());
-
-  //app.use(Handlers.errorHandler());
 
   await app.init();
 

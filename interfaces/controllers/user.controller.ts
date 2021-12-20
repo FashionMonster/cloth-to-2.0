@@ -1,13 +1,25 @@
 import { UserAccount } from '.prisma/client';
-import { Controller, Post, Delete, Body, UseFilters, HttpStatus, Get, Query } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Delete,
+  Body,
+  UseFilters,
+  HttpStatus,
+  Get,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
 import { InternalServerErrorExceptionFilter } from '../../common/exceptionFilters/internalServerException.filter';
 import { BadRequestExceptionFilter } from '../../common/exceptionFilters/BadRequestException.filter';
+import { LoggingInterceptor } from '../../common/Interceptors/logging.interceptor';
 import { UserService } from '../../usecases/user.service';
 import { CreateUserAccountDTO } from '../../domains/dto/createUserAccount.dto';
 import { SelectOrDeleteUserAccountDTO } from '../../domains/dto/selectOrDeleteUserAccount.dto';
 
 @Controller('user')
 @UseFilters(InternalServerErrorExceptionFilter, BadRequestExceptionFilter)
+@UseInterceptors(LoggingInterceptor)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
