@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>アパレル事業者向けの情報共有ツール Cloth-To</title>
-        <meta name='viewport' content='width=device-width,initial-scale=1' />
+        <meta name='viewport' content='width=device-width,initial-scale=1.0' />
       </Head>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>

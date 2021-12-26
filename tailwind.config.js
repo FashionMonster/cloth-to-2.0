@@ -2,6 +2,9 @@ module.exports = {
   purge: ['./pages/**/*.ts', './pages/**/*.tsx', './pages/**/*.js'],
   theme: {
     extend: {
+      fontSize: {
+        xxs: '8px',
+      },
       colors: {
         purple: {
           100: '#F8E8FD',
@@ -48,6 +51,7 @@ module.exports = {
       height: {
         100: '100px',
         112: '112px',
+        122: '122px',
         140: '140px',
         200: '200px',
         220: '220px',
@@ -63,12 +67,12 @@ module.exports = {
         search: '32px auto 28px',
         auto3x: 'auto auto auto',
         error: '64px auto 48px',
-        // form: 'auto 1fr auto',
         form: 'repeat(3, auto)',
         fr3: 'repeat(3, 1fr)',
       },
       gridTemplateColumns: {
         askOfTopPage: '800px 216px',
+        sm_askOfTopPage: '280px 72px',
         contributeForm: '100px 408px',
         previewSubArea: '112px 112px 112px 112px',
         settingForm: '150px 350px',
@@ -84,23 +88,15 @@ module.exports = {
         16: '4rem',
       },
     },
+    //デスクトップファースト
+    //https://kanlog.org/pc-tab-sp/#point1
     screens: {
-      max_2xl: { max: '1536px' },
-      // => @media (max-width: 1536px) { ... }
-      max_xl: { max: '1279px' },
-      // => @media (max-width: 1279px) { ... }
-      max_lg: { max: '1023px' },
-      // => @media (max-width: 1023px) { ... }
-      max_sm: { max: '639px' },
-      // => @media (max-width: 639px) { ... }
-      min_2xl: '1536px',
-      // => @media (min-width: 1536px) { ... }
-      min_xl: '1279px',
-      // => @media (min-width: 1279px) { ... }
-      min_lg: '1023px',
-      // => @media (min-width: 1023px) { ... }
-      min_sm: '639px',
-      // => @media (min-width: 639px) { ... }
+      xl: { max: '1279px' },
+      // => 小型PC @media (max-width: 1279px) { ... }
+      lg: { max: '959px' },
+      // => タブレット @media (max-width: 959px) { ... }
+      sm: { max: '479px' },
+      // => スマートフォン @media (max-width: 479px) { ... }
     },
   },
   variants: {

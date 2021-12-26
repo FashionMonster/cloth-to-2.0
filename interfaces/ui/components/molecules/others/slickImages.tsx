@@ -10,9 +10,9 @@ const SlickImages: React.VFC = () => {
     <Slider {...SLIDER.settings}>
       {SLIDER.IMAGES.map((OBJ: any) => {
         return (
-          <div className='w-1080' key={OBJ.KEY}>
-            <Image src={OBJ.IMG} alt='イメージ' width='1080px' height='600px' />
-            <p className='w-1080 text-center text-xl font-semibold text-purple-700 mb-2'>
+          <div className='w-1080 sm:w-full' key={OBJ.KEY}>
+            <Image src={OBJ.IMG} alt='イメージ' width='1080px' height='600px' layout='responsive' />
+            <p className='w-1080 text-center text-xl font-semibold text-purple-700 mt-4 mb-4 sm:w-full sm:text-sm'>
               {OBJ.MSG}
             </p>
           </div>

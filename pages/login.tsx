@@ -53,19 +53,19 @@ const Login: React.VFC = () => {
     });
 
     //コンテキストにユーザー情報をセット
-    // authContext.setLoginUserInfo({
-    //   userId: res.userId,
-    //   userName: res.userName,
-    //   groupId: res.groupId,
-    // });
+    authContext.setLoginUserInfo({
+      userId: res.userId,
+      userName: res.userName,
+      groupId: res.groupId,
+    });
 
-    // //グループ紐付け完了済の場合は検索画面へ遷移
-    // if (isExistValue(res.groupId)) {
-    //   Router.push('/search');
-    //   //グループ紐付け未完了の場合は紐付け画面へ遷移
-    // } else {
-    //   Router.push('/linkUserToGroup');
-    // }
+    //グループ紐付け完了済の場合は検索画面へ遷移
+    if (isExistValue(res.groupId)) {
+      Router.push('/search');
+      //グループ紐付け未完了の場合は紐付け画面へ遷移
+    } else {
+      Router.push('/linkUserToGroup');
+    }
   });
 
   //ローディング画面を表示
@@ -134,7 +134,7 @@ const Login: React.VFC = () => {
             </div>
           </form>
         </Main>
-        <Footer />
+        <Footer isNeedScroll={false} />
       </Body>
       <ModalWindow
         isModalOpen={isModalOpen}
