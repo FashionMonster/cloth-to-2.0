@@ -15,8 +15,26 @@ export class UserService {
       });
     } catch (error: any) {
       //エラーコードに合わせたメッセージを取得
-      const errorMessage = getDbErrorMessage(error.code);
-      throw new InternalServerErrorException(errorMessage);
+      const errorMsg = getDbErrorMessage(error.code);
+      throw new InternalServerErrorException({ code: error.code, message: errorMsg });
+    }
+  }
+
+  //ユーザー更新(グループ紐付け)
+  async updateUser(data: Prisma.UserAccountUpdateInput): Promise<void> {
+    try {
+      await this.prisma.userAccount.update({
+        where: {
+          userId: data.userId?.toString(),
+        },
+        data: {
+          groupId: data.groupId,
+        },
+      });
+    } catch (error: any) {
+      //エラーコードに合わせたメッセージを取得
+      const errorMsg = getDbErrorMessage(error.code);
+      throw new InternalServerErrorException({ code: error.code, message: errorMsg });
     }
   }
 
@@ -28,8 +46,8 @@ export class UserService {
       });
     } catch (error: any) {
       //エラーコードに合わせたメッセージを取得
-      const errorMessage = getDbErrorMessage(error.code);
-      throw new InternalServerErrorException(errorMessage);
+      const errorMsg = getDbErrorMessage(error.code);
+      throw new InternalServerErrorException({ code: error.code, message: errorMsg });
     }
   }
 
@@ -41,8 +59,8 @@ export class UserService {
       });
     } catch (error: any) {
       //エラーコードに合わせたメッセージを取得
-      const errorMessage = getDbErrorMessage(error.code);
-      throw new InternalServerErrorException(errorMessage);
+      const errorMsg = getDbErrorMessage(error.code);
+      throw new InternalServerErrorException({ code: error.code, message: errorMsg });
     }
   }
 }

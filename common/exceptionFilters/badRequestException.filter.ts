@@ -2,7 +2,7 @@ import { ExceptionFilter, Catch, ArgumentsHost, BadRequestException, Logger } fr
 import { Response } from 'express';
 import { RESULT_MSG } from '../../constants/resultMsg';
 
-@Catch(BadRequestException) // @Catch() デコレータの適用、InternalServerErrorException をハンドルすることを宣言
+@Catch(BadRequestException) // @Catch() デコレータの適用、BadRequestException をハンドルすることを宣言
 export class BadRequestExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger();
 
@@ -13,13 +13,14 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
     const status = exception.getStatus();
 
     //エラーログ出力
-    this.logger.error(`エラーステータス：${exception.getStatus()}`);
+    this.logger.error(`ステータスコード：${status}`);
     this.logger.error(`エラートレース：${exception.stack}`);
 
-    // レスポンスを加工
+    // レスポンス
     response.status(status).json({
-      statusCode: status,
-      errorMessage: RESULT_MSG.ERR.BAD_REQUEST,
+      // statusCode: status,
+      // errorMessage: RESULT_MSG.ERR.BAD_REQUEST,
+      errorInfo: { code: '', message: RESULT_MSG.ERR.BAD_REQUEST },
     });
   }
 }

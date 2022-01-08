@@ -10,10 +10,10 @@ import { Main } from 'interfaces/ui/components/organisms/mainElement';
 import { Footer } from 'interfaces/ui/components/organisms/footer';
 import { Loading } from 'interfaces/ui/components/atoms/others/loading';
 import { Error } from 'interfaces/ui/components/organisms/error';
-import { InputText } from 'interfaces/ui/components/atoms/textboxes/inputText';
-import { InputEmail } from 'interfaces/ui/components/atoms/textboxes/inputEmail';
+import { InputText } from 'interfaces/ui/components/atoms/textBoxes/inputText';
+import { InputEmail } from 'interfaces/ui/components/atoms/textBoxes/inputEmail';
 import { SubmitBtn } from 'interfaces/ui/components/atoms/buttons/submitBtn';
-import { InputPassword } from 'interfaces/ui/components/atoms/textboxes/inputPassword';
+import { InputPassword } from 'interfaces/ui/components/atoms/textBoxes/inputPassword';
 import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWindow';
 import { signup } from 'common/utils/signup';
 import { getFbAuthErrorMsg } from 'common/utils/getFbAuthErrorMsg';
@@ -58,7 +58,6 @@ const Signup: React.VFC = () => {
         .delete('./api/user/delete', { data: { userId: formData.userId } })
         .catch((error) => {
           //mutation.isErrorが検知
-          console.log(error);
           throw error;
         });
       //モーダルを開く
@@ -78,6 +77,7 @@ const Signup: React.VFC = () => {
       <Error
         backType={BACK_PAGE_TYPE.RELOAD}
         errorMsg={mutation.error.response.data.errorMessage}
+        isLogined={false}
       />
     );
   }
@@ -89,7 +89,7 @@ const Signup: React.VFC = () => {
 
   return (
     <>
-      <Body>
+      <Body isLogined={false}>
         <Header isLogined={false} />
         {/* 画面説明 */}
         <FunctionExplain>
@@ -98,7 +98,7 @@ const Signup: React.VFC = () => {
           下記の項目を入力してください。
         </FunctionExplain>
         {/* メイン(コンテンツ) */}
-        <Main width='432'>
+        <Main>
           <form
             onSubmit={handleSubmit(submitCreateUser)}
             className='grid grid-cols-2 gap-8'
@@ -110,7 +110,7 @@ const Signup: React.VFC = () => {
             <InputText
               name='userName'
               id='userName'
-              placeholder=''
+              placeholder='田中太郎'
               isDisabled={false}
               defaultValue=''
               register={register({ required: true, maxLength: 20 })}
@@ -126,14 +126,14 @@ const Signup: React.VFC = () => {
               name='userId'
               id='userId'
               defaultValue=''
-              placeholder=''
+              placeholder='fashion@example.com'
+              width='200'
               register={register({
                 required: true,
                 pattern: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$/,
                 maxLength: 255,
               })}
               errors={errors.userId}
-              width='200'
             />
 
             <label htmlFor='password' className='w-200'>
@@ -142,20 +142,20 @@ const Signup: React.VFC = () => {
             <InputPassword
               name='password'
               id='password'
+              width='200'
               register={register({
                 required: true,
                 minLength: 6,
                 maxLength: 12,
               })}
               errors={errors.password}
-              width='200'
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
               <SubmitBtn value='登録' width={20} />
             </div>
           </form>
         </Main>
-        <Footer />
+        <Footer isNeedScroll={false} />
       </Body>
       <ModalWindow
         isModalOpen={isModalOpen}

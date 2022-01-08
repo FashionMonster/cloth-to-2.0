@@ -1,6 +1,6 @@
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Logger } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 //ログ出力AOP
 //rxjsについて：https://www.codegrid.net/articles/2017-rxjs-1/
@@ -13,6 +13,11 @@ export class LoggingInterceptor implements NestInterceptor {
     const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
 
+    //リクエストデータにパスワードが存在する場合
+    if (request.body !== null && request.body.hasOwnProperty('groupPass')) {
+      request.body.groupPass = '****';
+    }
+
     //リクエスト時のログ出力
     this.logger.log(`リクエストURL：${request.url}`);
     this.logger.log(`リクエストボディ：${JSON.stringify(request.body, null, 2)}`);
@@ -20,6 +25,6 @@ export class LoggingInterceptor implements NestInterceptor {
     //レスポンス時のログ出力
     return next
       .handle()
-      .pipe(tap(() => this.logger.log(`レスポンスステータス：${response.status}`)));
+      .pipe(map((data) => this.logger.log(`レスポンスデータ：${JSON.stringify(data, null, 2)}`)));
   }
 }

@@ -16,16 +16,15 @@ export class InternalServerErrorExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const status = exception.getStatus();
-    const message = exception.message;
 
     //エラーログ出力
-    this.logger.error(`エラーステータス：${exception.getStatus()}`);
+    this.logger.error(`ステータスコード：${status}`);
     this.logger.error(`エラートレース：${exception.stack}`);
 
-    // レスポンスを加工
+    //レスポンス
     response.status(status).json({
-      statusCode: status,
-      errorMessage: message,
+      //プロパティ：code,message
+      errorInfo: exception.getResponse(),
     });
   }
 }

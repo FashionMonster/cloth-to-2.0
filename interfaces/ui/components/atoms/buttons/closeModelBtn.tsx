@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
+//引数の型定義
 type Props = {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 };

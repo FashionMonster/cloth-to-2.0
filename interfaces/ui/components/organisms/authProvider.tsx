@@ -2,14 +2,18 @@ import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { checkLogin } from 'common/utils/checkLogin';
 import { getUserInfo } from 'common/utils/getUserInfo';
-import type { PropsChildlen } from 'constants/types/propsChildlen';
 import type { AuthContextType } from 'constants/types/authContextType';
 import type { LoginUserInfo } from 'constants/types/loginUserInfo';
+
+//引数の型定義
+type Props = {
+  children: React.ReactNode;
+};
 
 //コンテキストの初期化
 const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
 
-const AuthProvider: React.VFC<PropsChildlen> = (props) => {
+const AuthProvider: React.VFC<Props> = (props) => {
   const router = useRouter();
   const [loginUserInfo, setLoginUserInfo] = useState({
     userId: '',

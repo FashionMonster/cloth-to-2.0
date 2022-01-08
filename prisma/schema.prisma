@@ -21,7 +21,7 @@ model UserAccount {
 
 model GroupAccount {
   groupId    String   @id @db.VarChar(255)
-  groupPass  String   @db.VarChar(20)
+  groupPass  String   @db.VarChar(255)
   groupName  String   @unique @db.VarChar(20)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt

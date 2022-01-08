@@ -7,8 +7,8 @@ import { Header } from 'interfaces/ui/components/organisms/header';
 import { FunctionExplain } from 'interfaces/ui/components/atoms/others/functionExplain';
 import { Main } from 'interfaces/ui/components/organisms/mainElement';
 import { Footer } from 'interfaces/ui/components/organisms/footer';
-import { InputEmail } from 'interfaces/ui/components/atoms/textboxes/inputEmail';
-import { InputPassword } from 'interfaces/ui/components/atoms/textboxes/inputPassword';
+import { InputEmail } from 'interfaces/ui/components/atoms/textBoxes/inputEmail';
+import { InputPassword } from 'interfaces/ui/components/atoms/textBoxes/inputPassword';
 import { SubmitBtn } from 'interfaces/ui/components/atoms/buttons/submitBtn';
 import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWindow';
 import { Loading } from 'interfaces/ui/components/atoms/others/loading';
@@ -77,13 +77,14 @@ const Login: React.VFC = () => {
       <Error
         backType={BACK_PAGE_TYPE.RELOAD}
         errorMsg={mutation.error.response.data.errorMessage}
+        isLogined={false}
       />
     );
   }
 
   return (
     <>
-      <Body>
+      <Body isLogined={false}>
         <Header isLogined={false} />
         {/* 画面説明 */}
         <FunctionExplain>
@@ -92,7 +93,7 @@ const Login: React.VFC = () => {
           下記の項目を入力してください。
         </FunctionExplain>
         {/* メイン(コンテンツ) */}
-        <Main width='432'>
+        <Main>
           <form
             onSubmit={handleSubmit(submitLogin)}
             className='grid grid-cols-2 gap-8'
@@ -105,14 +106,14 @@ const Login: React.VFC = () => {
               name='userId'
               id='userId'
               defaultValue=''
-              placeholder=''
+              placeholder='fashion@example.com'
+              width='200'
               register={register({
                 required: true,
                 pattern: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$/,
                 maxLength: 255,
               })}
               errors={errors.userId}
-              width='200'
             />
 
             <label htmlFor='password' className='w-200'>
@@ -121,13 +122,13 @@ const Login: React.VFC = () => {
             <InputPassword
               name='password'
               id='password'
+              width='200'
               register={register({
                 required: true,
                 minLength: 6,
                 maxLength: 12,
               })}
               errors={errors.password}
-              width='200'
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
               <SubmitBtn value='ログイン' width={24} />

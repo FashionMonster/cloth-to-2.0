@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
 import { UserController } from '../../interfaces/controllers/user.controller';
+import { GroupController } from '../../interfaces/controllers/group.controller';
 import { UserService } from '../../usecases/user.service';
+import { GroupService } from '../../usecases/group.service';
 import { PrismaService } from '../../usecases/prisma.service';
 
-const CONTROLLER_ARRAY = [UserController];
-const SERVICE_ARRAY = [PrismaService, UserService];
+const controllerArray = [UserController, GroupController];
+const serviceArray = [PrismaService, UserService, GroupService];
 
 @Module({
   imports: [],
-  controllers: CONTROLLER_ARRAY,
-  providers: SERVICE_ARRAY,
+  controllers: controllerArray,
+  providers: serviceArray,
 })
 export class AppModule {}

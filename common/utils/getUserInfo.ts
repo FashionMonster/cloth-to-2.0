@@ -21,8 +21,8 @@ const getUserInfo = async (paramUserId: string): Promise<LoginUserInfo> => {
   //Firebaseの認証処理を通過しているので、データがある前提でセット
   const userInfo: LoginUserInfo = {
     userId: paramUserId,
-    userName: userAccount.data.userName,
-    groupId: userAccount.data.groupId,
+    userName: userAccount.data.userInfo.userName,
+    groupId: userAccount.data.userInfo.groupId,
   };
 
   return userInfo;

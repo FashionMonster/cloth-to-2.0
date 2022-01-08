@@ -59,7 +59,8 @@ module.exports = {
         490: '490px',
       },
       gridTemplateRows: {
-        layout: '64px 48px 1fr 48px',
+        body: '64px 48px 1fr 48px',
+        loginedBody: '112px 48px 1fr 48px',
         index: '64px auto 48px',
         indexMain: 'repeat(4, auto)',
         fileUpload: '480px 112px 32px',
