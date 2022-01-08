@@ -9,12 +9,12 @@ type Props = {
 const Hamburger: React.VFC<Props> = (props) => {
   return (
     <div
-      className='w-6 h-6 border-2 border-purple-700 rounded relative flex justify-center items-center'
+      className='w-8 h-8 relative flex justify-center items-center'
       onClick={() => props.setIsOpen(true)}
     >
-      <span className='absolute w-3 h-0.5 block rounded bg-purple-700 top-1' />
-      <span className='absolute w-3 h-0.5 block rounded bg-purple-700' />
-      <span className='absolute w-3 h-0.5 block rounded bg-purple-700 bottom-1' />
+      <span className='absolute w-6 h-1 block rounded bg-purple-700 top-1' />
+      <span className='absolute w-6 h-1 block rounded bg-purple-700' />
+      <span className='absolute w-6 h-1 block rounded bg-purple-700 bottom-1' />
     </div>
   );
 };

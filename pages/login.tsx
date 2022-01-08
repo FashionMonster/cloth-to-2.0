@@ -7,6 +7,7 @@ import { Header } from 'interfaces/ui/components/organisms/header';
 import { FunctionExplain } from 'interfaces/ui/components/atoms/others/functionExplain';
 import { Main } from 'interfaces/ui/components/organisms/mainElement';
 import { Footer } from 'interfaces/ui/components/organisms/footer';
+import { InputLabel } from 'interfaces/ui/components/atoms/others/inputLabel';
 import { InputEmail } from 'interfaces/ui/components/atoms/textBoxes/inputEmail';
 import { InputPassword } from 'interfaces/ui/components/atoms/textBoxes/inputPassword';
 import { SubmitBtn } from 'interfaces/ui/components/atoms/buttons/submitBtn';
@@ -99,15 +100,13 @@ const Login: React.VFC = () => {
             className='grid grid-cols-2 gap-8'
             noValidate={true}
           >
-            <label htmlFor='userId' className='w-200'>
-              メールアドレス（ID）
-            </label>
+            <InputLabel for='userId'>メールアドレス（ID）</InputLabel>
             <InputEmail
               name='userId'
               id='userId'
               defaultValue=''
               placeholder='fashion@example.com'
-              width='200'
+              width='200 sm:w-40'
               register={register({
                 required: true,
                 pattern: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$/,
@@ -116,13 +115,11 @@ const Login: React.VFC = () => {
               errors={errors.userId}
             />
 
-            <label htmlFor='password' className='w-200'>
-              パスワード
-            </label>
+            <InputLabel for='password'>パスワード</InputLabel>
             <InputPassword
               name='password'
               id='password'
-              width='200'
+              width='200 sm:w-40'
               register={register({
                 required: true,
                 minLength: 6,

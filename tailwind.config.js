@@ -60,7 +60,9 @@ module.exports = {
       },
       gridTemplateRows: {
         body: '64px 48px 1fr 48px',
+        sm_body: '48px 48px 1fr',
         loginedBody: '112px 48px 1fr 48px',
+
         index: '64px auto 48px',
         indexMain: 'repeat(4, auto)',
         fileUpload: '480px 112px 32px',
@@ -74,6 +76,8 @@ module.exports = {
       gridTemplateColumns: {
         askOfTopPage: '800px 216px',
         sm_askOfTopPage: '280px 72px',
+        sideNav: '16px 1fr',
+
         contributeForm: '100px 408px',
         previewSubArea: '112px 112px 112px 112px',
         settingForm: '150px 350px',

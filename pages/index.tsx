@@ -10,7 +10,7 @@ const Top: React.VFC = () => (
     <div className='mb-8 w-full sm:mb-4'>
       <Header isLogined={false} />
     </div>
-    <main className='w-1080 sm:w-96 mx-auto'>
+    <main className='w-1080 mx-auto sm:w-full'>
       {/* タイトル */}
       <div className='mb-8 sm:mb-4'>
         <div className='mb-8 sm:mb-4'>
@@ -54,7 +54,7 @@ const Top: React.VFC = () => (
         <p className='mb-4 text-center text-2xl font-semibold sm:text-xxs'>
           アパレル事業を営む企業、グループで社員それぞれが持つ情報を共有出来ます。
           <br />
-          ユーザーはその情報から新しい知見を得て、さらなるクリエイションに活かせます。
+          ユーザーは新しい知見を得て、さらなるクリエイションに活かせます。
         </p>
         <Image
           src='/data_share.png'

@@ -10,6 +10,7 @@ import { Main } from 'interfaces/ui/components/organisms/mainElement';
 import { Footer } from 'interfaces/ui/components/organisms/footer';
 import { Loading } from 'interfaces/ui/components/atoms/others/loading';
 import { Error } from 'interfaces/ui/components/organisms/error';
+import { InputLabel } from 'interfaces/ui/components/atoms/others/inputLabel';
 import { InputText } from 'interfaces/ui/components/atoms/textBoxes/inputText';
 import { InputEmail } from 'interfaces/ui/components/atoms/textBoxes/inputEmail';
 import { SubmitBtn } from 'interfaces/ui/components/atoms/buttons/submitBtn';
@@ -101,12 +102,10 @@ const Signup: React.VFC = () => {
         <Main>
           <form
             onSubmit={handleSubmit(submitCreateUser)}
-            className='grid grid-cols-2 gap-8'
+            className='grid grid-cols-2 gap-8 '
             noValidate={true}
           >
-            <label htmlFor='userName' className='w-200'>
-              ユーザー名
-            </label>
+            <InputLabel for='userName'>ユーザー名</InputLabel>
             <InputText
               name='userName'
               id='userName'
@@ -115,19 +114,17 @@ const Signup: React.VFC = () => {
               defaultValue=''
               register={register({ required: true, maxLength: 20 })}
               errors={errors.userName}
-              width='200'
+              width='200 sm:w-40'
               maxLength='20'
             />
 
-            <label htmlFor='userId' className='w-200'>
-              メールアドレス（ID）
-            </label>
+            <InputLabel for='userId'>メールアドレス（ID）</InputLabel>
             <InputEmail
               name='userId'
               id='userId'
               defaultValue=''
               placeholder='fashion@example.com'
-              width='200'
+              width='200 sm:w-40'
               register={register({
                 required: true,
                 pattern: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$/,
@@ -136,13 +133,11 @@ const Signup: React.VFC = () => {
               errors={errors.userId}
             />
 
-            <label htmlFor='password' className='w-200'>
-              パスワード
-            </label>
+            <InputLabel for='password'>パスワード</InputLabel>
             <InputPassword
               name='password'
               id='password'
-              width='200'
+              width='200 sm:w-40'
               register={register({
                 required: true,
                 minLength: 6,

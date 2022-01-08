@@ -13,7 +13,7 @@ const Footer: React.VFC<Props> = (props) => {
   }
 
   return (
-    <footer className={`${additonalStyle} w-full text-center h-12 bg-gray-100 sm:h-8`}>
+    <footer className={`${additonalStyle} w-full text-center h-12 bg-gray-100 sm:hidden`}>
       <p className='h-12 leading-12 sm:text-xxs sm:h-8 sm:leading-8'>
         お問い合わせ：yhirookadev@gmail.com
       </p>

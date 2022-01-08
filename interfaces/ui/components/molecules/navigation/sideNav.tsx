@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Link from 'next/Link';
+import { SideNavLink } from 'interfaces/ui/components/atoms/navigation/sideNavlink';
 import { Hamburger } from 'interfaces/ui/components/atoms/navigation/hamburger';
 import { Close } from 'interfaces/ui/components/atoms/navigation/close';
 
@@ -9,7 +9,7 @@ const SideNav: React.VFC = () => {
   //初期表示 または メニューを閉じている時
   let sideNav = (
     <div className='relative'>
-      <div className='absolute top-1 right-1'>
+      <div className='absolute top-2 right-2'>
         <Hamburger setIsOpen={setIsOpen} />
       </div>
     </div>
@@ -19,22 +19,25 @@ const SideNav: React.VFC = () => {
   if (isOpen) {
     sideNav = (
       <div className='relative'>
-        <div className='absolute top-1 right-1'>
+        <div className='absolute top-2 right-2'>
           <Close setIsOpen={setIsOpen} />
         </div>
         <div className='absolute top-0 right-0 z-10'>
           {/* メニュー */}
           <aside
-            className='w-36 h-96 bg-purple-700 bg-opacity-60 relative'
+            className='w-48 min-h-screen bg-purple-700 relative'
             onClick={() => setIsOpen(false)}
           >
-            <div className='absolute top-10 left-4 z-10'>
-              <Link href='/signup'>
-                <a className=' text-white rounded-3xl text-xs block mb-4'>無料ユーザー登録</a>
-              </Link>
-              <Link href='/login'>
-                <a className=' text-white rounded-3xl block text-xs'> ログイン</a>
-              </Link>
+            <div className='absolute top-10 left-4 z-10 grid grid-rows-3 gap-3'>
+              <SideNavLink href='/' image='top.png'>
+                トップ
+              </SideNavLink>
+              <SideNavLink href='/signup' image='signup.png'>
+                無料ユーザー登録
+              </SideNavLink>
+              <SideNavLink href='/login' image='login.png'>
+                ログイン
+              </SideNavLink>
             </div>
           </aside>
         </div>
