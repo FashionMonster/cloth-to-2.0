@@ -3,7 +3,8 @@ module.exports = {
   theme: {
     extend: {
       fontSize: {
-        xxs: '8px',
+        xxxs: '8px',
+        xxs: '10px',
       },
       colors: {
         purple: {
@@ -75,8 +76,8 @@ module.exports = {
       },
       gridTemplateColumns: {
         askOfTopPage: '800px 216px',
-        sm_askOfTopPage: '280px 72px',
-        sideNav: '16px 1fr',
+        sm_askOfTopPage: '280px 1fr',
+        sideNav: '24px 1fr',
 
         contributeForm: '100px 408px',
         previewSubArea: '112px 112px 112px 112px',
@@ -91,6 +92,20 @@ module.exports = {
       lineHeight: {
         12: '3rem',
         16: '4rem',
+      },
+      keyframes: {
+        slideIn: {
+          '0%': { transform: 'translateX(200px)' },
+          '100%': { transform: 'translateX(0px)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+      animation: {
+        slideIn: 'slideIn 0.5s ease-in-out',
+        fadeIn: 'fadeIn 0.5s ease-in-out',
       },
     },
     //デスクトップファースト

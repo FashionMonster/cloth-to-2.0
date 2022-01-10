@@ -146,7 +146,7 @@ const Signup: React.VFC = () => {
               errors={errors.password}
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
-              <SubmitBtn value='登録' width={20} />
+              <SubmitBtn value='登録' width={'20 sm:w-40'} />
             </div>
           </form>
         </Main>

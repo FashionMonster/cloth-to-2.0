@@ -7,14 +7,8 @@ type Props = {
 //ボディーコンポーネント
 const Body: React.VFC<Props> = (props) => {
   //ログインの有無で適用するスタイルを切替え
-  let gridLayout;
-  let smGridLayout;
-  if (props.isLogined) {
-    gridLayout = 'grid-rows-loginedBody';
-  } else {
-    gridLayout = 'grid-rows-body';
-    smGridLayout = 'grid-rows-sm_body';
-  }
+  const gridLayout = props.isLogined ? 'grid-rows-loginedBody' : 'grid-rows-body';
+  const smGridLayout = 'grid-rows-sm_body';
 
   return (
     <body className={`relative grid ${gridLayout} gap-8 min-h-screen sm:${smGridLayout}`}>

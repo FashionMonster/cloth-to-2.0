@@ -1,6 +1,6 @@
 import { CreateUserBtn } from 'interfaces/ui/components/atoms/buttons/createUserBtn';
 import { LoginBtn } from 'interfaces/ui/components/atoms/buttons/loginBtn';
-import { SideNav } from 'interfaces/ui/components/molecules/navigation/sideNav';
+import { SideNavigation } from 'interfaces/ui/components/organisms/sideNavigation';
 
 //ログイン前ヘッダーコンポーネント
 const HeaderBeforeLogin: React.VFC = () => {
@@ -17,7 +17,7 @@ const HeaderBeforeLogin: React.VFC = () => {
       </div>
       {/* スマホサイズのみ表示 */}
       <div className='hidden sm:block'>
-        <SideNav />
+        <SideNavigation />
       </div>
     </>
   );

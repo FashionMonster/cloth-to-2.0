@@ -148,7 +148,7 @@ export default function LinkUserToGroup() {
               errors={errors.password}
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
-              <SubmitBtn value='登録/更新' width={28} />
+              <SubmitBtn value='登録/更新' width={'28'} />
             </div>
           </form>
         </Main>

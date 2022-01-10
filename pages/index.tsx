@@ -28,7 +28,7 @@ const Top: React.VFC = () => (
       </div>
       {/* 問いかけ */}
       <div className='mb-8 bg-gray-100 p-8 rounded-3xl sm:mb-4 sm:p-4'>
-        <H2>あなたの環境はこんな状況ではありませんか？</H2>
+        <H2>あなたの環境はこんな状況になってませんか？</H2>
         <div className='grid grid-cols-askOfTopPage sm:grid-cols-sm_askOfTopPage'>
           <ul className='leading-16 text-2xl font-semibold sm:leading-8 sm:text-xxs'>
             <li className='h-16 sm:h-8'>
@@ -51,8 +51,8 @@ const Top: React.VFC = () => (
       {/* サービスについて */}
       <div className='mb-8 sm:mb-4'>
         <H2>サービス Cloth-Toについて</H2>
-        <p className='mb-4 text-center text-2xl font-semibold sm:text-xxs'>
-          アパレル事業を営む企業、グループで社員それぞれが持つ情報を共有出来ます。
+        <p className='mb-4 text-center text-2xl font-semibold sm:text-xxs sm:font-bold'>
+          アパレル事業を営む企業(グループ)で各メンバーの持つ情報を共有出来ます。
           <br />
           ユーザーは新しい知見を得て、さらなるクリエイションに活かせます。
         </p>

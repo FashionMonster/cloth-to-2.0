@@ -128,7 +128,7 @@ const Login: React.VFC = () => {
               errors={errors.password}
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
-              <SubmitBtn value='ログイン' width={24} />
+              <SubmitBtn value='ログイン' width={'24 sm:w-40'} />
             </div>
           </form>
         </Main>
