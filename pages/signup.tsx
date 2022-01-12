@@ -7,7 +7,6 @@ import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
 import { FunctionExplain } from 'interfaces/ui/components/atoms/others/functionExplain';
 import { Main } from 'interfaces/ui/components/organisms/mainElement';
-import { Footer } from 'interfaces/ui/components/organisms/footer';
 import { Loading } from 'interfaces/ui/components/atoms/others/loading';
 import { Error } from 'interfaces/ui/components/organisms/error';
 import { InputLabel } from 'interfaces/ui/components/atoms/others/inputLabel';
@@ -20,6 +19,7 @@ import { signup } from 'common/utils/signup';
 import { getFbAuthErrorMsg } from 'common/utils/getFbAuthErrorMsg';
 import { usePreviousValue } from 'common/customHooks/usePreviousValue';
 import { RESULT_MSG } from 'constants/resultMsg';
+import { DB_ERROR } from 'constants/dbErrorInfo';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import type { UserFormData } from 'constants/types/userFormData';
 
@@ -41,12 +41,25 @@ const Signup: React.VFC = () => {
     const { password, ...postFormData } = formData;
 
     //DBにユーザー登録
-    await axios.post('./api/user/signup', postFormData).catch((error) => {
-      //mutation.isErrorが検知
-      throw error;
+    const result = await axios.post('./api/user/signup', postFormData).catch((error) => {
+      //DB登録で一意制約エラーが発生した場合
+      if ((error.response.data.errorInfo.code = DB_ERROR.UNIQUE_CONSTRAINT.CODE)) {
+        //失敗メッセージのモーダル表示設定
+        setIsModalOpen(true);
+        modalMessage.current = error.response.data.errorInfo.message;
+        return error.response.data.errorInfo.code;
+      } else {
+        //mutation.isErrorが検知
+        throw error;
+      }
     });
 
-    //firebaseにユーザー登録
+    //エラーメッセージがセットされている場合
+    if (result === DB_ERROR.UNIQUE_CONSTRAINT.CODE) {
+      return;
+    }
+
+    //Firebaseにユーザー登録
     try {
       await signup(formData.userId, formData.password);
       //成功メッセージ表示設定
@@ -63,7 +76,7 @@ const Signup: React.VFC = () => {
         });
       //モーダルを開く
       setIsModalOpen(true);
-      //firebaseで発生したエラーメッセージをセット
+      //Firebaseで発生したエラーメッセージをセット
       modalMessage.current = getFbAuthErrorMsg(error.code);
     }
   });
@@ -77,7 +90,7 @@ const Signup: React.VFC = () => {
       //エラー画面を表示
       <Error
         backType={BACK_PAGE_TYPE.RELOAD}
-        errorMsg={mutation.error.response.data.errorMessage}
+        errorMsg={mutation.error.response.data.errorInfo.message}
         isLogined={false}
       />
     );
@@ -150,7 +163,6 @@ const Signup: React.VFC = () => {
             </div>
           </form>
         </Main>
-        <Footer isNeedScroll={false} />
       </Body>
       <ModalWindow
         isModalOpen={isModalOpen}

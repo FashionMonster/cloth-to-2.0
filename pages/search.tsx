@@ -1,11 +1,7 @@
+import { useContext, useRef, useState } from 'react';
+import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWindow';
+
 export default function Search() {
-  return (
-    <body className='overflow-hidden'>
-      <div className='w-full h-96 text-xxs'>あああ</div>
-      <div className='w-full h-96 text-xxs'>あああ</div>
-      <div className='w-full h-96 text-xxs'>あああ</div>
-      <div className='w-full h-96 text-xxs'>あああ</div>
-      <div className='w-full h-96 text-xxs'>あああ</div>
-    </body>
-  );
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+  return <ModalWindow isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} message='テスト' />;
 }

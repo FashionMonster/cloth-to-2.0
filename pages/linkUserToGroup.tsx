@@ -9,7 +9,6 @@ import { Header } from 'interfaces/ui/components/organisms/header';
 import { Navigation } from 'interfaces/ui/components/organisms/navigation';
 import { FunctionExplain } from 'interfaces/ui/components/atoms/others/functionExplain';
 import { Main } from 'interfaces/ui/components/organisms/mainElement';
-import { Footer } from 'interfaces/ui/components/organisms/footer';
 import { SelectGroupName } from 'interfaces/ui/components/atoms/selectBoxes/selectGroupName';
 import { InputPassword } from 'interfaces/ui/components/atoms/textBoxes/inputPassword';
 import { SubmitBtn } from 'interfaces/ui/components/atoms/buttons/submitBtn';
@@ -19,8 +18,10 @@ import { Error } from 'interfaces/ui/components/organisms/error';
 import { usePreviousValue } from 'common/customHooks/usePreviousValue';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import { RESULT_MSG } from 'constants/resultMsg';
+import type { GroupInfo } from 'constants/types/groupInfo';
+import type { LinkUserToGroupInfo } from 'constants/types/linkUserToGroupInfo';
 
-export default function LinkUserToGroup() {
+const LinkUserToGroup: React.VFC = () => {
   const { handleSubmit, register, errors } = useForm();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isUpdateSuccess, setIsUpdateSuccess] = useState(false);
@@ -31,7 +32,7 @@ export default function LinkUserToGroup() {
   //初期表示(データ取得)時
   const query: any = useQuery(
     'allGroupInfo',
-    async () => {
+    async (): Promise<GroupInfo[]> => {
       const res = await axios.get('./api/group/getAllGroupInfo').catch((error) => {
         //query.isErrorが検知
         throw error;
@@ -43,28 +44,31 @@ export default function LinkUserToGroup() {
   );
 
   //フォーム送信時
-  const linkUserToGroup: any = async (data: any) => {
-    data.userId = value?.loginUserInfo.userId;
+  const linkUserToGroup: any = async (data: LinkUserToGroupInfo) => {
+    data.userId = value!.loginUserInfo.userId;
     mutation.mutate(data);
   };
 
   //グループ紐付け処理
-  const mutation: any = useMutation((formData) =>
+  const mutation: any = useMutation((formData: LinkUserToGroupInfo) =>
     axios
       .put('./api/user/linkUserToGroup', formData)
       .then((res) => {
-        if (res.data.errorCode === 'WRONG_PASSWORD') {
-          modalMessage.current = RESULT_MSG.ERR.WRONG_PASSWORD;
-        } else {
-          //成功メッセージのモーダル表示設定
-          setIsModalOpen(true);
-          setIsUpdateSuccess(true);
-          modalMessage.current = RESULT_MSG.OK.FIN_LINK_USER_TO_GROUP;
-        }
+        //成功メッセージのモーダル表示設定
+        setIsModalOpen(true);
+        setIsUpdateSuccess(true);
+        modalMessage.current = RESULT_MSG.OK.FIN_LINK_USER_TO_GROUP;
       })
       .catch((error) => {
-        //mutation.isErrorが検知
-        throw error;
+        //グループのパスワードが誤りの場合
+        if ((error.response.data.errorInfo.code = 'WRONG_PASSWORD')) {
+          //失敗メッセージのモーダル表示設定
+          setIsModalOpen(true);
+          modalMessage.current = error.response.data.errorInfo.message;
+        } else {
+          //mutation.isErrorが検知
+          throw error;
+        }
       })
   );
 
@@ -88,7 +92,7 @@ export default function LinkUserToGroup() {
     return (
       <Error
         backType={BACK_PAGE_TYPE.RELOAD}
-        errorMsg={query.error.response.data.errorMessage}
+        errorMsg={query.error.response.data.errorInfo.message}
         isLogined={true}
       />
     );
@@ -98,7 +102,7 @@ export default function LinkUserToGroup() {
     return (
       <Error
         backType={BACK_PAGE_TYPE.RELOAD}
-        errorMsg={mutation.error.response.data.errorMessage}
+        errorMsg={mutation.error.response.data.errorInfo.message}
         isLogined={true}
       />
     );
@@ -108,7 +112,9 @@ export default function LinkUserToGroup() {
       <Body isLogined={true}>
         <div id='headerWrapper'>
           <Header isLogined={true} />
-          <Navigation />
+          <div className='sm:hidden'>
+            <Navigation />
+          </div>
         </div>
         {/* 画面説明 */}
         <FunctionExplain>
@@ -129,7 +135,7 @@ export default function LinkUserToGroup() {
               id='groupId'
               defaultValue=''
               placeholder=''
-              width='48'
+              width='200 sm:w-40'
               register={register({ required: true })}
               errors={errors.groupId}
               allGroupInfo={query.data.allGroupInfo}
@@ -139,7 +145,7 @@ export default function LinkUserToGroup() {
             <InputPassword
               name='groupPass'
               id='groupPass'
-              width='48'
+              width='200 sm:w-40'
               register={register({
                 required: true,
                 minLength: 6,
@@ -148,11 +154,10 @@ export default function LinkUserToGroup() {
               errors={errors.password}
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
-              <SubmitBtn value='登録/更新' width={'28'} />
+              <SubmitBtn value='登録/更新' width={'28 sm:w-40'} />
             </div>
           </form>
         </Main>
-        <Footer isNeedScroll={false} />
       </Body>
       <ModalWindow
         isModalOpen={isModalOpen}
@@ -161,4 +166,6 @@ export default function LinkUserToGroup() {
       />
     </>
   );
-}
+};
+
+export default LinkUserToGroup;

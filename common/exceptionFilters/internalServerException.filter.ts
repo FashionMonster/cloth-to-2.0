@@ -17,14 +17,16 @@ export class InternalServerErrorExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const status = exception.getStatus();
 
+    //レスポンスデータ
+    //プロパティ：code,message
+    const resData = { errorInfo: exception.getResponse() };
+
     //エラーログ出力
     this.logger.error(`ステータスコード：${status}`);
     this.logger.error(`エラートレース：${exception.stack}`);
+    this.logger.error(`レスポンスデータ：${JSON.stringify(resData, null, 2)}`);
 
     //レスポンス
-    response.status(status).json({
-      //プロパティ：code,message
-      errorInfo: exception.getResponse(),
-    });
+    response.status(status).json(resData);
   }
 }

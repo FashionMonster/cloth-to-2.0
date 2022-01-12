@@ -6,7 +6,6 @@ import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
 import { FunctionExplain } from 'interfaces/ui/components/atoms/others/functionExplain';
 import { Main } from 'interfaces/ui/components/organisms/mainElement';
-import { Footer } from 'interfaces/ui/components/organisms/footer';
 import { InputLabel } from 'interfaces/ui/components/atoms/others/inputLabel';
 import { InputEmail } from 'interfaces/ui/components/atoms/textBoxes/inputEmail';
 import { InputPassword } from 'interfaces/ui/components/atoms/textBoxes/inputPassword';
@@ -37,31 +36,36 @@ const Login: React.VFC = () => {
 
   const mutation: any = useMutation(async (formData: UserFormData) => {
     //Firebaseのログイン認証
-    await login(formData.userId, formData.password).catch((error) => {
+    const result = await login(formData.userId, formData.password).catch((error) => {
       //エラーメッセージをセット
       modalMessage.current = getFbAuthErrorMsg(error.code);
 
       //モーダルを開く
       setIsModalOpen(true);
 
-      return;
+      return error.code;
     });
 
+    //エラーメッセージがセットされている場合
+    if (isExistValue(result)) {
+      return;
+    }
+
     //ユーザー情報を取得
-    const res: LoginUserInfo = await getUserInfo(formData.userId).catch((error) => {
+    const resData: LoginUserInfo = await getUserInfo(formData.userId).catch((error) => {
       //mutation.isErrorが検知
       throw error;
     });
 
     //コンテキストにユーザー情報をセット
     authContext.setLoginUserInfo({
-      userId: res.userId,
-      userName: res.userName,
-      groupId: res.groupId,
+      userId: resData.userId,
+      userName: resData.userName,
+      groupId: resData.groupId,
     });
 
     //グループ紐付け完了済の場合は検索画面へ遷移
-    if (isExistValue(res.groupId)) {
+    if (isExistValue(resData.groupId)) {
       Router.push('/search');
       //グループ紐付け未完了の場合は紐付け画面へ遷移
     } else {
@@ -132,7 +136,6 @@ const Login: React.VFC = () => {
             </div>
           </form>
         </Main>
-        <Footer isNeedScroll={false} />
       </Body>
       <ModalWindow
         isModalOpen={isModalOpen}

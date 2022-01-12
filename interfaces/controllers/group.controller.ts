@@ -15,7 +15,7 @@ import { LoggingInterceptor } from '../../common/Interceptors/logging.intercepto
 import { GroupService } from '../../usecases/group.service';
 import { CreateGroupAccountDTO } from '../../domains/dto/createGroupAccount.dto';
 import { createHashPass } from '../../common/utils/createHashPass';
-import type { GetGroupAccount } from '../../constants/types/getGroupAccount';
+import type { GroupInfo } from '../../constants/types/groupInfo';
 
 @Controller('group')
 @UseFilters(InternalServerErrorExceptionFilter, BadRequestExceptionFilter)
@@ -42,7 +42,7 @@ export class GroupController {
   //全グループ情報取得処理
   @Get('getAllGroupInfo')
   async getAllGroupInfo(@Res() res: Response) {
-    const allGroupInfo: GetGroupAccount[] | null = await this.groupService
+    const allGroupInfo: GroupInfo[] | null = await this.groupService
       .selectAllGroup()
       .catch((error) => {
         throw error;

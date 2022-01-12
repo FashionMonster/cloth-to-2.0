@@ -12,15 +12,16 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const status = exception.getStatus();
 
+    //レスポンスデータ
+    //プロパティ：code,message
+    const resData = { errorInfo: { code: '', message: RESULT_MSG.ERR.BAD_REQUEST } };
+
     //エラーログ出力
     this.logger.error(`ステータスコード：${status}`);
     this.logger.error(`エラートレース：${exception.stack}`);
+    this.logger.error(`レスポンスデータ：${JSON.stringify(resData, null, 2)}`);
 
     // レスポンス
-    response.status(status).json({
-      // statusCode: status,
-      // errorMessage: RESULT_MSG.ERR.BAD_REQUEST,
-      errorInfo: { code: '', message: RESULT_MSG.ERR.BAD_REQUEST },
-    });
+    response.status(status).json(resData);
   }
 }

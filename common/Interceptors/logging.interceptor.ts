@@ -14,13 +14,21 @@ export class LoggingInterceptor implements NestInterceptor {
     const response = ctx.getResponse<Response>();
 
     //リクエストデータにパスワードが存在する場合
+    let groupPass: string | undefined;
     if (request.body !== null && request.body.hasOwnProperty('groupPass')) {
-      request.body.groupPass = '****';
+      groupPass = request.body.groupPass;
+      //ログにパスワードが表示されないように変更
+      request.body.groupPass = '********';
     }
 
     //リクエスト時のログ出力
     this.logger.log(`リクエストURL：${request.url}`);
     this.logger.log(`リクエストボディ：${JSON.stringify(request.body, null, 2)}`);
+
+    if (request.body !== null && request.body.hasOwnProperty('groupPass')) {
+      //変更した値を元に戻す
+      request.body.groupPass = groupPass;
+    }
 
     //レスポンス時のログ出力
     return next

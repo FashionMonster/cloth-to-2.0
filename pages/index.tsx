@@ -69,7 +69,6 @@ const Top: React.VFC = () => (
         <div className='mb-4'>
           <H2>サービスの使い方</H2>
         </div>
-        {/* TODO: レスポンシブ対応(ボタンを小さく) */}
         <SlickImages />
       </div>
     </main>
