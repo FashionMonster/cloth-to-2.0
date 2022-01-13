@@ -14,4 +14,9 @@ export class UpdateUserAccountDTO {
   @IsOptional()
   @IsString()
   groupId?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsEmail()
+  previousUserId?: string;
 }

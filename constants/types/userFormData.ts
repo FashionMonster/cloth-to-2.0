@@ -4,6 +4,7 @@ type UserFormData = {
   userId: string;
   password: string;
   userName?: string;
+  previousUserId?: string;
 };
 
 export type { UserFormData };

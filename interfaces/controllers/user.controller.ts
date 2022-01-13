@@ -20,6 +20,7 @@ import { LoggingInterceptor } from '../../common/Interceptors/logging.intercepto
 import { UserService } from '../../usecases/user.service';
 import { GroupService } from '../../usecases/group.service';
 import { CreateUserAccountDTO } from '../../domains/dto/createUserAccount.dto';
+import { UpdateUserAccountDTO } from '../../domains/dto/updateUserAccount.dto';
 import { LinkUserToGroupDTO } from '../../domains/dto/linkUserToGroup.dto';
 import { SelectOrDeleteUserAccountDTO } from '../../domains/dto/selectOrDeleteUserAccount.dto';
 import { isVerifyPass } from 'common/utils/isVerifyPass';
@@ -71,11 +72,22 @@ export class UserController {
     }
 
     //ユーザーテーブルにグループ情報を追加して更新
-    await this.userService.updateUser(linkUserToGroupData).catch((error) => {
+    await this.userService.linkUserToGroup(linkUserToGroupData).catch((error) => {
       throw error;
     });
 
-    return { statusCode: HttpStatus.CREATED };
+    return { statusCode: HttpStatus.OK };
+  }
+
+  //ユーザー更新処理
+  @Put('updateUserInfo')
+  async updateUserInfo(@Body() userData: UpdateUserAccountDTO) {
+    //ユーザー情報を更新
+    await this.userService.updateUser(userData).catch((error) => {
+      throw error;
+    });
+
+    return { statusCode: HttpStatus.OK };
   }
 
   //TODO:DTOによるバリデーション

@@ -31,11 +31,12 @@ const Signup: React.VFC = () => {
   const modalMessage = useRef<string>('');
   const previousIsModalOpen = usePreviousValue(isModalOpen);
 
-  //ユーザー新規登録イベント
+  //フォーム送信時
   const submitCreateUser = (data: UserFormData) => {
     mutation.mutate(data);
   };
 
+  //ユーザー新規登録処理
   const mutation: any = useMutation(async (formData: UserFormData) => {
     //パスワードを除いたオブジェクトを生成
     const { password, ...postFormData } = formData;
@@ -84,10 +85,9 @@ const Signup: React.VFC = () => {
   //ローディング画面を表示
   if (mutation.isFetching || mutation.isLoading) return <Loading />;
 
-  //エラーが発生した場合
+  //エラー発生時
   if (mutation.isError) {
     return (
-      //エラー画面を表示
       <Error
         backType={BACK_PAGE_TYPE.RELOAD}
         errorMsg={mutation.error.response.data.errorInfo.message}

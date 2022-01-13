@@ -30,10 +30,12 @@ const Login: React.VFC = () => {
   const modalMessage = useRef<string>('');
   const authContext: any = useContext<AuthContextType | undefined>(AuthContext);
 
+  //フォーム送信時
   const submitLogin = (data: UserFormData) => {
     mutation.mutate(data);
   };
 
+  //ログイン処理
   const mutation: any = useMutation(async (formData: UserFormData) => {
     //Firebaseのログイン認証
     const result = await login(formData.userId, formData.password).catch((error) => {
@@ -76,7 +78,7 @@ const Login: React.VFC = () => {
   //ローディング画面を表示
   if (mutation.isFetching || mutation.isLoading) return <Loading />;
 
-  //エラーが発生した場合
+  //エラー発生時
   if (mutation.isError) {
     return (
       <Error

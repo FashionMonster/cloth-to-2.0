@@ -19,6 +19,7 @@ import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWind
 import { Error } from 'interfaces/ui/components/organisms/error';
 import { usePreviousValue } from 'common/customHooks/usePreviousValue';
 import { updateUserInfo } from 'common/utils/updateUserInfo';
+import { getFbAuthErrorMsg } from 'common/utils/getFbAuthErrorMsg';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import type { UserFormData } from 'constants/types/userFormData';
@@ -47,7 +48,7 @@ export default function UserSetting() {
     const { password, ...postFormData } = formData;
 
     //DBにユーザー更新
-    const data = await axios.put('./api/updateUserInfo', postFormData).catch((error) => {
+    const data = await axios.put('./api/user/updateUserInfo', postFormData).catch((error) => {
       //mutation.isErrorがキャッチする
       throw error;
     });
@@ -55,22 +56,24 @@ export default function UserSetting() {
     try {
       //Firebaseにユーザー更新
       await updateUserInfo(formData.userId, formData.password);
-    } catch (error) {
+    } catch (error: any) {
       //更新前のデータをセット
       const param = {
+        userId: formData.previousUserId,
         userName: value!.loginUserInfo.userName,
-        email: formData.previousUserId,
         previousUserId: formData.userId,
       };
 
       //DBにユーザー更新(巻き戻し)
-      await axios.post('./api/updateUserInfo', param).catch((error) => {
+      await axios.put('./api/user/updateUserInfo', param).catch((error) => {
         //mutation.isErrorがキャッチする
         throw error;
       });
 
-      //mutation.isErrorがキャッチする
-      throw error;
+      //モーダルを開く
+      setIsModalOpen(true);
+      //Firebaseで発生したエラーメッセージをセット
+      modalMessage.current = getFbAuthErrorMsg(error.code);
     }
 
     //成功メッセージ表示設定

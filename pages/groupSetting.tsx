@@ -19,6 +19,7 @@ import { Error } from 'interfaces/ui/components/organisms/error';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { DB_ERROR } from 'constants/dbErrorInfo';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
+import type { GroupFormData } from 'constants/types/groupFormData';
 
 const GroupSetting: React.VFC = () => {
   const { handleSubmit, register, errors } = useForm();
@@ -27,13 +28,13 @@ const GroupSetting: React.VFC = () => {
   const value = useContext(AuthContext);
 
   //フォーム送信時
-  const createGroupAccount = async (data: any) => {
+  const createGroupAccount = async (data: GroupFormData) => {
     mutation.mutate(data);
   };
 
   //グループアカウント登録処理
   const mutation: any = useMutation(
-    async (formData) =>
+    async (formData: GroupFormData) =>
       await axios
         .post('./api/group/createGroup', formData)
         .then((res) => {
@@ -62,7 +63,7 @@ const GroupSetting: React.VFC = () => {
   //   return <></>;
   // }
 
-  //グループアカウント登録処理でエラー発生時
+  //エラー発生時
   if (mutation.isError)
     return (
       <Error

@@ -97,7 +97,7 @@ const LinkUserToGroup: React.VFC = () => {
       />
     );
 
-  //グループ＆ユーザー紐付け処理でエラー発生時
+  //エラー発生時
   if (mutation.isError)
     return (
       <Error
