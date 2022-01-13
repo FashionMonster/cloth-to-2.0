@@ -35,7 +35,7 @@ const SideNavigation: React.VFC = () => {
             {/* ログイン後のみ表示 */}
             {isExistValue(value?.loginUserInfo.userId) && (
               <div className='text-white'>
-                ようこそ {makeSubStr(value.loginUserInfo.userName, 4)} さん
+                ようこそ {makeSubStr(value!.loginUserInfo.userName, 4)} さん
               </div>
             )}
             <SideNavLink href='/' image='top.png'>
@@ -53,7 +53,7 @@ const SideNavigation: React.VFC = () => {
             {/* ログイン後のみ表示 */}
             {isExistValue(value?.loginUserInfo.userId) && (
               <>
-                <SideNavLink href='search' image='search.png'>
+                <SideNavLink href='/search' image='search.png'>
                   一覧/検索
                 </SideNavLink>
                 <SideNavLink href='/contribute' image='contribute.png'>
@@ -64,7 +64,7 @@ const SideNavigation: React.VFC = () => {
                 </SideNavLink>
                 {/* 設定とサブナビ */}
                 <SettingSideNav />
-                <SideNavLink href='/top' image='logout.png'>
+                <SideNavLink href='/' image='logout.png' isLogout={true}>
                   ログアウト
                 </SideNavLink>
               </>
