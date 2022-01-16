@@ -1,17 +1,17 @@
-import axios from "axios";
-import queryString from "query-string";
-import { downloadImage } from "../downloadImage";
-import { getUserInfo } from "../getUserInfo";
+import axios from 'axios';
+import queryString from 'query-string';
+import { downloadImage } from 'common/utils/downloadImage';
+import { getUserInfo } from 'common/utils/getUserInfo';
 
 //検索条件を元に投稿情報を取得する
-const fetchContributions = async (apiPath, router, userInfo) => {
+const fetchContributions = async (apiPath: any, router: any, userInfo: any) => {
   //リクエストデータ
-  let reqData;
+  let reqData: any;
 
   //URL直叩きの場合
   if (router.query.page === undefined) {
     //useContext()のデータ取得はフェッチ後になるので、以下で再取得
-    const userInfo = await getUserInfo();
+    // const userInfo = await getUserInfo();
 
     const urlData = queryString.parseUrl(router.asPath, {
       parseFragmentIdentifier: true,
@@ -27,7 +27,7 @@ const fetchContributions = async (apiPath, router, userInfo) => {
     };
 
     //履歴・編集での検索処理で必要になる追加データ
-    if (router.pathname === "/contributionHistory") {
+    if (router.pathname === '/contributionHistory') {
       reqData.userId = userInfo.userId;
     }
 
@@ -43,7 +43,7 @@ const fetchContributions = async (apiPath, router, userInfo) => {
     };
 
     //履歴・編集での検索処理で必要になる追加データ
-    if (router.pathname === "/contributionHistory") {
+    if (router.pathname === '/contributionHistory') {
       reqData.userId = userInfo.userId;
     }
   }

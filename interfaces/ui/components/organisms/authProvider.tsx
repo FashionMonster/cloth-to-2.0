@@ -4,6 +4,7 @@ import { checkLogin } from 'common/utils/checkLogin';
 import { getUserInfo } from 'common/utils/getUserInfo';
 import type { AuthContextType } from 'constants/types/authContextType';
 import type { LoginUserInfo } from 'constants/types/loginUserInfo';
+import { isExistValue } from 'common/utils/isExistValue';
 
 //引数の型定義
 type Props = {
@@ -37,10 +38,35 @@ const AuthProvider: React.VFC<Props> = (props) => {
   //           });
   //         });
   //       } else {
-  //         //ログイン画面へ遷移
-  //         Router.push('/login');
+  //         //TOP画面へ遷移
+  //         Router.push('/');
   //       }
   //     });
+  //   }
+  // }, []);
+
+  // //リロード、URL直叩き時
+  // useEffect(() => {
+  //   //ログインが必要な画面の場合
+  //   if (router.asPath !== '/' && router.asPath !== '/signup' && router.asPath !== '/login') {
+  //     //ログインチェック
+
+  //     //TODO: 関数名の変更、動作確認
+  //     let loginedUserId = checkLogin();
+
+  //     if (isExistValue(loginedUserId)) {
+  //       //ログインユーザー情報を取得
+  //       getUserInfo(loginedUserId!).then((res) => {
+  //         setLoginUserInfo({
+  //           userId: res.userId,
+  //           userName: res.userName,
+  //           groupId: res.groupId,
+  //         });
+  //       });
+  //     } else {
+  //       //TOP画面へ遷移
+  //       Router.push('/');
+  //     }
   //   }
   // }, []);
 

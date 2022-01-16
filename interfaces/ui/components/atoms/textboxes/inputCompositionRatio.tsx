@@ -1,11 +1,14 @@
+import { FieldError } from 'react-hook-form';
+
 //引数の型定義
 type Props = {
-  width: string;
+  id: string;
   name: string;
+  isDisabled: boolean;
+  defaultValue: string;
+  width: string;
   register: any; //TODO:要修正
-  errors: {
-    type: string;
-  };
+  errors: FieldError | undefined;
 };
 
 //素材比率コンポーネント
@@ -15,6 +18,7 @@ const InputCompositionRatio: React.VFC<Props> = (props) => {
       <input
         type='number'
         name={props.name}
+        id={props.id}
         className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400`}
         ref={props.register}
       />

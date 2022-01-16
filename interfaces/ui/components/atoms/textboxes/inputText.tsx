@@ -2,12 +2,12 @@ import { FieldError } from 'react-hook-form';
 
 //引数の型定義
 type Props = {
-  width: string;
-  name: string;
   id: string;
-  placeholder: string;
+  name: string;
   isDisabled: boolean;
   defaultValue: string;
+  placeholder: string;
+  width: string;
   maxLength: string;
   register: any; //TODO:要修正
   errors: FieldError | undefined;
@@ -19,12 +19,12 @@ const InputText: React.VFC<Props> = (props) => {
     <div className={`w-${props.width} h-8`}>
       <input
         type='text'
-        name={props.name}
         id={props.id}
-        placeholder={props.placeholder}
-        ref={props.register}
+        name={props.name}
         disabled={props.isDisabled}
         defaultValue={props.defaultValue}
+        placeholder={props.placeholder}
+        ref={props.register}
         className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black`}
       />
       {props.errors?.type === 'required' && (
