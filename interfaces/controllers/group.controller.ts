@@ -13,7 +13,7 @@ import { InternalServerErrorExceptionFilter } from '../../common/exceptionFilter
 import { BadRequestExceptionFilter } from '../../common/exceptionFilters/BadRequestException.filter';
 import { LoggingInterceptor } from '../../common/Interceptors/logging.interceptor';
 import { GroupService } from '../../usecases/group.service';
-import { CreateGroupAccountDTO } from '../../domains/dto/createGroupAccount.dto';
+import { CreateGroupDTO } from '../../domains/dto/group/createGroup.dto';
 import { createHashPass } from '../../common/utils/createHashPass';
 import type { GroupInfo } from '../../constants/types/groupInfo';
 
@@ -25,7 +25,7 @@ export class GroupController {
 
   //グループ登録処理
   @Post('createGroup')
-  async createGroup(@Body() groupData: CreateGroupAccountDTO) {
+  async createGroup(@Body() groupData: CreateGroupDTO) {
     //パスワードをハッシュ化
     const hashedPass: string = await createHashPass(groupData.groupPass);
 

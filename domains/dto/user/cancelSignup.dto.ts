@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, IsEmail } from 'class-validator';
 
-//ユーザーアカウント検索または削除DTO
-export class SelectOrDeleteUserAccountDTO {
+//ユーザーアカウント登録取消し(削除)DTO
+export class CancelSignupDTO {
   @IsNotEmpty()
   @IsString()
   @IsEmail()

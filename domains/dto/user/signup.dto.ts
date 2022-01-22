@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, IsEmail, IsOptional } from 'class-validator';
 
 //ユーザーアカウント登録DTO
-export class CreateUserAccountDTO {
+export class SignupDTO {
   @IsNotEmpty()
   @IsString()
   @IsEmail()

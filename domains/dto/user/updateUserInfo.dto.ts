@@ -1,7 +1,7 @@
 import { IsString, IsEmail, IsOptional } from 'class-validator';
 
 //ユーザーアカウント更新DTO
-export class UpdateUserAccountDTO {
+export class UpdateUserInfoDTO {
   @IsOptional()
   @IsString()
   @IsEmail()

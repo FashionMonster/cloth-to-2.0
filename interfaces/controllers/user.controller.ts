@@ -19,10 +19,10 @@ import { BadRequestExceptionFilter } from '../../common/exceptionFilters/BadRequ
 import { LoggingInterceptor } from '../../common/Interceptors/logging.interceptor';
 import { UserService } from '../../usecases/user.service';
 import { GroupService } from '../../usecases/group.service';
-import { CreateUserAccountDTO } from '../../domains/dto/createUserAccount.dto';
-import { UpdateUserAccountDTO } from '../../domains/dto/updateUserAccount.dto';
-import { LinkUserToGroupDTO } from '../../domains/dto/linkUserToGroup.dto';
-import { SelectOrDeleteUserAccountDTO } from '../../domains/dto/selectOrDeleteUserAccount.dto';
+import { SignupDTO } from '../../domains/dto/user/signup.dto';
+import { UpdateUserInfoDTO } from '../../domains/dto/user/updateUserInfo.dto';
+import { LinkUserToGroupDTO } from '../../domains/dto/user/linkUserToGroup.dto';
+import { CancelSignupDTO } from '../../domains/dto/user/cancelSignup.dto';
 import { isVerifyPass } from 'common/utils/isVerifyPass';
 import { RESULT_MSG } from 'constants/resultMsg';
 
@@ -37,12 +37,48 @@ export class UserController {
 
   //ユーザー登録処理
   @Post('signup')
-  async signupUser(@Body() userData: CreateUserAccountDTO) {
+  async signup(@Body() userData: SignupDTO) {
     await this.userService.createUser(userData).catch((error) => {
       throw error;
     });
 
     return { statusCode: HttpStatus.CREATED };
+  }
+
+  //TODO:DTOによるバリデーション
+  //ユーザー情報取得処理
+  @Get('getUserInfo')
+  async getUserInfo(@Query('userId') userId: string, @Res() res: Response) {
+    const userInfo: UserAccount | null = await this.userService
+      .selectUser({ userId: userId })
+      .catch((error) => {
+        throw error;
+      });
+
+    //HTTPレスポンス
+    res.status(HttpStatus.OK).json({ userInfo: userInfo });
+    return { statusCode: HttpStatus.OK, userInfo: userInfo };
+  }
+
+  //ユーザー更新処理
+  @Put('updateUserInfo')
+  async updateUserInfo(@Body() userData: UpdateUserInfoDTO) {
+    //ユーザー情報を更新
+    await this.userService.updateUser(userData).catch((error) => {
+      throw error;
+    });
+
+    return { statusCode: HttpStatus.OK };
+  }
+
+  //ユーザー登録取消し処理
+  @Delete('delete')
+  async cancelSignup(@Body() userData: CancelSignupDTO) {
+    await this.userService.deleteUser(userData).catch((error) => {
+      throw error;
+    });
+
+    return { statusCode: HttpStatus.OK };
   }
 
   //ユーザー＆グループ紐付け処理
@@ -73,42 +109,6 @@ export class UserController {
 
     //ユーザーテーブルにグループ情報を追加して更新
     await this.userService.linkUserToGroup(linkUserToGroupData).catch((error) => {
-      throw error;
-    });
-
-    return { statusCode: HttpStatus.OK };
-  }
-
-  //ユーザー更新処理
-  @Put('updateUserInfo')
-  async updateUserInfo(@Body() userData: UpdateUserAccountDTO) {
-    //ユーザー情報を更新
-    await this.userService.updateUser(userData).catch((error) => {
-      throw error;
-    });
-
-    return { statusCode: HttpStatus.OK };
-  }
-
-  //TODO:DTOによるバリデーション
-  //ユーザー情報取得処理
-  @Get('getUserInfo')
-  async getUserInfo(@Query('userId') userId: string, @Res() res: Response) {
-    const userInfo: UserAccount | null = await this.userService
-      .selectUser({ userId: userId })
-      .catch((error) => {
-        throw error;
-      });
-
-    //HTTPレスポンス
-    res.status(HttpStatus.OK).json({ userInfo: userInfo });
-    return { statusCode: HttpStatus.OK, userInfo: userInfo };
-  }
-
-  //ユーザー登録取消し処理
-  @Delete('delete')
-  async cancelSignupUser(@Body() userData: SelectOrDeleteUserAccountDTO) {
-    await this.userService.deleteUser(userData).catch((error) => {
       throw error;
     });
 
