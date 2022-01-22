@@ -1,7 +1,8 @@
 import { DB_ERROR } from '../../constants/dbErrorInfo';
 
-//Prismaのエラーコードから、エラーメッセージを取得する
-const getDbErrorMessage = (errorCode: string): string => {
+//エラーコードから、エラーメッセージを取得する
+//※引数なしで渡ってきた場合、defaultの分岐に入る
+const getDbErrorMessage = (errorCode?: string): string => {
   switch (errorCode) {
     case DB_ERROR.COLUMN_TOO_LONG.CODE:
       return DB_ERROR.COLUMN_TOO_LONG.MSG;

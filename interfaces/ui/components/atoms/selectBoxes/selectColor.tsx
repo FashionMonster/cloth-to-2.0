@@ -7,8 +7,9 @@ type Props = {
   isDisabled: boolean;
   defaultValue: string;
   width: string;
+  smWidth?: string;
   register: any; //TODO:要修正
-  errors: FieldError | undefined;
+  errors?: FieldError | undefined;
 };
 
 //色選択コンポーネント
@@ -18,7 +19,7 @@ const SelectColor: React.VFC<Props> = (props) => {
       <select
         name={props.name}
         id={props.id}
-        className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black disabled:opacity-100`}
+        className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black disabled:opacity-100 sm:w-${props.smWidth}`}
         ref={props.register}
         disabled={props.isDisabled}
         defaultValue={props.defaultValue}

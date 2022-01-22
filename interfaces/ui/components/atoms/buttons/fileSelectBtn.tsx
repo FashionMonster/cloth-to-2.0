@@ -1,13 +1,10 @@
-import { ChangeEventHandler } from 'react';
+import { FieldError } from 'react-hook-form';
 
 //引数の型定義
 type Props = {
-  selectFile: ChangeEventHandler<HTMLInputElement> | undefined;
+  selectFile: any;
   register: any; //TODO:要修正
-  isRequired: boolean;
-  errors: {
-    type: string;
-  };
+  errors: FieldError | undefined;
 };
 
 //ファイル選択ボタンコンポーネント
@@ -25,7 +22,7 @@ const FileSelectBtn: React.VFC<Props> = (props) => {
         id='uploadBtn'
         className='hidden'
         onChange={props.selectFile}
-        ref={props.register({ required: props.isRequired })}
+        ref={props.register}
         accept='.png,.jpg,.jpeg,.gif'
       />
       {props.errors?.type === 'required' && (

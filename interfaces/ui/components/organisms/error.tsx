@@ -19,7 +19,9 @@ const Error: React.VFC<Props> = (props) => {
     <Body isLogined={props.isLogined}>
       <div id='headerWrapper'>
         <Header isLogined={props.isLogined} />
-        {props.isLogined ? <Navigation /> : <></>}
+        <div className='sm:hidden'>
+          <Navigation />
+        </div>
       </div>
       {/* 画面説明 */}
       <FunctionExplain>
@@ -35,8 +37,7 @@ const Error: React.VFC<Props> = (props) => {
           </div>
         </div>
       </Main>
-      <div></div>
-      <Footer isNeedScroll={false} />
+      <Footer />
     </Body>
   );
 };

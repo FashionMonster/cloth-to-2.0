@@ -14,7 +14,7 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
 
     //レスポンスデータ
     //プロパティ：code,message
-    const resData = { errorInfo: { code: '', message: RESULT_MSG.ERR.BAD_REQUEST } };
+    const resData = { errorInfo: { code: 'UNEXPECTED', message: RESULT_MSG.ERR.BAD_REQUEST } };
 
     //エラーログ出力
     this.logger.error(`ステータスコード：${status}`);

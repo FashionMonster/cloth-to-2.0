@@ -72,7 +72,7 @@ const Top: React.VFC = () => (
         <SlickImages />
       </div>
     </main>
-    <Footer isNeedScroll={true} />
+    <Footer />
   </body>
 );
 

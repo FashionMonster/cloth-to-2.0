@@ -8,6 +8,7 @@ type Props = {
   defaultValue: string;
   placeholder: string;
   width: string;
+  smWidth?: string;
   maxLength: string;
   register: any; //TODO:要修正
   errors: FieldError | undefined;
@@ -25,7 +26,7 @@ const InputText: React.VFC<Props> = (props) => {
         defaultValue={props.defaultValue}
         placeholder={props.placeholder}
         ref={props.register}
-        className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black`}
+        className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black sm:w-${props.smWidth}`}
       />
       {props.errors?.type === 'required' && (
         <div className='text-red-600 text-sm relative'>必須入力です</div>
