@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { AuthProvider } from 'interfaces/ui/components/organisms/authProvider';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 //React-Queryの設定
 const defaultOptions = {
@@ -28,6 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <AuthProvider>
           <Component {...pageProps} />
         </AuthProvider>
+        <ReactQueryDevtools initialIsOpen />
       </QueryClientProvider>
     </>
   );

@@ -6,7 +6,7 @@ import { Hamburger } from 'interfaces/ui/components/atoms/navigation/hamburger';
 import { Close } from 'interfaces/ui/components/atoms/navigation/close';
 import { SettingSideNav } from 'interfaces/ui/components/molecules/navigation/settingSideNav';
 import { isExistValue } from 'common/utils/isExistValue';
-import { makeSubStr } from 'common/utils/makeSubStr';
+import { subString } from 'common/utils/subString';
 import { SideNavBackground } from 'interfaces/ui/components/atoms/others/sideNavBackground';
 
 const SideNavigation: React.VFC = () => {
@@ -35,7 +35,7 @@ const SideNavigation: React.VFC = () => {
             {/* ログイン後のみ表示 */}
             {isExistValue(value?.loginUserInfo.userId) && (
               <div className='text-white'>
-                ようこそ {makeSubStr(value!.loginUserInfo.userName, 4)} さん
+                ようこそ {subString(value!.loginUserInfo.userName, 4)} さん
               </div>
             )}
             <SideNavLink href='/' image='top.png'>

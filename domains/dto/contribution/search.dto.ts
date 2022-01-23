@@ -1,21 +1,24 @@
-import { IsString, IsEmail, IsOptional, IsNumber } from 'class-validator';
+import { IsString, IsEmail, IsOptional, IsNumberString } from 'class-validator';
 
 //投稿情報検索DTO
 export class SearchDTO {
-  @IsNumber()
-  page!: number;
+  @IsNumberString()
+  @IsOptional()
+  page?: string;
 
-  @IsString()
-  searchCategory!: string;
-
-  @IsString()
-  keyword!: string;
+  @IsNumberString()
+  @IsOptional()
+  searchCategory?: string;
 
   @IsString()
   @IsOptional()
+  keyword?: string;
+
+  @IsNumberString()
+  @IsOptional()
   compositionRatio?: string;
 
-  @IsString()
+  @IsNumberString()
   @IsOptional()
   compareCondition?: string;
 
@@ -26,5 +29,6 @@ export class SearchDTO {
 
   @IsString()
   @IsEmail()
-  groupId!: string;
+  @IsOptional()
+  groupId?: string;
 }

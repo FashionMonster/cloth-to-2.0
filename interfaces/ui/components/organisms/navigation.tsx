@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
-import { makeSubStr } from 'common/utils/makeSubStr';
+import { subString } from 'common/utils/subString';
 import { NavLink } from 'interfaces/ui/components/atoms/navigation/navLink';
 import { SettingNav } from 'interfaces/ui/components/molecules/navigation/settingNav';
 
@@ -10,7 +10,7 @@ const Navigation = () => {
   return (
     <div className='relative'>
       <div className=' absolute left-4 top-3 max_2xl:hidden'>
-        ようこそ　{makeSubStr(value!.loginUserInfo.userName, 4)} さん
+        ようこそ　{subString(value!.loginUserInfo.userName, 4)} さん
       </div>
       <nav className='bg-purple-200 h-12 w-full grid grid-cols-contents'>
         <ul className='col-start-2 col-end-3 grid grid-cols-4 h-12 w-1080'>

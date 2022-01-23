@@ -6,6 +6,9 @@ import { createSearchContributionCondition } from '../common/utils/createSearchC
 import { getDbErrorMessage } from '../common/utils/getDbErrorMessage';
 import { isExistValue } from 'common/utils/isExistValue';
 import { ContributionInfoCreateInput } from 'constants/types/contributionInfoCreateInput';
+import { ContributionInfosEntity } from 'domains/entities/contributionInfosEntity';
+import { convertContributionInfosEntityToDto } from 'common/utils/convertContributionInfosEntityToDto';
+import { ContributionInfosDto } from 'domains/dto/contributionInfosDto';
 
 @Injectable()
 export class ContributionService {
@@ -54,12 +57,32 @@ export class ContributionService {
   }
 
   //投稿情報検索
-  async selectContributionInfos(param: SearchDTO): Promise<ContributionInfo[] | null> {
+  async selectContributionInfos(param: SearchDTO): Promise<ContributionInfosDto | null> {
     //検索条件を生成 ※配列の中にオブジェクトが複数存在
     const conditions: { AND: {}[] } = createSearchContributionCondition(param);
 
     try {
-      return await this.prisma.contributionInfo.findMany({ where: conditions });
+      const resultData: ContributionInfosEntity | null =
+        await this.prisma.contributionInfo.findMany({
+          where: conditions,
+          select: {
+            contributionId: true,
+            materialName: true,
+            relationContributionImage: {
+              select: {
+                imageUrl1: true,
+              },
+            },
+          },
+        });
+
+      //取得データが０件の場合
+      if (!isExistValue(resultData)) {
+        return null;
+      }
+
+      //DTOに詰め直して返却
+      return convertContributionInfosEntityToDto(resultData);
     } catch (error: any) {
       //エラーコードに合わせたメッセージを取得
       const errorMsg = getDbErrorMessage(error.code);

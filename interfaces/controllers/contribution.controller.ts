@@ -21,6 +21,7 @@ import { ContributionImageCreateInput } from '../../constants/types/contribution
 import { SearchDTO } from '../../domains/dto/contribution/search.dto';
 import { isExistValue } from 'common/utils/isExistValue';
 import { ContributionInfoCreateInput } from 'constants/types/contributionInfoCreateInput';
+import { ContributionInfosDto } from 'domains/dto/contributionInfosDto';
 
 @Controller('contribution')
 @UseFilters(InternalServerErrorExceptionFilter, BadRequestExceptionFilter)
@@ -68,14 +69,24 @@ export class ContributionController {
     return { statusCode: HttpStatus.CREATED };
   }
 
-  //ユーザー情報取得処理
+  //投稿情報取得処理
   @Get('search')
   async search(@Query() requestData: SearchDTO, @Res() res: Response) {
-    const contributionInfos: ContributionInfo[] | null = await this.contriobutionService
-      .selectContributionInfos(requestData)
-      .catch((error) => {
-        throw error;
-      });
+    let contributionInfos: ContributionInfosDto | null = null;
+
+    //検索に必須なデータがリクエストに含まれる場合
+    if (
+      isExistValue(requestData.page) &&
+      isExistValue(requestData.keyword) &&
+      isExistValue(requestData.searchCategory)
+    ) {
+      //投稿情報検索処理
+      contributionInfos = await this.contriobutionService
+        .selectContributionInfos(requestData)
+        .catch((error) => {
+          throw error;
+        });
+    }
 
     //HTTPレスポンス
     res.status(HttpStatus.OK).json({ contributionInfos: contributionInfos });
