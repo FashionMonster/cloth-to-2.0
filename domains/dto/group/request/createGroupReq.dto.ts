@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, IsEmail } from 'class-validator';
 
-//グループアカウント登録DTO
-export class CreateGroupDTO {
+//グループアカウント登録リクエストDTO
+export class CreateGroupReqDto {
   @IsNotEmpty()
   @IsString()
   @IsEmail()

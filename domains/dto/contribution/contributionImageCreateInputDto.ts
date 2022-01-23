@@ -1,5 +1,5 @@
-//投稿画像情報登録の型定義
-type ContributionImageCreateInput = {
+//投稿画像情報テーブル登録データの型定義
+type ContributionImageCreateInputDto = {
   contributionId: number;
   imageUrl1: string;
   imageUrl2?: string | null;
@@ -8,4 +8,4 @@ type ContributionImageCreateInput = {
   imageUrl5?: string | null;
 };
 
-export type { ContributionImageCreateInput };
+export type { ContributionImageCreateInputDto };

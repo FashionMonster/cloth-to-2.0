@@ -1,18 +1,19 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Prisma, UserAccount } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from './prisma.service';
-import { UpdateUserInfoDTO } from '../domains/dto/user/updateUserInfo.dto';
-import { getDbErrorMessage } from '../common/utils/getDbErrorMessage';
+import { UserAccountEntity } from 'domains/entities/userAccountEntity';
+import { UpdateUserInfoReqDto } from 'domains/dto/user/request/updateUserInfoReq.dto';
+import { getDbErrorMessage } from 'common/utils/getDbErrorMessage';
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
   //ユーザー登録
-  async createUser(data: Prisma.UserAccountCreateInput): Promise<void> {
+  async createUser(createUserParam: Prisma.UserAccountCreateInput): Promise<void> {
     try {
       await this.prisma.userAccount.create({
-        data,
+        data: createUserParam,
       });
     } catch (error: any) {
       //エラーコードに合わせたメッセージを取得
@@ -22,10 +23,13 @@ export class UserService {
   }
 
   //ユーザー検索
-  async selectUser(userId: Prisma.UserAccountWhereUniqueInput): Promise<UserAccount | null> {
+  async selectUser(
+    selectUserParam: Prisma.UserAccountWhereUniqueInput
+  ): Promise<UserAccountEntity | null> {
     try {
       return await this.prisma.userAccount.findUnique({
-        where: userId,
+        where: selectUserParam,
+        select: { userId: true, userName: true, groupId: true },
       });
     } catch (error: any) {
       //エラーコードに合わせたメッセージを取得
@@ -35,15 +39,15 @@ export class UserService {
   }
 
   //ユーザー更新
-  async updateUser(data: UpdateUserInfoDTO): Promise<void> {
+  async updateUser(updateUserParam: UpdateUserInfoReqDto): Promise<void> {
     try {
       await this.prisma.userAccount.update({
         where: {
-          userId: data.previousUserId,
+          userId: updateUserParam.previousUserId,
         },
         data: {
-          userId: data.userId,
-          userName: data.userName,
+          userId: updateUserParam.userId,
+          userName: updateUserParam.userName,
         },
       });
     } catch (error: any) {
@@ -54,10 +58,10 @@ export class UserService {
   }
 
   //ユーザー削除
-  async deleteUser(userId: Prisma.UserAccountWhereUniqueInput): Promise<void> {
+  async deleteUser(deleteUserParam: Prisma.UserAccountWhereUniqueInput): Promise<void> {
     try {
       await this.prisma.userAccount.delete({
-        where: userId,
+        where: deleteUserParam,
       });
     } catch (error: any) {
       //エラーコードに合わせたメッセージを取得
@@ -67,14 +71,14 @@ export class UserService {
   }
 
   //グループ紐付け(グループIDの更新)
-  async linkUserToGroup(data: Prisma.UserAccountUpdateInput): Promise<void> {
+  async linkUserToGroup(linkUserToGroupParam: Prisma.UserAccountUpdateInput): Promise<void> {
     try {
       await this.prisma.userAccount.update({
         where: {
-          userId: data.userId?.toString(),
+          userId: linkUserToGroupParam.userId?.toString(),
         },
         data: {
-          groupId: data.groupId,
+          groupId: linkUserToGroupParam.groupId,
         },
       });
     } catch (error: any) {

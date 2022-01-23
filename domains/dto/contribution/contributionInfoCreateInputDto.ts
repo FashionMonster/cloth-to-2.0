@@ -1,5 +1,5 @@
 //投稿情報テーブル登録データの型定義
-type ContributionInfoCreateInput = {
+type ContributionInfoCreateInputDto = {
   contributionId?: number;
   groupId: string;
   userId: string;
@@ -23,4 +23,4 @@ type ContributionInfoCreateInput = {
   updatedAt?: Date | string;
 };
 
-export type { ContributionInfoCreateInput };
+export type { ContributionInfoCreateInputDto };

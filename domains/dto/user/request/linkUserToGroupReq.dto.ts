@@ -1,7 +1,7 @@
 import { IsString, IsEmail } from 'class-validator';
 
-//グループ紐付けDTO
-export class LinkUserToGroupDTO {
+//グループ紐付けリクエストDTO
+export class LinkUserToGroupReqDto {
   @IsString()
   @IsEmail()
   userId!: string;

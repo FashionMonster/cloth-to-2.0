@@ -1,4 +1,3 @@
-import { UserAccount, GroupAccount } from '.prisma/client';
 import {
   Controller,
   Post,
@@ -14,15 +13,16 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { InternalServerErrorExceptionFilter } from '../../common/exceptionFilters/internalServerException.filter';
-import { BadRequestExceptionFilter } from '../../common/exceptionFilters/BadRequestException.filter';
-import { LoggingInterceptor } from '../../common/Interceptors/logging.interceptor';
-import { UserService } from '../../usecases/user.service';
-import { GroupService } from '../../usecases/group.service';
-import { SignupDTO } from '../../domains/dto/user/signup.dto';
-import { UpdateUserInfoDTO } from '../../domains/dto/user/updateUserInfo.dto';
-import { LinkUserToGroupDTO } from '../../domains/dto/user/linkUserToGroup.dto';
-import { CancelSignupDTO } from '../../domains/dto/user/cancelSignup.dto';
+import { InternalServerErrorExceptionFilter } from 'common/exceptionFilters/internalServerException.filter';
+import { BadRequestExceptionFilter } from 'common/exceptionFilters/BadRequestException.filter';
+import { LoggingInterceptor } from 'common/Interceptors/logging.interceptor';
+import { UserService } from 'usecases/user.service';
+import { GroupService } from 'usecases/group.service';
+import { UserAccountEntity } from 'domains/entities/userAccountEntity';
+import { SignupReqDto } from 'domains/dto/user/request/signupReq.dto';
+import { UpdateUserInfoReqDto } from 'domains/dto/user/request/updateUserInfoReq.dto';
+import { LinkUserToGroupReqDto } from 'domains/dto/user/request/linkUserToGroupReq.dto';
+import { CancelSignupReqDto } from 'domains/dto/user/request/cancelSignupReq.dto';
 import { isVerifyPass } from 'common/utils/isVerifyPass';
 import { RESULT_MSG } from 'constants/resultMsg';
 
@@ -37,8 +37,8 @@ export class UserController {
 
   //ユーザー登録処理
   @Post('signup')
-  async signup(@Body() userData: SignupDTO) {
-    await this.userService.createUser(userData).catch((error) => {
+  async signup(@Body() signupReqData: SignupReqDto) {
+    await this.userService.createUser(signupReqData).catch((error) => {
       throw error;
     });
 
@@ -48,23 +48,24 @@ export class UserController {
   //TODO:DTOによるバリデーション
   //ユーザー情報取得処理
   @Get('getUserInfo')
-  async getUserInfo(@Query('userId') userId: string, @Res() res: Response) {
-    const userInfo: UserAccount | null = await this.userService
-      .selectUser({ userId: userId })
+  async getUserInfo(@Query('userId') getUserInfoReqData: string, @Res() res: Response) {
+    const userInfo: UserAccountEntity | null = await this.userService
+      .selectUser({ userId: getUserInfoReqData })
       .catch((error) => {
         throw error;
       });
 
-    //HTTPレスポンス
+    //データ返却
     res.status(HttpStatus.OK).json({ userInfo: userInfo });
+
     return { statusCode: HttpStatus.OK, userInfo: userInfo };
   }
 
   //ユーザー更新処理
   @Put('updateUserInfo')
-  async updateUserInfo(@Body() userData: UpdateUserInfoDTO) {
+  async updateUserInfo(@Body() updateUserInfoReqData: UpdateUserInfoReqDto) {
     //ユーザー情報を更新
-    await this.userService.updateUser(userData).catch((error) => {
+    await this.userService.updateUser(updateUserInfoReqData).catch((error) => {
       throw error;
     });
 
@@ -73,8 +74,8 @@ export class UserController {
 
   //ユーザー登録取消し処理
   @Delete('delete')
-  async cancelSignup(@Body() userData: CancelSignupDTO) {
-    await this.userService.deleteUser(userData).catch((error) => {
+  async cancelSignup(@Body() cancelSignupReqData: CancelSignupReqDto) {
+    await this.userService.deleteUser(cancelSignupReqData).catch((error) => {
       throw error;
     });
 
@@ -83,20 +84,23 @@ export class UserController {
 
   //ユーザー＆グループ紐付け処理
   @Put('linkUserToGroup')
-  async linkUserToGroup(@Body() linkUserToGroupData: LinkUserToGroupDTO) {
+  async linkUserToGroup(@Body() linkUserToGroupReqData: LinkUserToGroupReqDto) {
     //選択したグループのパスワードを取得
-    const groupAccount: GroupAccount | null = await this.groupService
-      .selectGroup({ groupId: linkUserToGroupData.groupId })
+    const groupAccount: { groupPass: string } | null = await this.groupService
+      .selectGroup({ groupId: linkUserToGroupReqData.groupId })
       .catch((error) => {
         throw error;
       });
 
     //パスワードの照合
     const isCorrectPass: boolean = await isVerifyPass(
-      linkUserToGroupData.groupPass,
+      linkUserToGroupReqData.groupPass,
       groupAccount!.groupPass
-    ).catch((error) => {
-      throw error;
+    ).catch((error: any) => {
+      throw new InternalServerErrorException({
+        code: 'UNEXPECTED',
+        message: RESULT_MSG.ERR.OTHER,
+      });
     });
 
     //パスワードが不正の場合
@@ -108,7 +112,7 @@ export class UserController {
     }
 
     //ユーザーテーブルにグループ情報を追加して更新
-    await this.userService.linkUserToGroup(linkUserToGroupData).catch((error) => {
+    await this.userService.linkUserToGroup(linkUserToGroupReqData).catch((error) => {
       throw error;
     });
 

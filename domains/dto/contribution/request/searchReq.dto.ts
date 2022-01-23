@@ -1,7 +1,7 @@
 import { IsString, IsEmail, IsOptional, IsNumberString } from 'class-validator';
 
-//投稿情報検索DTO
-export class SearchDTO {
+//投稿情報検索リクエストDTO
+export class SearchReqDto {
   @IsNumberString()
   @IsOptional()
   page?: string;

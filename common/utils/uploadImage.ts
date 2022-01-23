@@ -6,7 +6,7 @@ import type { ImageInfo } from 'constants/types/imageInfo';
 
 //画像アップロード
 const uploadImage = (imgFiles: ImageInfo[]): string[] => {
-  let idList = [];
+  let idList: string[] = [];
 
   for (const file of imgFiles) {
     //空データの場合

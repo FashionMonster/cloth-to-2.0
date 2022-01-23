@@ -1,11 +1,11 @@
-import { ContributionInfosDto } from 'domains/dto/contributionInfosDto';
-import { ContributionInfosEntity } from 'domains/entities/contributionInfosEntity';
+import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
+import { ContributionInfoEntity } from 'domains/entities/contributionInfoEntity';
 
 // 取得した投稿情報EntityをDTOに変換
 const convertContributionInfosEntityToDto = (
-  entities: ContributionInfosEntity
-): ContributionInfosDto => {
-  let contributionInfosDto: ContributionInfosDto = [];
+  entities: ContributionInfoEntity[]
+): ContributionInfoDto[] => {
+  let contributionInfosDto: ContributionInfoDto[] = [];
 
   for (const entity of entities) {
     const dto = {

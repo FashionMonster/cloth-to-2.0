@@ -1,9 +1,9 @@
-import { SearchDTO } from '../../domains/dto/contribution/search.dto';
+import { SearchReqDto } from '../../domains/dto/contribution/request/searchReq.dto';
 import { isExistValue } from './isExistValue';
 
 //検索条件生成
 //https://www.prisma.io/docs/reference/api-reference/prisma-client-reference
-const createSearchContributionCondition = (param: SearchDTO): { AND: {}[] } => {
+const createSearchContributionCondition = (param: SearchReqDto): { AND: {}[] } => {
   //検索条件の初期化
   let conditions: { AND: {}[] } = { AND: [] };
 

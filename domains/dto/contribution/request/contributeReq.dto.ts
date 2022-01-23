@@ -1,7 +1,7 @@
 import { IsString, IsEmail, IsOptional, IsArray, IsNumberString } from 'class-validator';
 
-//投稿情報登録DTO
-export class ContributeDTO {
+//投稿情報登録リクエストDTO
+export class contributeReqDto {
   @IsString()
   @IsEmail()
   groupId!: string;
@@ -68,5 +68,5 @@ export class ContributeDTO {
   @IsOptional()
   comment?: string;
 
-  imageUrl?: string[];
+  imageUrl!: string[];
 }

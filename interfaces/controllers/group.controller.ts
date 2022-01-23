@@ -7,15 +7,17 @@ import {
   Get,
   Res,
   UseInterceptors,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { InternalServerErrorExceptionFilter } from '../../common/exceptionFilters/internalServerException.filter';
-import { BadRequestExceptionFilter } from '../../common/exceptionFilters/BadRequestException.filter';
-import { LoggingInterceptor } from '../../common/Interceptors/logging.interceptor';
-import { GroupService } from '../../usecases/group.service';
-import { CreateGroupDTO } from '../../domains/dto/group/createGroup.dto';
-import { createHashPass } from '../../common/utils/createHashPass';
-import type { GroupInfo } from '../../constants/types/groupInfo';
+import { InternalServerErrorExceptionFilter } from 'common/exceptionFilters/internalServerException.filter';
+import { BadRequestExceptionFilter } from 'common/exceptionFilters/BadRequestException.filter';
+import { LoggingInterceptor } from 'common/Interceptors/logging.interceptor';
+import { GroupService } from 'usecases/group.service';
+import { GroupAccountEntity } from 'domains/entities/groupAccountEntity';
+import { CreateGroupReqDto } from 'domains/dto/group/request/createGroupReq.dto';
+import { createHashPass } from 'common/utils/createHashPass';
+import { RESULT_MSG } from 'constants/resultMsg';
 
 @Controller('group')
 @UseFilters(InternalServerErrorExceptionFilter, BadRequestExceptionFilter)
@@ -25,14 +27,20 @@ export class GroupController {
 
   //グループ登録処理
   @Post('createGroup')
-  async createGroup(@Body() groupData: CreateGroupDTO) {
+  async createGroup(@Body() createGroupReqData: CreateGroupReqDto) {
     //パスワードをハッシュ化
-    const hashedPass: string = await createHashPass(groupData.groupPass);
+    const hashedPass: string = await createHashPass(createGroupReqData.groupPass).catch(
+      (error: any) => {
+        throw new InternalServerErrorException({
+          code: 'UNEXPECTED',
+          message: RESULT_MSG.ERR.OTHER,
+        });
+      }
+    );
 
-    //グループアカウントDTOのデータを加工
-    groupData.groupPass = hashedPass;
+    createGroupReqData.groupPass = hashedPass;
 
-    await this.groupService.createGroup(groupData).catch((error) => {
+    await this.groupService.createGroup(createGroupReqData).catch((error) => {
       throw error;
     });
 
@@ -42,7 +50,7 @@ export class GroupController {
   //全グループ情報取得処理
   @Get('getAllGroupInfo')
   async getAllGroupInfo(@Res() res: Response) {
-    const allGroupInfo: GroupInfo[] | null = await this.groupService
+    const allGroupInfo: GroupAccountEntity[] | null = await this.groupService
       .selectAllGroup()
       .catch((error) => {
         throw error;
@@ -50,6 +58,7 @@ export class GroupController {
 
     //データ返却
     res.status(HttpStatus.OK).json({ allGroupInfo: allGroupInfo });
+
     return { statusCode: HttpStatus.OK, allGroupInfo: allGroupInfo };
   }
 }

@@ -1,14 +1,14 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { InsertContributionImageDTO } from '../domains/dto/insertContributionImage.dto';
-import { getDbErrorMessage } from '../common/utils/getDbErrorMessage';
+import { ContributionImageCreateInputDto } from 'domains/dto/contribution/contributionImageCreateInputDto';
+import { getDbErrorMessage } from 'common/utils/getDbErrorMessage';
 
 @Injectable()
 export class ContributionImageService {
   constructor(private prisma: PrismaService) {}
 
   //投稿情報登録
-  async insertContributionImage(data: InsertContributionImageDTO): Promise<void> {
+  async insertContributionImage(data: ContributionImageCreateInputDto): Promise<void> {
     try {
       await this.prisma.contributionImage.create({
         data,

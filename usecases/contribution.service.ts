@@ -1,24 +1,25 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Prisma, ContributionInfo } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from './prisma.service';
-import { SearchDTO } from '../domains/dto/contribution/search.dto';
-import { createSearchContributionCondition } from '../common/utils/createSearchContributionCondition';
-import { getDbErrorMessage } from '../common/utils/getDbErrorMessage';
+import { ContributionInfoEntity } from 'domains/entities/contributionInfoEntity';
+import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
+import { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
 import { isExistValue } from 'common/utils/isExistValue';
-import { ContributionInfoCreateInput } from 'constants/types/contributionInfoCreateInput';
-import { ContributionInfosEntity } from 'domains/entities/contributionInfosEntity';
+import { getDbErrorMessage } from 'common/utils/getDbErrorMessage';
+import { createSearchContributionCondition } from 'common/utils/createSearchContributionCondition';
 import { convertContributionInfosEntityToDto } from 'common/utils/convertContributionInfosEntityToDto';
-import { ContributionInfosDto } from 'domains/dto/contributionInfosDto';
 
 @Injectable()
 export class ContributionService {
   constructor(private prisma: PrismaService) {}
 
   //投稿情報登録
-  async insertContributionInfo(data: Prisma.ContributionInfoUncheckedCreateInput): Promise<void> {
+  async insertContributionInfo(
+    insertContributionInfoParam: Prisma.ContributionInfoUncheckedCreateInput
+  ): Promise<void> {
     try {
       await this.prisma.contributionInfo.create({
-        data,
+        data: insertContributionInfoParam,
       });
     } catch (error: any) {
       //エラーコードに合わせたメッセージを取得
@@ -57,12 +58,16 @@ export class ContributionService {
   }
 
   //投稿情報検索
-  async selectContributionInfos(param: SearchDTO): Promise<ContributionInfosDto | null> {
+  async selectContributionInfos(
+    selectContributionInfosParam: SearchReqDto
+  ): Promise<ContributionInfoDto[] | null> {
     //検索条件を生成 ※配列の中にオブジェクトが複数存在
-    const conditions: { AND: {}[] } = createSearchContributionCondition(param);
+    const conditions: { AND: {}[] } = createSearchContributionCondition(
+      selectContributionInfosParam
+    );
 
     try {
-      const resultData: ContributionInfosEntity | null =
+      const resultData: ContributionInfoEntity[] | null =
         await this.prisma.contributionInfo.findMany({
           where: conditions,
           select: {

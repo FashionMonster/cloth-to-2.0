@@ -1,8 +1,8 @@
 //投稿データ取得の型定義DTO
-type ContributionInfosDto = {
+type ContributionInfoDto = {
   contributionId: number;
   materialName: string;
   imageUrl1: string | null;
-}[];
+};
 
-export type { ContributionInfosDto };
+export type { ContributionInfoDto };
