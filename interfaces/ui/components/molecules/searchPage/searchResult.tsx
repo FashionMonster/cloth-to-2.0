@@ -15,7 +15,7 @@ const SearchResult: React.VFC<Props> = (props) => {
   const imageSrc = props.contributionInfo.src as string;
 
   return (
-    <div className='mx-auto'>
+    <div className='w-200 sm:w-170'>
       <Link
         href={`/${props.path}/[contributionId]`}
         as={`/${props.path}/${props.contributionInfo.contributionId}`}
@@ -27,9 +27,10 @@ const SearchResult: React.VFC<Props> = (props) => {
           alt='イメージ画像'
           blurDataURL={imageSrc}
           placeholder='blur'
+          layout='responsive'
         />
       </Link>
-      <p className='font-semibold w-200 text-center mt-4'>
+      <p className='font-semibold w-200 text-center mt-4 sm:w-170'>
         {subString(props.contributionInfo.materialName, 4)}
       </p>
     </div>

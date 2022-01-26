@@ -75,13 +75,13 @@ const Search: React.VFC = () => {
       <FunctionExplain>
         投稿された情報を閲覧、収集できます。
         <br />
-        新しいアイデアが湧いたり、創りたい商品を実現するキッカケになります。
+        創りたい商品を実現するキッカケになるかもしれません。
       </FunctionExplain>
       {/* メイン(コンテンツ) */}
       <Main isContentPositionCenter={false}>
         <form
           onSubmit={handleSubmit(submitGetContributions)}
-          className='w-496 h-16 mx-auto grid grid-cols-searchForm gap-4'
+          className='w-496 h-16 mx-auto grid grid-cols-searchForm gap-4 sm:w-352 sm:grid-cols-1 sm:grid-rows-3 sm:mb-10 sm:h-auto'
         >
           <SelectSearchCategory
             onChange={(e: any) => {
@@ -94,18 +94,22 @@ const Search: React.VFC = () => {
           <SubmitBtn value='検索' width='20' />
         </form>
         {isExistValue(query.data) && (
+          //PCは１行に５件、スマホは１行に２件表示する
           <div
-            className={`grid grid-cols-5 grid-rows-${calculateRowCount(
+            className={`grid grid-cols-${DISPLAY_DATA_NUM.ONE_ROW} grid-rows-${calculateRowCount(
               query.data!.length,
               DISPLAY_DATA_NUM.ONE_ROW
-            )}} gap-5`}
+            )} gap-5 sm:grid-cols-${DISPLAY_DATA_NUM.SM_ONE_ROW} sm:grid-rows-${calculateRowCount(
+              query.data!.length,
+              DISPLAY_DATA_NUM.SM_ONE_ROW
+            )} sm:gap-3 sm:w-352 sm:mx-auto`}
           >
             {query.data!.map((item: ContributionInfo) => (
               <SearchResult contributionInfo={item} path='contributionDetail' />
             ))}
           </div>
         )}
-        <div>
+        <div className='my-8'>
           {/* ページネーション */}
           <ReactPaginate
             previousLabel={(() => {
