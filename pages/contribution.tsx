@@ -162,19 +162,19 @@ const Contribution: React.VFC = () => {
               />
               <div className='grid grid-cols-imageSubDisplay gap-3 sm:grid-cols-sm_imageSubDisplay'>
                 {(() => {
-                  let previewSubArea = [];
+                  let subImageDisplay = [];
                   for (let i = 1; i <= 4; i++) {
-                    previewSubArea.push(
+                    subImageDisplay.push(
                       <ImageDisplay
                         imgFileUrl={
-                          imgFile[i] === undefined ? '' : (imgFile[i].imgFileUrl as string)
+                          isExistValue(imgFile[i]) ? (imgFile[i].imgFileUrl as string) : ''
                         }
                         oneSideLength='112'
                         smOneSideLength='79'
                       />
                     );
                   }
-                  return previewSubArea;
+                  return subImageDisplay;
                 })()}
               </div>
               <FileSelectBtn

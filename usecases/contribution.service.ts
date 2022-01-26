@@ -1,13 +1,16 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from './prisma.service';
-import { ContributionInfoEntity } from 'domains/entities/contributionInfoEntity';
-import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
-import { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
 import { isExistValue } from 'common/utils/isExistValue';
 import { getDbErrorMessage } from 'common/utils/getDbErrorMessage';
 import { createSearchContributionCondition } from 'common/utils/createSearchContributionCondition';
 import { convertContributionInfosEntityToDto } from 'common/utils/convertContributionInfosEntityToDto';
+import { ContributionInfoEntity } from 'domains/entities/contributionInfoEntity';
+import { ContributionInfoDetailEntity } from 'domains/entities/contributionInfoDetailEntity';
+import { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
+import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
+import { ContributionInfoDetailDto } from 'domains/dto/contribution/contributionInfoDetailDto';
+import { convertContributionInfoDetailEntityToDto } from 'common/utils/convertContributionInfoDetailEntityToDto';
 
 @Injectable()
 export class ContributionService {
@@ -36,10 +39,6 @@ export class ContributionService {
           contributionId: true,
         },
       });
-
-      if (!isExistValue(result._max)) {
-        throw new Error('');
-      }
 
       return result._max as { contributionId: number };
     } catch (error: any) {
@@ -88,6 +87,52 @@ export class ContributionService {
 
       //DTOに詰め直して返却
       return convertContributionInfosEntityToDto(resultData);
+    } catch (error: any) {
+      //エラーコードに合わせたメッセージを取得
+      const errorMsg = getDbErrorMessage(error.code);
+      throw new InternalServerErrorException({ code: error.code, message: errorMsg });
+    }
+  }
+
+  //投稿情報検索
+  async selectContributionInfoDetail(
+    selectContributionInfoDetailParam: Prisma.ContributionInfoWhereUniqueInput
+  ): Promise<ContributionInfoDetailDto | null> {
+    try {
+      const resultData: ContributionInfoDetailEntity | null =
+        await this.prisma.contributionInfo.findUnique({
+          where: selectContributionInfoDetailParam,
+          select: {
+            contributionId: true,
+            materialName: true,
+            category: true,
+            composition1: true,
+            compositionRatio1: true,
+            composition2: true,
+            compositionRatio2: true,
+            composition3: true,
+            compositionRatio3: true,
+            fabricStructure: true,
+            color: true,
+            pattern: true,
+            processing: true,
+            unitPrice: true,
+            supplier: true,
+            comment: true,
+            relationContributionImage: {
+              select: {
+                imageUrl1: true,
+                imageUrl2: true,
+                imageUrl3: true,
+                imageUrl4: true,
+                imageUrl5: true,
+              },
+            },
+          },
+        });
+
+      //DTOに詰め直して返却
+      return convertContributionInfoDetailEntityToDto(resultData as ContributionInfoDetailEntity);
     } catch (error: any) {
       //エラーコードに合わせたメッセージを取得
       const errorMsg = getDbErrorMessage(error.code);

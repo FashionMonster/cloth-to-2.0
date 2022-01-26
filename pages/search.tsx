@@ -16,6 +16,7 @@ import { ArrowIcon } from 'interfaces/ui/components/atoms/icon/arrowIcon';
 import { SelectSearchCategory } from 'interfaces/ui/components/atoms/selectBoxes/selectSearchCategory';
 import { SearchInput } from 'interfaces/ui/components/molecules/searchPage/searchInput';
 import { SearchResult } from 'interfaces/ui/components/molecules/searchPage/searchResult';
+import { isExistValue } from 'common/utils/isExistValue';
 import { calculatePageCount } from 'common/utils/calculatePageCount';
 import { calculateRowCount } from 'common/utils/calculateRowCount';
 import { changePageNum } from 'common/utils/changePageNum';
@@ -23,8 +24,7 @@ import { fetchContributions } from 'common/utils/getContributions/fetchContribut
 import { setQueryParam } from 'common/utils/getContributions/setQueryParam';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import { DISPLAY_DATA_NUM } from 'constants/dispalyDataNum';
-import { isExistValue } from 'common/utils/isExistValue';
-import { ContributionInfo } from 'constants/types/contributionInfo';
+import type { ContributionInfo } from 'constants/types/contributionInfo';
 
 const Search: React.VFC = () => {
   const router: any = useRouter();
@@ -32,7 +32,8 @@ const Search: React.VFC = () => {
   const { handleSubmit, register, errors, clearErrors } = useForm();
   const [category, setCategory] = useState('1');
 
-  const query: UseQueryResult<ContributionInfo[] | null, unknown> = useQuery(
+  //初期表示時、検索処理
+  const query: UseQueryResult<ContributionInfo[] | null, any> = useQuery(
     ['searchPath', router.asPath],
     () => fetchContributions('./api/contribution/search', router, value!.loginUserInfo)
   );
@@ -57,8 +58,7 @@ const Search: React.VFC = () => {
     return (
       <Error
         backType={BACK_PAGE_TYPE.RELOAD}
-        // errorMsg={query.error.response.data.errorInfo.message}
-        errorMsg={'エラー'}
+        errorMsg={query.error.response.data.errorInfo.message}
         isLogined={true}
       />
     );

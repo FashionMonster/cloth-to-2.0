@@ -20,7 +20,9 @@ import { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
 import { ContributionInfoCreateInputDto } from 'domains/dto/contribution/contributionInfoCreateInputDto';
 import { ContributionImageCreateInputDto } from 'domains/dto/contribution/contributionImageCreateInputDto';
 import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
+import { getContributionInfoDetailReqDto } from 'domains/dto/contribution/request/getContributionInfoDetailReq.dto';
 import { isExistValue } from 'common/utils/isExistValue';
+import { ContributionInfoDetailDto } from 'domains/dto/contribution/contributionInfoDetailDto';
 
 @Controller('contribution')
 @UseFilters(InternalServerErrorExceptionFilter, BadRequestExceptionFilter)
@@ -82,7 +84,7 @@ export class ContributionController {
       //投稿情報検索処理
       contributionInfos = await this.contriobutionService
         .selectContributionInfos(searchReqData)
-        .catch((error) => {
+        .catch((error: any) => {
           throw error;
         });
     }
@@ -91,5 +93,26 @@ export class ContributionController {
     res.status(HttpStatus.OK).json({ contributionInfos: contributionInfos });
 
     return { statusCode: HttpStatus.OK, contributionInfos: contributionInfos };
+  }
+
+  //投稿情報取得処理
+  @Get('getContributionDetail')
+  async getContributionDetail(
+    @Query() getContributionInfoDetailReqData: getContributionInfoDetailReqDto,
+    @Res() res: Response
+  ) {
+    //投稿情報検索処理
+    const contributionInfoDetail: ContributionInfoDetailDto | null = await this.contriobutionService
+      .selectContributionInfoDetail({
+        contributionId: parseInt(getContributionInfoDetailReqData.contributionId),
+      })
+      .catch((error: any) => {
+        throw error;
+      });
+
+    //データ返却
+    res.status(HttpStatus.OK).json({ contributionInfoDetail: contributionInfoDetail });
+
+    return { statusCode: HttpStatus.OK, contributionInfoDetail: contributionInfoDetail };
   }
 }
