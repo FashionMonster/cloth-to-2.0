@@ -83,7 +83,7 @@ import { downloadImage } from 'common/utils/downloadImage';
 import { getUserInfo } from 'common/utils/getUserInfo';
 import { isExistValue } from 'common/utils/isExistValue';
 import { LoginUserInfo } from 'constants/types/loginUserInfo';
-import { Search } from 'constants/types/request/contribution/search';
+import type { Search } from 'constants/types/request/contribution/search';
 import type { ContributionInfo } from 'constants/types/contributionInfo';
 
 //検索条件を元に投稿情報を取得する

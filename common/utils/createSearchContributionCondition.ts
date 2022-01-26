@@ -1,4 +1,4 @@
-import { SearchReqDto } from '../../domains/dto/contribution/request/searchReq.dto';
+import type { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
 import { isExistValue } from './isExistValue';
 
 //検索条件生成
