@@ -1,5 +1,6 @@
-import { FieldError } from 'react-hook-form';
 import { checkCompositionDuplicate } from 'common/utils/checkCompositionDuplicate';
+import type { ErrorOption, FieldError } from 'react-hook-form';
+import type { LegacyRef } from 'react';
 
 //引数の型定義
 type Props = {
@@ -9,11 +10,11 @@ type Props = {
   defaultValue: string;
   width: string;
   smWidth?: string;
-  register: any; //TODO:要修正
+  register: LegacyRef<HTMLSelectElement> | undefined;
   errors: FieldError | undefined;
   getValues: any;
-  setError: any;
-  clearErrors: any;
+  setError: (name: string, error: ErrorOption) => void;
+  clearErrors: (name?: string | string[] | undefined) => void;
 };
 
 //素材選択コンポーネント

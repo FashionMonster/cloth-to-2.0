@@ -4,7 +4,7 @@ type Props = {
   width: string;
 };
 
-//サブミットボタン
+//サブミットボタンコンポーネント
 const SubmitBtn: React.VFC<Props> = (props) => {
   return (
     <input

@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { SideNavLink } from 'interfaces/ui/components/atoms/navigation/sideNavlink';
 import { Hamburger } from 'interfaces/ui/components/atoms/navigation/hamburger';
@@ -9,6 +8,7 @@ import { isExistValue } from 'common/utils/isExistValue';
 import { subString } from 'common/utils/subString';
 import { SideNavBackground } from 'interfaces/ui/components/atoms/others/sideNavBackground';
 
+//サイドナビゲーション(メニュー)　※スマホ時のみ使用
 const SideNavigation: React.VFC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const value = useContext(AuthContext);

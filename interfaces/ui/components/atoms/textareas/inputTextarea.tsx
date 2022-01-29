@@ -1,3 +1,4 @@
+import { LegacyRef } from 'react';
 import { FieldError } from 'react-hook-form';
 
 //引数の型定義
@@ -10,7 +11,7 @@ type Props = {
   width: string;
   smWidth?: string;
   maxLength: string;
-  register: any; //TODO:要修正
+  register: LegacyRef<HTMLTextAreaElement> | undefined;
   errors: FieldError | undefined;
 };
 

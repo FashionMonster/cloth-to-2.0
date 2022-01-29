@@ -4,12 +4,13 @@ import { SelectCompareCondition } from 'interfaces/ui/components/atoms/selectBox
 import { SelectComposition } from 'interfaces/ui/components/atoms/selectBoxes/selectComposition';
 import { InputCompositionRatio } from 'interfaces/ui/components/atoms/textBoxes/inputCompositionRatio';
 import { InputText } from 'interfaces/ui/components/atoms/textBoxes/inputText';
+import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
 
 //引数の型定義
 type Props = {
-  category: any;
+  category: string;
   register: any;
-  errors: any;
+  errors: DeepMap<FieldValues, FieldError>;
 };
 
 //一覧/検索ページ
@@ -22,7 +23,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
         id='keyword'
         name='keyword'
         isDisabled={false}
-        defaultValue={''}
+        defaultValue=''
         width='280'
         register={register({ required: true })}
         errors={errors.keyword}

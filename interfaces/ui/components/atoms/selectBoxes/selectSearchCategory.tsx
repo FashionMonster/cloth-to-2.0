@@ -1,7 +1,9 @@
+import type { ChangeEventHandler, LegacyRef } from 'react';
+
 //引数の型定義
 type Props = {
-  onChange: any;
-  register: any;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
+  register: LegacyRef<HTMLSelectElement> | undefined;
 };
 
 //一覧/検索ページ

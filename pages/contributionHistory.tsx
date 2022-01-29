@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import { NextRouter, useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -107,7 +106,12 @@ const Search: React.VFC = () => {
           >
             {query.data!.map((item: { src: string } & SearchResType) => (
               <div key={item.imageUrl1}>
-                <SearchResult contributionInfo={item} path='edit' />
+                <SearchResult
+                  path='edit'
+                  contributionId={item.contributionId}
+                  materialName={item.materialName}
+                  src={item.src}
+                />
               </div>
             ))}
           </div>

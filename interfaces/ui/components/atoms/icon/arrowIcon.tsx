@@ -1,8 +1,10 @@
+import { NextRouter } from 'next/router';
+
 //引数の型定義
 type Props = {
   icon: string;
   pathName: string;
-  router: any;
+  router: NextRouter;
 };
 
 //ページネーションの両端アイコン
@@ -10,9 +12,11 @@ const ArrowIcon: React.VFC<Props> = (props) => {
   let queryObj = props.router.query;
 
   if (props.icon === '>') {
-    queryObj.page = queryObj.page + 1;
+    //現在ページに+１
+    queryObj.page = ((queryObj.page as unknown as number) + 1).toString();
   } else if (props.icon === '<') {
-    queryObj.page = queryObj.page - 1;
+    //現在ページに−１
+    queryObj.page = ((queryObj.page as unknown as number) - 1).toString();
   }
 
   return (

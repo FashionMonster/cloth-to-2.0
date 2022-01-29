@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'interfaces/ui/components/atoms/navigation/navLink';
 import { SettingNav } from 'interfaces/ui/components/molecules/navigation/settingNav';
 

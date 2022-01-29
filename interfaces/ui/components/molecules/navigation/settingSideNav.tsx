@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { SideNavLink } from 'interfaces/ui/components/atoms/navigation/sideNavlink';
 
-//設定ナビゲーション(スマホ時のサイドナビ)
+//設定ナビゲーション(スマホ時のサイドナビ)コンポーネント
 const SettingSideNav: React.VFC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -10,7 +10,7 @@ const SettingSideNav: React.VFC = () => {
     <>
       <div
         className='grid grid-cols-sideNav gap-2 z-20'
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent<HTMLDivElement>): void => {
           setIsOpen(!isOpen);
           //親要素のメニュー閉じるアクションを無効化
           e.stopPropagation();

@@ -1,4 +1,5 @@
-import { FieldError } from 'react-hook-form';
+import type { LegacyRef } from 'react';
+import type { FieldError } from 'react-hook-form';
 
 //引数の型定義
 type Props = {
@@ -8,7 +9,7 @@ type Props = {
   defaultValue: string;
   width: string;
   smWidth?: string;
-  register: any; //TODO:要修正
+  register: LegacyRef<HTMLSelectElement> | undefined;
   errors: FieldError | undefined;
 };
 

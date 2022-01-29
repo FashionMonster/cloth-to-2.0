@@ -1,9 +1,10 @@
-import { FieldError } from 'react-hook-form';
+import type { ChangeEventHandler, LegacyRef } from 'react';
+import type { FieldError } from 'react-hook-form';
 
 //引数の型定義
 type Props = {
-  selectFile: any;
-  register: any; //TODO:要修正
+  selectFile: ChangeEventHandler<HTMLInputElement>;
+  register: LegacyRef<HTMLInputElement> | undefined;
   errors: FieldError | undefined;
 };
 

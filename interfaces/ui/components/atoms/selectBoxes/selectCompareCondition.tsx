@@ -1,9 +1,11 @@
+import type { LegacyRef } from 'react';
+
 //引数の型定義
 type Props = {
   id: string;
   name: string;
   isDisabled: boolean;
-  register: any; //TODO:要修正
+  register: LegacyRef<HTMLSelectElement> | undefined;
 };
 
 //比較条件選択コンポーネント

@@ -1,9 +1,10 @@
-import { isExistValue } from 'common/utils/isExistValue';
-import { logout } from 'common/utils/logout';
 import Image from 'next/image';
 import Link from 'next/Link';
 import { useContext } from 'react';
-import { AuthContext } from '../../organisms/authProvider';
+import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
+import { isExistValue } from 'common/utils/isExistValue';
+import { logout } from 'common/utils/logout';
+import type { AuthContextType } from 'constants/types/authContextType';
 
 //引数の型定義
 type Props = {
@@ -15,7 +16,7 @@ type Props = {
 
 //サイドナビリンクコンポーネント
 const SideNavLink: React.VFC<Props> = (props) => {
-  const value = useContext(AuthContext);
+  const value: AuthContextType | undefined = useContext(AuthContext);
 
   if (isExistValue(props.isLogout) && props.isLogout) {
     return (
@@ -26,7 +27,7 @@ const SideNavLink: React.VFC<Props> = (props) => {
         }}
       >
         {/* 画像が指定されている場合 */}
-        {props.image !== undefined && (
+        {!isExistValue(props.image) && (
           <Image src={`/menu/${props.image}`} alt='' width='24px' height='24px' />
         )}
         <div className='text-white col-start-2'>{props.children}</div>
@@ -37,7 +38,7 @@ const SideNavLink: React.VFC<Props> = (props) => {
       <Link href={props.href}>
         <div className='grid grid-cols-sideNav gap-2'>
           {/* 画像が指定されている場合 */}
-          {props.image !== undefined && (
+          {!isExistValue(props.image) && (
             <Image src={`/menu/${props.image}`} alt='' width='24px' height='24px' />
           )}
           <a className='text-white col-start-2'>{props.children}</a>

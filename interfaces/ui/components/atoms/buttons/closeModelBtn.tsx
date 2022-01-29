@@ -5,7 +5,7 @@ type Props = {
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-//モーダル閉じるボタン
+//モーダル閉じるボタンコンポーネント
 const CloseModalBtn: React.VFC<Props> = (props) => {
   return (
     <button

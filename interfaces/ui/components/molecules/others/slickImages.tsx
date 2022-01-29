@@ -8,7 +8,7 @@ import { SLIDER } from 'constants/slider';
 const SlickImages: React.VFC = () => {
   return (
     <Slider {...SLIDER.settings}>
-      {SLIDER.IMAGES.map((OBJ: any) => {
+      {SLIDER.IMAGES.map((OBJ: { IMG: string; MSG: string; KEY: string }) => {
         return (
           <div className='w-1080 sm:w-full' key={OBJ.KEY}>
             <Image src={OBJ.IMG} alt='イメージ' width='1080px' height='600px' layout='responsive' />

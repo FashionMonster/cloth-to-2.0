@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import { isActiveUrl } from 'common/utils/isActiveUrl';
 import { NavLink } from 'interfaces/ui/components/atoms/navigation/navLink';
 
-//設定ナビゲーション
+//設定ナビゲーションコンポーネント
 const SettingNav: React.VFC = () => {
-  const router = useRouter();
+  const router: NextRouter = useRouter();
 
   const defaultStyle =
     'bg-purple-200 font-semibold h-12 leading-12 text-center border-l-2 border-r-2 hover:bg-purple-300';

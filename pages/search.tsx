@@ -84,7 +84,7 @@ const Search: React.VFC = () => {
           className='w-496 h-16 mx-auto grid grid-cols-searchForm gap-4 sm:w-352 sm:grid-cols-1 sm:grid-rows-3 sm:mb-10 sm:h-auto'
         >
           <SelectSearchCategory
-            onChange={(e: any) => {
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               setCategory(e.target.value);
               clearErrors();
             }}
@@ -106,7 +106,12 @@ const Search: React.VFC = () => {
           >
             {query.data!.map((item: { src: string } & SearchResType) => (
               <div key={item.imageUrl1}>
-                <SearchResult contributionInfo={item} path='contributionDetail' />
+                <SearchResult
+                  path='contributionDetail'
+                  contributionId={item.contributionId}
+                  materialName={item.materialName}
+                  src={item.src}
+                />
               </div>
             ))}
           </div>

@@ -15,10 +15,10 @@ import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWind
 import { Error } from 'interfaces/ui/components/organisms/error';
 import { ImageDisplay } from 'interfaces/ui/components/molecules/others/imageDisplay';
 import { ContributeForm } from 'interfaces/ui/components/molecules/contributePage/contributeForm';
+import { isExistValue } from 'common/utils/isExistValue';
 import { isImageExt } from 'common/utils/isImageExt';
 import { readFile } from 'common/utils/readFile';
 import { uploadImage } from 'common/utils/uploadImage';
-import { isExistValue } from 'common/utils/isExistValue';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import type { ReadImageType } from 'constants/types/readImageType';
@@ -35,12 +35,16 @@ const Contribution: React.VFC = () => {
   const queryClient: QueryClient = useQueryClient();
 
   //ファイル選択時
-  const selectFile = async (e: { target: { files: File[] } }): Promise<void> => {
+  const selectFile = async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
     //ファイルオブジェクトを取得
-    const files = e.target.files;
+    const files: FileList | null = e.target.files;
+
+    if (!isExistValue(files)) {
+      return;
+    }
 
     let fileList: ReadImageType[] = [];
-    for (const file of files) {
+    for (const file of files as FileList) {
       //ファイルの読込み
       const fileUrl = await readFile(file);
 

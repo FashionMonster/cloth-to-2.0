@@ -1,5 +1,6 @@
-import { GetAllGroupInfoResType } from 'constants/types/response/getallGroupInfoResType';
-import { FieldError } from 'react-hook-form';
+import type { LegacyRef } from 'react';
+import type { FieldError } from 'react-hook-form';
+import type { GetAllGroupInfoResType } from 'constants/types/response/getallGroupInfoResType';
 
 //引数の型定義
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
   id: string;
   defaultValue: string;
   width: string;
-  register: any; //TODO:要修正
+  register: LegacyRef<HTMLSelectElement> | undefined;
   errors: FieldError | undefined;
   allGroupInfo: GetAllGroupInfoResType;
 };
