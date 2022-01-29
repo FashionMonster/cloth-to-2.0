@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { downloadImage } from 'common/utils/downloadImage';
+import { downloadImage } from 'common/utils/frontend/downloadImage';
 import type { ContributionInfoDetail } from 'constants/types/contributionInfoDetail';
 
 //投稿データ詳細を取得する

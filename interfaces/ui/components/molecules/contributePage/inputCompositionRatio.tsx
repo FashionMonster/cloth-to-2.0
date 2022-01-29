@@ -1,4 +1,4 @@
-import { checkCompositionRatio } from 'common/utils/checkCompositionRatio';
+import { checkCompositionRatio } from 'common/utils/frontend/checkCompositionRatio';
 import type { ErrorOption, FieldError } from 'react-hook-form';
 import type { LegacyRef } from 'react';
 

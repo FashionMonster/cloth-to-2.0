@@ -1,4 +1,4 @@
-import { checkCompositionDuplicate } from 'common/utils/checkCompositionDuplicate';
+import { checkCompositionDuplicate } from 'common/utils/frontend/checkCompositionDuplicate';
 import type { ErrorOption, FieldError } from 'react-hook-form';
 import type { LegacyRef } from 'react';
 

@@ -1,5 +1,5 @@
 import { NextRouter, useRouter } from 'next/router';
-import { isActiveUrl } from 'common/utils/isActiveUrl';
+import { isActiveUrl } from 'common/utils/frontend/isActiveUrl';
 import { NavLink } from 'interfaces/ui/components/atoms/navigation/navLink';
 
 //設定ナビゲーションコンポーネント

@@ -1,4 +1,4 @@
-import { DB_ERROR } from '../../constants/dbErrorInfo';
+import { DB_ERROR } from 'constants/dbErrorInfo';
 
 //エラーコードから、エラーメッセージを取得する
 //※引数なしで渡ってきた場合、defaultの分岐に入る

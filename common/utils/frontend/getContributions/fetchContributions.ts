@@ -79,8 +79,8 @@
 
 import axios, { AxiosResponse } from 'axios';
 import queryString from 'query-string';
-import { downloadImage } from 'common/utils/downloadImage';
-import { getUserInfo } from 'common/utils/getUserInfo';
+import { downloadImage } from 'common/utils/frontend/downloadImage';
+import { getUserInfo } from 'common/utils/frontend/getUserInfo';
 import { isExistValue } from 'common/utils/isExistValue';
 import { LoginUserInfo } from 'constants/types/loginUserInfo';
 import type { SearchFormType } from 'constants/types/form/searchFormType';

@@ -3,14 +3,14 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from './prisma.service';
 import { isExistValue } from 'common/utils/isExistValue';
 import { getDbErrorMessage } from 'common/utils/getDbErrorMessage';
-import { createSearchContributionCondition } from 'common/utils/createSearchContributionCondition';
-import { convertContributionInfosEntityToDto } from 'common/utils/convertContributionInfosEntityToDto';
+import { createSearchContributionCondition } from 'common/utils/backend/createSearchContributionCondition';
+import { convertContributionInfosEntityToDto } from 'common/utils/backend/convertContributionInfosEntityToDto';
 import { ContributionInfoEntity } from 'domains/entities/contributionInfoEntity';
 import { ContributionInfoDetailEntity } from 'domains/entities/contributionInfoDetailEntity';
 import { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
 import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
 import { ContributionInfoDetailDto } from 'domains/dto/contribution/contributionInfoDetailDto';
-import { convertContributionInfoDetailEntityToDto } from 'common/utils/convertContributionInfoDetailEntityToDto';
+import { convertContributionInfoDetailEntityToDto } from 'common/utils/backend/convertContributionInfoDetailEntityToDto';
 
 @Injectable()
 export class ContributionService {

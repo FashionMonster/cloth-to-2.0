@@ -19,8 +19,8 @@ import { ContributeForm } from 'interfaces/ui/components/molecules/contributePag
 import { isExistValue } from 'common/utils/isExistValue';
 import { isImageExt } from 'common/utils/isImageExt';
 import { readFile } from 'common/utils/readFile';
-import { uploadImage } from 'common/utils/uploadImage';
-import { fetchContributionDetail } from 'common/utils/getContributionDetail/fetchContributionDetail';
+import { uploadImage } from 'common/utils/frontend/uploadImage';
+import { fetchContributionDetail } from 'common/utils/frontend/getContributionDetail/fetchContributionDetail';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import type { ContributionInfoDetail } from 'constants/types/contributionInfoDetail';

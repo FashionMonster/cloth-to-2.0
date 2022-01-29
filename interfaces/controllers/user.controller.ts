@@ -23,7 +23,7 @@ import { SignupReqDto } from 'domains/dto/user/request/signupReq.dto';
 import { UpdateUserInfoReqDto } from 'domains/dto/user/request/updateUserInfoReq.dto';
 import { LinkUserToGroupReqDto } from 'domains/dto/user/request/linkUserToGroupReq.dto';
 import { CancelSignupReqDto } from 'domains/dto/user/request/cancelSignupReq.dto';
-import { isVerifyPass } from 'common/utils/isVerifyPass';
+import { isVerifyPass } from 'common/utils/backend/isVerifyPass';
 import { RESULT_MSG } from 'constants/resultMsg';
 
 @Controller('user')

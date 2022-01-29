@@ -7,7 +7,7 @@ const readFile = (blob: File): Promise<string | ArrayBuffer | null> => {
     // ファイルの読み込み
     reader.readAsDataURL(blob);
 
-    // reader.resultでファイル内容にアクセスできる
+    // reader.resultでファイル内容にアクセス
     reader.onload = () => {
       resolve(reader.result);
     };

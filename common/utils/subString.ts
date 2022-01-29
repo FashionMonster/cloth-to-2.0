@@ -6,5 +6,5 @@ const subString = (displayName: string, maxLength: number): string => {
     return displayName;
   }
 };
-//makeDispUserNameと共通化
+
 export { subString };

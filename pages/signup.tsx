@@ -15,8 +15,8 @@ import { InputEmail } from 'interfaces/ui/components/atoms/textBoxes/inputEmail'
 import { InputPassword } from 'interfaces/ui/components/atoms/textBoxes/inputPassword';
 import { SubmitBtn } from 'interfaces/ui/components/atoms/buttons/submitBtn';
 import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWindow';
-import { signup } from 'common/utils/signup';
-import { getFbAuthErrorMsg } from 'common/utils/getFbAuthErrorMsg';
+import { signup } from 'common/utils/frontend/signup';
+import { getFbAuthErrorMsg } from 'common/utils/frontend/getFbAuthErrorMsg';
 import { usePreviousValue } from 'common/customHooks/usePreviousValue';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { DB_ERROR } from 'constants/dbErrorInfo';

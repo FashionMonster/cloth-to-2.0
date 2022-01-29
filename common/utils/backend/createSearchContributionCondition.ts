@@ -1,5 +1,5 @@
 import type { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
-import { isExistValue } from './isExistValue';
+import { isExistValue } from 'common/utils/isExistValue';
 
 //検索条件生成
 //https://www.prisma.io/docs/reference/api-reference/prisma-client-reference

@@ -1,4 +1,4 @@
-import { firebase } from 'common/utils/firebase';
+import { firebase } from 'common/utils/frontend/firebase';
 
 //ログイン
 const login = async (email: string, password: string): Promise<void> => {

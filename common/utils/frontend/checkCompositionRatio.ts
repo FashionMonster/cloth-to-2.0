@@ -1,4 +1,11 @@
-const checkCompositionRatio = (getValues: any, setError: any, clearErrors: any) => {
+import type { ErrorOption } from 'react-hook-form';
+
+//組成比率の３つにおけるチェック処理
+const checkCompositionRatio = (
+  getValues: any,
+  setError: (name: string, error: ErrorOption) => void,
+  clearErrors: (name?: string | string[] | undefined) => void
+) => {
   const allValues = getValues(['compositionRatio1', 'compositionRatio2', 'compositionRatio3']);
 
   //数値変換

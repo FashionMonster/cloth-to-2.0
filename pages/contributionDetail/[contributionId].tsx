@@ -14,7 +14,7 @@ import { ImageDisplay } from 'interfaces/ui/components/molecules/others/imageDis
 import { ContributeForm } from 'interfaces/ui/components/molecules/contributePage/contributeForm';
 import { BackBtn } from 'interfaces/ui/components/atoms/buttons/backBtn';
 import { isExistValue } from 'common/utils/isExistValue';
-import { fetchContributionDetail } from 'common/utils/getContributionDetail/fetchContributionDetail';
+import { fetchContributionDetail } from 'common/utils/frontend/getContributionDetail/fetchContributionDetail';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import type { ContributionInfoDetail } from 'constants/types/contributionInfoDetail';
 

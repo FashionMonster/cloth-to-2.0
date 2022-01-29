@@ -1,7 +1,7 @@
 import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { checkLogin } from 'common/utils/checkLogin';
-import { getUserInfo } from 'common/utils/getUserInfo';
+import { checkLogin } from 'common/utils/frontend/checkLogin';
+import { getUserInfo } from 'common/utils/frontend/getUserInfo';
 import type { AuthContextType } from 'constants/types/authContextType';
 import type { LoginUserInfo } from 'constants/types/loginUserInfo';
 import { isExistValue } from 'common/utils/isExistValue';

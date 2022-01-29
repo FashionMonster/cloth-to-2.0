@@ -16,11 +16,10 @@ import { SelectSearchCategory } from 'interfaces/ui/components/atoms/selectBoxes
 import { SearchInput } from 'interfaces/ui/components/molecules/searchPage/searchInput';
 import { SearchResult } from 'interfaces/ui/components/molecules/searchPage/searchResult';
 import { isExistValue } from 'common/utils/isExistValue';
-import { calculatePageCount } from 'common/utils/calculatePageCount';
-import { calculateRowCount } from 'common/utils/calculateRowCount';
-import { changePageNum } from 'common/utils/changePageNum';
-import { fetchContributions } from 'common/utils/getContributions/fetchContributions';
-import { createQueryParam } from 'common/utils/getContributions/createQueryParam';
+import { getNumberPerOneDisplay } from 'common/utils/frontend/getNumberPerOneDisplay';
+import { changePageNum } from 'common/utils/frontend/changePageNum';
+import { fetchContributions } from 'common/utils/frontend/getContributions/fetchContributions';
+import { createQueryParam } from 'common/utils/frontend/getContributions/createQueryParam';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import { DISPLAY_DATA_NUM } from 'constants/dispalyDataNum';
 import type { SearchFormType } from 'constants/types/form/searchFormType';
@@ -96,10 +95,14 @@ const Search: React.VFC = () => {
         {isExistValue(query.data) && (
           //PCは１行に５件、スマホは１行に２件表示する
           <div
-            className={`grid grid-cols-${DISPLAY_DATA_NUM.ONE_ROW} grid-rows-${calculateRowCount(
+            className={`grid grid-cols-${
+              DISPLAY_DATA_NUM.ONE_ROW
+            } grid-rows-${getNumberPerOneDisplay(
               query.data!.length,
               DISPLAY_DATA_NUM.ONE_ROW
-            )} gap-5 sm:grid-cols-${DISPLAY_DATA_NUM.SM_ONE_ROW} sm:grid-rows-${calculateRowCount(
+            )} gap-5 sm:grid-cols-${
+              DISPLAY_DATA_NUM.SM_ONE_ROW
+            } sm:grid-rows-${getNumberPerOneDisplay(
               query.data!.length,
               DISPLAY_DATA_NUM.SM_ONE_ROW
             )} sm:gap-3 sm:w-352 sm:mx-auto`}
@@ -143,7 +146,7 @@ const Search: React.VFC = () => {
             disableInitialCallback={true}
             pageCount={
               isExistValue(query.data)
-                ? calculatePageCount(query.data!.length, DISPLAY_DATA_NUM.ONE_PAGE)
+                ? getNumberPerOneDisplay(query.data!.length, DISPLAY_DATA_NUM.ONE_PAGE)
                 : 0
             }
             onPageChange={(e: { selected: number }) => {

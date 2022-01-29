@@ -3,7 +3,7 @@ import Link from 'next/Link';
 import { useContext } from 'react';
 import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { isExistValue } from 'common/utils/isExistValue';
-import { logout } from 'common/utils/logout';
+import { logout } from 'common/utils/frontend/logout';
 import type { AuthContextType } from 'constants/types/authContextType';
 
 //引数の型定義

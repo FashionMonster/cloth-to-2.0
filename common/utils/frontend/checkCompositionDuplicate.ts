@@ -1,6 +1,12 @@
-import { isExistValue } from './isExistValue';
+import { isExistValue } from 'common/utils/isExistValue';
+import type { ErrorOption } from 'react-hook-form';
 
-const checkCompositionDuplicate = (getValues: any, setError: any, clearErrors: any) => {
+//主組成の３つにおける重複チェック
+const checkCompositionDuplicate = (
+  getValues: any,
+  setError: (name: string, error: ErrorOption) => void,
+  clearErrors: (name?: string | string[] | undefined) => void
+) => {
   const allValues = getValues(['composition1', 'composition2', 'composition3']);
 
   const comp1Val: string = allValues['composition1'];

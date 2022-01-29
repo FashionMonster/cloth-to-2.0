@@ -1,6 +1,6 @@
 import Link from 'next/Link';
 import { useRouter } from 'next/router';
-import { isActiveUrl } from 'common/utils/isActiveUrl';
+import { isActiveUrl } from 'common/utils/frontend/isActiveUrl';
 
 //引数の型定義
 type Props = {

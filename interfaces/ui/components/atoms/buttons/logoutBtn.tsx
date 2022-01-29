@@ -1,4 +1,4 @@
-import { logout } from 'common/utils/logout';
+import { logout } from 'common/utils/frontend/logout';
 import { useContext } from 'react';
 import { AuthContext } from '../../organisms/authProvider';
 

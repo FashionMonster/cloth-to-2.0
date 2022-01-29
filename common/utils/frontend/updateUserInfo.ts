@@ -1,8 +1,8 @@
-import { firebase } from 'common/utils/firebase';
+import { firebase } from 'common/utils/frontend/firebase';
 
 //ユーザー情報更新(Firebase)
 const updateUserInfo = async (email: string, password: string): Promise<void> => {
-  let user = firebase.auth().currentUser;
+  let user: firebase.User | null = firebase.auth().currentUser;
 
   try {
     //メールアドレス(ID)更新

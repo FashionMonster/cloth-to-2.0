@@ -1,9 +1,9 @@
 import Router from 'next/router';
-import { firebase } from 'common/utils/firebase';
+import { firebase } from 'common/utils/frontend/firebase';
 import { AuthContextType } from 'constants/types/authContextType';
 
 //ログアウト
-const logout = async (contextVal: AuthContextType) => {
+const logout = async (contextVal: AuthContextType): Promise<void> => {
   await firebase
     .auth()
     .signOut()

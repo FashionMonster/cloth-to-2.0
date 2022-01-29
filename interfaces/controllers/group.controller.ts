@@ -16,7 +16,7 @@ import { LoggingInterceptor } from 'common/Interceptors/logging.interceptor';
 import { GroupService } from 'usecases/group.service';
 import { GroupAccountEntity } from 'domains/entities/groupAccountEntity';
 import { CreateGroupReqDto } from 'domains/dto/group/request/createGroupReq.dto';
-import { createHashPass } from 'common/utils/createHashPass';
+import { createHashPass } from 'common/utils/backend/createHashPass';
 import { RESULT_MSG } from 'constants/resultMsg';
 
 @Controller('group')

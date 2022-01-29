@@ -1,4 +1,4 @@
-import { firebase } from './firebase';
+import { firebase } from 'common/utils/frontend/firebase';
 
 //新規ユーザー登録（Firebase）
 const signup = async (email: string, password: string): Promise<void> => {
