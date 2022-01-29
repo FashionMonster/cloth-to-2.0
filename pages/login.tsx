@@ -1,6 +1,7 @@
 import { useContext, useRef, useState } from 'react';
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
@@ -17,28 +18,28 @@ import { login } from 'common/utils/login';
 import { getUserInfo } from 'common/utils/getUserInfo';
 import { isExistValue } from 'common/utils/isExistValue';
 import { getFbAuthErrorMsg } from 'common/utils/getFbAuthErrorMsg';
-import type { AuthContextType } from 'constants/types/authContextType';
-import type { UserFormData } from 'constants/types/userFormData';
-import type { LoginUserInfo } from 'constants/types/loginUserInfo';
-import { useMutation } from 'react-query';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
+import type { AuthContextType } from 'constants/types/authContextType';
+import type { LoginFormType } from 'constants/types/form/loginFormType';
+import type { LoginUserInfo } from 'constants/types/loginUserInfo';
+import { LoginResType } from 'constants/types/response/loginResType';
 
 //ログイン画面
 const Login: React.VFC = () => {
-  const { handleSubmit, register, errors } = useForm<UserFormData>();
+  const { handleSubmit, register, errors } = useForm<LoginFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const modalMessage = useRef<string>('');
   const authContext: any = useContext<AuthContextType | undefined>(AuthContext);
 
   //フォーム送信時
-  const submitLogin = (data: UserFormData) => {
-    mutation.mutate(data);
+  const submitLogin = (loginForm: LoginFormType) => {
+    mutation.mutate(loginForm);
   };
 
   //ログイン処理
-  const mutation: any = useMutation(async (formData: UserFormData) => {
+  const mutation: any = useMutation(async (formData: LoginFormType) => {
     //Firebaseのログイン認証
-    const result = await login(formData.userId, formData.password).catch((error) => {
+    const result: null | string = await login(formData.userId, formData.password).catch((error) => {
       //エラーメッセージをセット
       modalMessage.current = getFbAuthErrorMsg(error.code);
 
@@ -54,20 +55,20 @@ const Login: React.VFC = () => {
     }
 
     //ユーザー情報を取得
-    const resData: LoginUserInfo = await getUserInfo(formData.userId).catch((error) => {
+    const res: LoginResType = await getUserInfo(formData.userId).catch((error) => {
       //mutation.isErrorが検知
       throw error;
     });
 
     //コンテキストにユーザー情報をセット
     authContext.setLoginUserInfo({
-      userId: resData.userId,
-      userName: resData.userName,
-      groupId: resData.groupId,
+      userId: res.userId,
+      userName: res.userName,
+      groupId: res.groupId,
     });
 
     //グループ紐付け完了済の場合は検索画面へ遷移
-    if (isExistValue(resData.groupId)) {
+    if (isExistValue(res.groupId)) {
       Router.push('/search');
       //グループ紐付け未完了の場合は紐付け画面へ遷移
     } else {

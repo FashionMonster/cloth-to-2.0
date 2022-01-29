@@ -21,28 +21,28 @@ import { usePreviousValue } from 'common/customHooks/usePreviousValue';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { DB_ERROR } from 'constants/dbErrorInfo';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
-import type { UserFormData } from 'constants/types/userFormData';
+import type { SignupFormType } from 'constants/types/form/signupFormType';
 
 //ユーザー登録画面
 const Signup: React.VFC = () => {
-  const { handleSubmit, register, errors } = useForm<UserFormData>();
+  const { handleSubmit, register, errors } = useForm<SignupFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isCreateSuccess, setIsCreateSuccess] = useState<boolean>(false);
   const modalMessage = useRef<string>('');
   const previousIsModalOpen = usePreviousValue(isModalOpen);
 
   //フォーム送信時
-  const submitCreateUser = (data: UserFormData) => {
-    mutation.mutate(data);
+  const submitCreateUser = (signupForm: SignupFormType) => {
+    mutation.mutate(signupForm);
   };
 
   //ユーザー新規登録処理
-  const mutation: any = useMutation(async (formData: UserFormData) => {
+  const mutation: any = useMutation(async (formData: SignupFormType): Promise<void> => {
     //パスワードを除いたオブジェクトを生成
     const { password, ...postFormData } = formData;
 
     //DBにユーザー登録
-    const result = await axios.post('./api/user/signup', postFormData).catch((error) => {
+    const result = await axios.post('./api/user/signup', postFormData).catch((error: any) => {
       //DB登録で一意制約エラーが発生した場合
       if ((error.response.data.errorInfo.code = DB_ERROR.UNIQUE_CONSTRAINT.CODE)) {
         //失敗メッセージのモーダル表示設定

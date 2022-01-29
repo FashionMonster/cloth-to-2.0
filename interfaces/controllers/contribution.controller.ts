@@ -15,14 +15,16 @@ import { BadRequestExceptionFilter } from 'common/exceptionFilters/BadRequestExc
 import { LoggingInterceptor } from 'common/Interceptors/logging.interceptor';
 import { ContributionService } from 'usecases/contribution.service';
 import { ContributionImageService } from 'usecases/contributionImage.service';
-import { contributeReqDto } from 'domains/dto/contribution/request/contributeReq.dto';
+import { isExistValue } from 'common/utils/isExistValue';
+import { ContributeReqDto } from 'domains/dto/contribution/request/contributeReq.dto';
 import { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
 import { ContributionInfoCreateInputDto } from 'domains/dto/contribution/contributionInfoCreateInputDto';
 import { ContributionImageCreateInputDto } from 'domains/dto/contribution/contributionImageCreateInputDto';
+import { ContributionInfoDetailDto } from 'domains/dto/contribution/contributionInfoDetailDto';
+import { UpdateContributionReqDto } from 'domains/dto/contribution/request/updateContributionReq.dto';
 import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
 import { getContributionInfoDetailReqDto } from 'domains/dto/contribution/request/getContributionInfoDetailReq.dto';
-import { isExistValue } from 'common/utils/isExistValue';
-import { ContributionInfoDetailDto } from 'domains/dto/contribution/contributionInfoDetailDto';
+import { Prisma } from '@prisma/client';
 
 @Controller('contribution')
 @UseFilters(InternalServerErrorExceptionFilter, BadRequestExceptionFilter)
@@ -33,9 +35,9 @@ export class ContributionController {
     private readonly contriobutionImageService: ContributionImageService
   ) {}
 
-  //ユーザー情報登録処理
+  //投稿情報登録処理
   @Post('contribute')
-  async contribute(@Body() contributeReqData: contributeReqDto) {
+  async contribute(@Body() contributeReqData: ContributeReqDto) {
     //投稿画像データの取得
     const imageUrlArray: string[] = contributeReqData.imageUrl;
 
@@ -114,5 +116,53 @@ export class ContributionController {
     res.status(HttpStatus.OK).json({ contributionInfoDetail: contributionInfoDetail });
 
     return { statusCode: HttpStatus.OK, contributionInfoDetail: contributionInfoDetail };
+  }
+
+  //投稿情報更新処理
+  @Post('updateContribution')
+  async updateContribution(
+    @Body() updateContributionReqData: UpdateContributionReqDto,
+    @Res() res: Response
+  ) {
+    //投稿画像データの取得
+    const imageUrlArray: string[] = updateContributionReqData.imageUrl;
+    const contributionIdParam: number = parseInt(updateContributionReqData.contributionId);
+
+    //投稿画像情報を除いた(投稿情報)オブジェクトを生成
+    const { imageUrl, ...contributionInfo }: any = updateContributionReqData;
+    const { contributionId, ...contributionInfo2 }: any = contributionInfo;
+
+    //文字列型のプロパティに一部数字型に変換しないといけないので変換（TODO:別の変換方法を探す）
+    const contributionInfoUpdateInput: Prisma.ContributionInfoUpdateInput = contributionInfo2;
+
+    try {
+      //投稿情報の更新
+      await this.contriobutionService.updateContributionInfo(
+        contributionId,
+        contributionInfoUpdateInput
+      );
+
+      //投稿画像オブジェクトの生成
+      const contributionImage: Prisma.ContributionImageUpdateInput = {
+        imageUrl1: imageUrlArray![0],
+        imageUrl2: isExistValue(imageUrlArray![1]) ? imageUrlArray![1] : null,
+        imageUrl3: isExistValue(imageUrlArray![2]) ? imageUrlArray![2] : null,
+        imageUrl4: isExistValue(imageUrlArray![3]) ? imageUrlArray![3] : null,
+        imageUrl5: isExistValue(imageUrlArray![4]) ? imageUrlArray![4] : null,
+      };
+
+      //投稿画像(URL)の登録
+      await this.contriobutionImageService.updateContributionImage(
+        contributionIdParam,
+        contributionImage
+      );
+    } catch (error: any) {
+      throw error;
+    }
+
+    //データ返却
+    res.status(HttpStatus.OK).json({ contributionInfoDetail: contributionInfoUpdateInput });
+
+    return { statusCode: HttpStatus.CREATED };
   }
 }

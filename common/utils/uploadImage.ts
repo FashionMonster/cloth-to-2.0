@@ -2,10 +2,10 @@ import Compressor from 'compressorjs';
 import { nanoid } from 'nanoid';
 import { firebase } from './firebase';
 import { isExistValue } from './isExistValue';
-import type { ImageInfo } from 'constants/types/imageInfo';
+import type { ReadImageType } from 'constants/types/readImageType';
 
 //画像アップロード
-const uploadImage = (imgFiles: ImageInfo[]): string[] => {
+const uploadImage = (imgFiles: ReadImageType[]): string[] => {
   let idList: string[] = [];
 
   for (const file of imgFiles) {

@@ -1,3 +1,4 @@
+import { GetAllGroupInfoResType } from 'constants/types/response/getallGroupInfoResType';
 import { FieldError } from 'react-hook-form';
 
 //引数の型定義
@@ -5,11 +6,10 @@ type Props = {
   name: string;
   id: string;
   defaultValue: string;
-  placeholder: string;
   width: string;
   register: any; //TODO:要修正
   errors: FieldError | undefined;
-  allGroupInfo: { groupId: string; groupName: string }[];
+  allGroupInfo: GetAllGroupInfoResType;
 };
 
 //グループ選択コンポーネント

@@ -1,8 +1,7 @@
 //グループ紐付け時に必要なデータの型定義
-type LinkUserToGroupInfo = {
+type LinkUserToGroupFormType = {
   groupId: string;
   groupPass: string;
-  userId: string;
 };
 
-export type { LinkUserToGroupInfo };
+export type { LinkUserToGroupFormType };

@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import Router from 'next/router';
 import React, { useContext, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, UseQueryResult } from 'react-query';
 import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
@@ -18,48 +18,58 @@ import { Error } from 'interfaces/ui/components/organisms/error';
 import { usePreviousValue } from 'common/customHooks/usePreviousValue';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import { RESULT_MSG } from 'constants/resultMsg';
-import type { GroupInfo } from 'constants/types/groupInfo';
-import type { LinkUserToGroupInfo } from 'constants/types/linkUserToGroupInfo';
+import type { AuthContextType } from 'constants/types/authContextType';
+import type { GetAllGroupInfoResType } from 'constants/types/response/getallGroupInfoResType';
+import type { LinkUserToGroupFormType } from 'constants/types/form/linkUserToGroupFormType';
 
+//ユーザー情報グループ紐付け画面
 const LinkUserToGroup: React.VFC = () => {
-  const { handleSubmit, register, errors } = useForm();
+  const { handleSubmit, register, errors } = useForm<LinkUserToGroupFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isUpdateSuccess, setIsUpdateSuccess] = useState(false);
+  const [isUpdateSuccess, setIsUpdateSuccess] = useState<boolean>(false);
   const previousModalIsOpen = usePreviousValue(isModalOpen);
-  const modalMessage = useRef('');
-  const value = useContext(AuthContext);
+  const modalMessage = useRef<string>('');
+  const value: AuthContextType | undefined = useContext(AuthContext);
 
-  //初期表示(データ取得)時
-  const query: any = useQuery(
+  //初期表示時、グループ情報全件取得
+  const query: UseQueryResult<GetAllGroupInfoResType | null, any> = useQuery(
     'allGroupInfo',
-    async (): Promise<GroupInfo[]> => {
-      const res = await axios.get('./api/group/getAllGroupInfo').catch((error) => {
-        //query.isErrorが検知
-        throw error;
-      });
+    async (): Promise<GetAllGroupInfoResType> => {
+      const res: AxiosResponse<{ allGroupInfo: GetAllGroupInfoResType }> = await axios
+        .get('./api/group/getAllGroupInfo')
+        .catch((error) => {
+          //query.isErrorが検知
+          throw error;
+        });
 
-      return res.data;
+      return res.data.allGroupInfo;
     },
     { refetchOnMount: 'always' } //登録されたグループアカウントをすぐ反映するため
   );
 
   //フォーム送信時
-  const linkUserToGroup: any = async (data: LinkUserToGroupInfo) => {
-    data.userId = value!.loginUserInfo.userId;
-    mutation.mutate(data);
+  const submitLinkUserToGroup = async (linkUserToGroupForm: LinkUserToGroupFormType) => {
+    mutation.mutate(linkUserToGroupForm);
   };
 
   //グループ紐付け処理
-  const mutation: any = useMutation((formData: LinkUserToGroupInfo) =>
-    axios
-      .put('./api/user/linkUserToGroup', formData)
-      .then((res) => {
+  const mutation: any = useMutation(async (formData: LinkUserToGroupFormType) => {
+    //リクエストデータを生成
+    const param = {
+      groupId: formData.groupId,
+      groupPass: formData.groupPass,
+      userId: value!.loginUserInfo.userId,
+    };
+
+    await axios
+      .put('./api/user/linkUserToGroup', param)
+      .then(() => {
         //成功メッセージのモーダル表示設定
         setIsModalOpen(true);
         setIsUpdateSuccess(true);
         modalMessage.current = RESULT_MSG.OK.FIN_LINK_USER_TO_GROUP;
       })
-      .catch((error) => {
+      .catch((error: any) => {
         //グループのパスワードが誤りの場合
         if ((error.response.data.errorInfo.code = 'WRONG_PASSWORD')) {
           //失敗メッセージのモーダル表示設定
@@ -69,8 +79,8 @@ const LinkUserToGroup: React.VFC = () => {
           //mutation.isErrorが検知
           throw error;
         }
-      })
-  );
+      });
+  });
 
   //更新完了メッセージが開いた状態から閉じる時
   if (previousModalIsOpen && !isModalOpen && isUpdateSuccess) {
@@ -125,7 +135,7 @@ const LinkUserToGroup: React.VFC = () => {
         {/* メイン(コンテンツ) */}
         <Main>
           <form
-            onSubmit={handleSubmit(linkUserToGroup)}
+            onSubmit={handleSubmit(submitLinkUserToGroup)}
             className='grid grid-cols-2 gap-8'
             noValidate={true}
           >
@@ -134,11 +144,10 @@ const LinkUserToGroup: React.VFC = () => {
               name='groupId'
               id='groupId'
               defaultValue=''
-              placeholder=''
               width='200 sm:w-40'
               register={register({ required: true })}
               errors={errors.groupId}
-              allGroupInfo={query.data.allGroupInfo}
+              allGroupInfo={query.data as GetAllGroupInfoResType}
             />
 
             <label htmlFor='groupPass'>パスワード</label>
@@ -151,7 +160,7 @@ const LinkUserToGroup: React.VFC = () => {
                 minLength: 6,
                 maxLength: 12,
               })}
-              errors={errors.password}
+              errors={errors.groupPass}
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
               <SubmitBtn value='登録/更新' width={'28 sm:w-40'} />

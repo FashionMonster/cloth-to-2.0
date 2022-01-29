@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { ContributionInfo } from 'constants/types/contributionInfo';
 import { subString } from 'common/utils/subString';
+import type { SearchResType } from 'constants/types/response/searchResType';
 
 //引数の型定義
 type Props = {
-  contributionInfo: ContributionInfo;
+  contributionInfo: { src: string } & SearchResType;
   path: string;
 };
 

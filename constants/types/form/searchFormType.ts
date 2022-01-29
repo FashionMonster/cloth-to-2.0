@@ -1,12 +1,10 @@
-//投稿データ検索の型定義
-type Search = {
+//投稿データ検索フォームの型定義
+type SearchFormType = {
   page?: number;
   searchCategory?: string;
   keyword?: string;
   compositionRatio?: string;
   compareCondition?: string;
-  userId?: string;
-  groupId?: string;
 };
 
-export type { Search };
+export type { SearchFormType };

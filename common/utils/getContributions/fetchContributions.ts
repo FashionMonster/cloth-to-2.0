@@ -83,22 +83,23 @@ import { downloadImage } from 'common/utils/downloadImage';
 import { getUserInfo } from 'common/utils/getUserInfo';
 import { isExistValue } from 'common/utils/isExistValue';
 import { LoginUserInfo } from 'constants/types/loginUserInfo';
-import type { Search } from 'constants/types/request/contribution/search';
-import type { ContributionInfo } from 'constants/types/contributionInfo';
+import type { SearchFormType } from 'constants/types/form/searchFormType';
+import type { UserInfoType } from 'constants/types/userInfoType';
+import type { SearchResType } from 'constants/types/response/searchResType';
 
 //検索条件を元に投稿情報を取得する
 const fetchContributions = async (
   apiPath: string,
   router: any,
   userInfo: LoginUserInfo
-): Promise<ContributionInfo[] | null> => {
-  let reqData: Search = {
+): Promise<({ src: string } & SearchResType)[] | null> => {
+  let reqData: SearchFormType & UserInfoType = {
     page: router.query.page,
-    groupId: userInfo.groupId,
     searchCategory: router.query.searchCategory,
     keyword: router.query.keyword,
     compositionRatio: router.query.compositionRatio,
     compareCondition: router.query.compareCondition,
+    groupId: userInfo.groupId,
   };
 
   //履歴・編集での検索処理で必要になる追加データ
@@ -107,14 +108,14 @@ const fetchContributions = async (
   }
 
   //データが空のプロパティを削除
-  (Object.keys(reqData) as (keyof Search)[]).map((key) => {
+  (Object.keys(reqData) as (keyof SearchFormType)[]).map((key) => {
     if (!isExistValue(reqData[key])) {
       delete reqData[key];
     }
   });
 
   //投稿情報検索リクエスト
-  const res: AxiosResponse<{ contributionInfos: ContributionInfo[] | null }> = await axios
+  const res: AxiosResponse<{ contributionInfos: SearchResType[] | null }> = await axios
     .get(apiPath, {
       params: reqData,
     })
@@ -127,21 +128,23 @@ const fetchContributions = async (
     return null;
   }
 
-  const startTime = performance.now(); // 開始時間
-
   //ダウンロードURLを取得、レスポンスデータに追加する
-  for (let contributionInfo of res.data.contributionInfos as ContributionInfo[]) {
+  let responseData: ({ src: string } & SearchResType)[] = [];
+  for (let contributionInfo of res.data.contributionInfos as SearchResType[]) {
     const src: string = await downloadImage(contributionInfo.imageUrl1).catch((errorMsg: any) => {
       throw new Error(errorMsg);
     });
-    contributionInfo.src = src;
+
+    //srcを追加したオブジェクトを生成
+    const combinedData: { src: string } & SearchResType = Object.assign(
+      { src: src },
+      contributionInfo
+    );
+
+    responseData.push(combinedData);
   }
 
-  const endTime = performance.now(); // 終了時間
-
-  console.log(endTime - startTime); // 何ミリ秒かかったかを表示する
-
-  return res.data.contributionInfos;
+  return responseData;
 };
 
 export { fetchContributions };

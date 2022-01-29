@@ -1,6 +1,6 @@
-//投稿データの型定義
-type Contribute = {
-  isInit: boolean;
+//投稿データ更新の型定義
+type UpdateContribution = {
+  contributionId?: string;
   userId: string;
   groupId: string;
   materialName: string;
@@ -22,4 +22,4 @@ type Contribute = {
   imageFiles?: any; //フォーム内のnameなので一時的に必要
 };
 
-export type { Contribute };
+export type { UpdateContribution };

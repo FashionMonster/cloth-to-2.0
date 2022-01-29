@@ -1,13 +1,14 @@
-import { IsString, IsEmail, IsOptional, IsArray, IsNumberString } from 'class-validator';
+import { IsString, IsOptional, IsArray, IsNumberString } from 'class-validator';
 
-//投稿情報登録リクエストDTO
-export class ContributeReqDto {
+//投稿情報更新リクエストDTO
+export class UpdateContributionReqDto {
+  @IsNumberString()
+  contributionId!: string;
+
   @IsString()
-  @IsEmail()
   groupId!: string;
 
   @IsString()
-  @IsEmail()
   userId!: string;
 
   @IsString()

@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import React, { useContext, useRef, useState } from 'react';
+import { NextRouter, useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { QueryClient, useMutation, useQueryClient } from 'react-query';
+import { QueryClient, useMutation, useQuery, useQueryClient, UseQueryResult } from 'react-query';
 import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
@@ -15,24 +16,34 @@ import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWind
 import { Error } from 'interfaces/ui/components/organisms/error';
 import { ImageDisplay } from 'interfaces/ui/components/molecules/others/imageDisplay';
 import { ContributeForm } from 'interfaces/ui/components/molecules/contributePage/contributeForm';
-import { isImageExt } from 'common/utils/isImageExt';
+import { isExistValue } from 'common/utils/isExistValue';
 import { readFile } from 'common/utils/readFile';
 import { uploadImage } from 'common/utils/uploadImage';
-import { isExistValue } from 'common/utils/isExistValue';
+import { fetchContributionDetail } from 'common/utils/getContributionDetail/fetchContributionDetail';
+import { isImageExt } from 'common/utils/isImageExt';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
+import type { ContributionInfoDetail } from 'constants/types/contributionInfoDetail';
 import type { ReadImageType } from 'constants/types/readImageType';
 import type { ContributeFormType } from 'constants/types/form/contributeFormType';
+import type { UpdateContribution } from 'constants/types/updateContribution';
 
-//投稿画面
-const Contribution: React.VFC = () => {
+//投稿編集画面
+const ContributionId: React.VFC = () => {
   const value = useContext(AuthContext);
   const [imgFile, setImgFile] = useState<ReadImageType[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const modalMessage = useRef<string>('');
+  const router: NextRouter = useRouter();
   const { handleSubmit, register, errors, getValues, setError, clearErrors } =
     useForm<ContributeFormType>();
   const queryClient: QueryClient = useQueryClient();
+
+  //初期表示時、対象データ取得処理
+  const query: UseQueryResult<ContributionInfoDetail, any> = useQuery(
+    ['contributionDetail', router.asPath],
+    () => fetchContributionDetail()
+  );
 
   //ファイル選択時
   const selectFile = async (e: { target: { files: File[] } }): Promise<void> => {
@@ -56,7 +67,7 @@ const Contribution: React.VFC = () => {
   };
 
   //フォーム送信時
-  const submitInsertContribution = (contributeForm: ContributeFormType) => {
+  const submitUpdateContribution = (contributeForm: ContributeFormType) => {
     //拡張子チェック
     for (const file of imgFile) {
       if (!isImageExt(file.fileName)) {
@@ -70,18 +81,18 @@ const Contribution: React.VFC = () => {
     mutation.mutate(contributeForm);
   };
 
-  //投稿内容登録処理
+  //投稿内容更新処理
   const mutation: any = useMutation(
-    (formData: ContributeFormType) => {
+    async (formData: UpdateContribution) => {
       //データが空のプロパティを削除
-      (Object.keys(formData) as (keyof ContributeFormType)[]).map((key) => {
+      (Object.keys(formData) as (keyof UpdateContribution)[]).map((key) => {
         if (!isExistValue(formData[key])) {
           delete formData[key];
         }
       });
 
       //formのファイルデータを除いたオブジェクトを生成
-      const { imageFiles, ...postFormData }: ContributeFormType = formData;
+      const { imageFiles, ...postFormData }: UpdateContribution = formData;
 
       //FireBase Storageに画像アップロード
       const idList = uploadImage(imgFile);
@@ -90,19 +101,21 @@ const Contribution: React.VFC = () => {
       postFormData.imageUrl = idList;
       postFormData.userId = value!.loginUserInfo.userId;
       postFormData.groupId = value!.loginUserInfo.groupId;
+      postFormData.contributionId = router.query.contributionId as string;
 
-      const data = axios
-        .post('./api/contribution/contribute', postFormData)
+      const res: AxiosResponse<{ updateContribution: UpdateContribution }> = await axios
+        .post('../api/contribution/updateContribution', postFormData)
         .then(() => {
           setImgFile([]); //初期化
           setIsModalOpen(true);
           modalMessage.current = RESULT_MSG.OK.FIN_CREATE_CONTRIBUTION;
+          return res;
         })
         .catch((error: any) => {
           throw error;
         });
 
-      return data;
+      return res.data.updateContribution;
     },
     {
       //クエリキーをリセット、キャッシュを削除
@@ -117,7 +130,7 @@ const Contribution: React.VFC = () => {
   );
 
   //データフェッチ中、ローディング画像を表示
-  if (mutation.isFetching || mutation.isLoading) return <Loading />;
+  if (query.isFetching || query.isLoading) return <Loading />;
 
   //ログインしていない場合に、画面が見えないようにする
   //応急処置なので、対応予定
@@ -126,11 +139,11 @@ const Contribution: React.VFC = () => {
   // }
 
   //エラー発生時
-  if (mutation.isError)
+  if (query.isError)
     return (
       <Error
-        backType={BACK_PAGE_TYPE.RELOAD}
-        errorMsg={mutation.error.response.data.errorInfo.message}
+        backType={BACK_PAGE_TYPE.BROWSER}
+        errorMsg={query.error.response.data.errorInfo.message}
         isLogined={true}
       />
     );
@@ -146,20 +159,24 @@ const Contribution: React.VFC = () => {
         </div>
         {/* 画面説明 */}
         <FunctionExplain>
-          社内・チームで情報を共有します。
+          投稿の詳細を確認、編集できます。
           <br />
-          他メンバーの新たなクリエイションに役立てることができます。
+          最新情報に更新しましょう。
         </FunctionExplain>
         {/* メイン(コンテンツ) */}
         <Main>
           <form
-            onSubmit={handleSubmit(submitInsertContribution)}
+            onSubmit={handleSubmit(submitUpdateContribution)}
             className='grid grid-cols-contributeFormWrapper gap-16 sm:grid-cols-1'
           >
             {/* ファイル選択(画面左) */}
             <div className='grid grid-rows-fileUpload gap-6 sm:grid-rows-sm_fileUpload'>
               <ImageDisplay
-                imgFileUrl={imgFile[0] === undefined ? '' : (imgFile[0].imgFileUrl as string)}
+                imgFileUrl={
+                  isExistValue(imgFile[0])
+                    ? (imgFile[0].imgFileUrl as string)
+                    : (query.data as ContributionInfoDetail).imageUrl[0]
+                }
                 oneSideLength='484'
                 smOneSideLength='352'
               />
@@ -170,7 +187,13 @@ const Contribution: React.VFC = () => {
                     subImageDisplay.push(
                       <ImageDisplay
                         imgFileUrl={
-                          isExistValue(imgFile[i]) ? (imgFile[i].imgFileUrl as string) : ''
+                          isExistValue(imgFile[0])
+                            ? isExistValue(imgFile[i])
+                              ? (imgFile[i].imgFileUrl as string)
+                              : ''
+                            : isExistValue((query.data as ContributionInfoDetail).imageUrl[i])
+                            ? (query.data as ContributionInfoDetail).imageUrl[i]
+                            : ''
                         }
                         oneSideLength='112'
                         smOneSideLength='79'
@@ -195,9 +218,10 @@ const Contribution: React.VFC = () => {
                 getValues={getValues}
                 setError={setError}
                 clearErrors={clearErrors}
+                data={query.data}
               />
               <div className='flex justify-around col-start-2 sm:col-start-1'>
-                <SubmitBtn value='投稿する' width={'24'} />
+                <SubmitBtn value='更新する' width={'24'} />
               </div>
             </div>
             <div />
@@ -213,4 +237,4 @@ const Contribution: React.VFC = () => {
   );
 };
 
-export default Contribution;
+export default ContributionId;

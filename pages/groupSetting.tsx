@@ -19,29 +19,31 @@ import { Error } from 'interfaces/ui/components/organisms/error';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { DB_ERROR } from 'constants/dbErrorInfo';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
-import type { GroupFormData } from 'constants/types/groupFormData';
+import type { AuthContextType } from 'constants/types/authContextType';
+import type { CreateGroupAccountFormType } from 'constants/types/form/createGroupAccountFormType';
 
+//グループアカウント登録画面
 const GroupSetting: React.VFC = () => {
-  const { handleSubmit, register, errors } = useForm();
+  const { handleSubmit, register, errors } = useForm<CreateGroupAccountFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const modalMessage = useRef('');
-  const value = useContext(AuthContext);
+  const modalMessage = useRef<string>('');
+  const value: AuthContextType | undefined = useContext(AuthContext);
 
   //フォーム送信時
-  const createGroupAccount = async (data: GroupFormData) => {
-    mutation.mutate(data);
+  const submitCreateGroupAccount = async (createGroupAccountForm: CreateGroupAccountFormType) => {
+    mutation.mutate(createGroupAccountForm);
   };
 
   //グループアカウント登録処理
   const mutation: any = useMutation(
-    async (formData: GroupFormData) =>
+    async (formData: CreateGroupAccountFormType) =>
       await axios
         .post('./api/group/createGroup', formData)
-        .then((res) => {
+        .then(() => {
           setIsModalOpen(true);
           modalMessage.current = RESULT_MSG.OK.FIN_CREATE_GROUP;
         })
-        .catch((error) => {
+        .catch((error: any) => {
           //DB登録で一意制約エラーが発生した場合
           if ((error.response.data.errorInfo.code = DB_ERROR.UNIQUE_CONSTRAINT.CODE)) {
             //失敗メッセージのモーダル表示設定
@@ -91,7 +93,7 @@ const GroupSetting: React.VFC = () => {
         {/* メイン(コンテンツ) */}
         <Main>
           <form
-            onSubmit={handleSubmit(createGroupAccount)}
+            onSubmit={handleSubmit(submitCreateGroupAccount)}
             className='grid grid-cols-2 gap-8'
             noValidate={true}
           >
@@ -120,7 +122,7 @@ const GroupSetting: React.VFC = () => {
                 pattern: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$/,
                 maxLength: 255,
               })}
-              errors={errors.email}
+              errors={errors.groupId}
             />
 
             <InputLabel for='groupPass'>パスワード</InputLabel>
@@ -133,7 +135,7 @@ const GroupSetting: React.VFC = () => {
                 minLength: 6,
                 maxLength: 12,
               })}
-              errors={errors.password}
+              errors={errors.groupPass}
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
               <SubmitBtn value='グループアカウント登録' width={'200 sm:w-40'} />

@@ -22,33 +22,30 @@ import { updateUserInfo } from 'common/utils/updateUserInfo';
 import { getFbAuthErrorMsg } from 'common/utils/getFbAuthErrorMsg';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
-import type { UserFormData } from 'constants/types/userFormData';
+import type { AuthContextType } from 'constants/types/authContextType';
+import type { UpdateUserInfoFormType } from 'constants/types/form/updateUserInfoFormType';
 
-export default function UserSetting() {
-  const { handleSubmit, register, errors } = useForm();
+//ユーザー情報更新画面
+const UserSetting: React.VFC = () => {
+  const { handleSubmit, register, errors } = useForm<UpdateUserInfoFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isUpdateSuccess, setIsUpdateSuccess] = useState(false);
+  const [isUpdateSuccess, setIsUpdateSuccess] = useState<boolean>(false);
   const previousModalIsOpen = usePreviousValue(isModalOpen);
-  const modalMessage = useRef('');
-  const value = useContext(AuthContext);
+  const modalMessage = useRef<string>('');
+  const value: AuthContextType | undefined = useContext(AuthContext);
 
-  //ユーザー情報更新イベント
-  const updateUserAccount = (data: UserFormData) => {
-    //更新条件のキー情報
-    data.previousUserId = value!.loginUserInfo.userId;
-
-    //ユーザー情報更新
-    const resData = mutation.mutate(data);
-
-    return resData;
+  //フォーム送信時
+  const submitUpdateUserInfo = (updateUserInfoForm: UpdateUserInfoFormType) => {
+    mutation.mutate(updateUserInfoForm);
   };
 
-  const mutation: any = useMutation(async (formData: UserFormData) => {
+  //ユーザー情報更新処理
+  const mutation: any = useMutation(async (formData: UpdateUserInfoFormType) => {
     //パスワードを除いたオブジェクトを生成
     const { password, ...postFormData } = formData;
 
     //DBにユーザー更新
-    const data = await axios.put('./api/user/updateUserInfo', postFormData).catch((error) => {
+    await axios.put('./api/user/updateUserInfo', postFormData).catch((error: any) => {
       //mutation.isErrorがキャッチする
       throw error;
     });
@@ -59,13 +56,13 @@ export default function UserSetting() {
     } catch (error: any) {
       //更新前のデータをセット
       const param = {
-        userId: formData.previousUserId,
+        userId: value!.loginUserInfo.userId,
         userName: value!.loginUserInfo.userName,
         previousUserId: formData.userId,
       };
 
       //DBにユーザー更新(巻き戻し)
-      await axios.put('./api/user/updateUserInfo', param).catch((error) => {
+      await axios.put('./api/user/updateUserInfo', param).catch((error: any) => {
         //mutation.isErrorがキャッチする
         throw error;
       });
@@ -81,7 +78,7 @@ export default function UserSetting() {
     setIsModalOpen(true);
     modalMessage.current = RESULT_MSG.OK.FIN_UPDATE_USER;
 
-    return data;
+    return formData;
   });
 
   //データフェッチ中、ローディング画像を表示
@@ -126,8 +123,8 @@ export default function UserSetting() {
         </FunctionExplain>
         {/* メイン(コンテンツ) */}
         <Main>
-          <form onSubmit={handleSubmit(updateUserAccount)} className='grid grid-cols-2 gap-8'>
-            <InputLabel for='groupName'>ユーザー名</InputLabel>
+          <form onSubmit={handleSubmit(submitUpdateUserInfo)} className='grid grid-cols-2 gap-8'>
+            <InputLabel for='userName'>ユーザー名</InputLabel>
             <InputText
               name='userName'
               id='userName'
@@ -151,7 +148,7 @@ export default function UserSetting() {
                 pattern: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$/,
                 maxLength: 255,
               })}
-              errors={errors.email}
+              errors={errors.userId}
               width='200 sm:w-40'
             />
 
@@ -180,4 +177,6 @@ export default function UserSetting() {
       />
     </>
   );
-}
+};
+
+export default UserSetting;

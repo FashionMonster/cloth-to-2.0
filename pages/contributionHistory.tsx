@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ReactPaginate from 'react-paginate';
@@ -21,29 +21,30 @@ import { calculatePageCount } from 'common/utils/calculatePageCount';
 import { calculateRowCount } from 'common/utils/calculateRowCount';
 import { changePageNum } from 'common/utils/changePageNum';
 import { fetchContributions } from 'common/utils/getContributions/fetchContributions';
-import { setQueryParam } from 'common/utils/getContributions/setQueryParam';
+import { createQueryParam } from 'common/utils/getContributions/createQueryParam';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import { DISPLAY_DATA_NUM } from 'constants/dispalyDataNum';
-import type { ContributionInfo } from 'constants/types/contributionInfo';
+import type { SearchFormType } from 'constants/types/form/searchFormType';
+import type { SearchResType } from 'constants/types/response/searchResType';
 
 const Search: React.VFC = () => {
-  const router: any = useRouter();
+  const router: NextRouter = useRouter();
   const value = useContext(AuthContext);
   const { handleSubmit, register, errors, clearErrors } = useForm();
   const [category, setCategory] = useState('1');
 
   //初期表示時、検索処理
-  const query: UseQueryResult<ContributionInfo[] | null, any> = useQuery(
+  const query: UseQueryResult<({ src: string } & SearchResType)[] | null, any> = useQuery(
     ['contributionHistoryPath', router.asPath],
     () => fetchContributions('./api/contribution/search', router, value!.loginUserInfo)
   );
 
   //フォーム送信時
-  const submitGetContributions = (data: any) => {
+  const submitSearch = (searchForm: SearchFormType) => {
     //クエリパラメータをセットして、再描画
     router.push({
       pathname: '/contributionHistory',
-      query: setQueryParam(data),
+      query: createQueryParam(searchForm),
     });
   };
 
@@ -80,7 +81,7 @@ const Search: React.VFC = () => {
       {/* メイン(コンテンツ) */}
       <Main isContentPositionCenter={false}>
         <form
-          onSubmit={handleSubmit(submitGetContributions)}
+          onSubmit={handleSubmit(submitSearch)}
           className='w-496 h-16 mx-auto grid grid-cols-searchForm gap-4 sm:w-352 sm:grid-cols-1 sm:grid-rows-3 sm:mb-10 sm:h-auto'
         >
           <SelectSearchCategory
@@ -104,8 +105,10 @@ const Search: React.VFC = () => {
               DISPLAY_DATA_NUM.SM_ONE_ROW
             )} sm:gap-3 sm:w-352 sm:mx-auto`}
           >
-            {query.data!.map((item: ContributionInfo) => (
-              <SearchResult contributionInfo={item} path='edit' />
+            {query.data!.map((item: { src: string } & SearchResType) => (
+              <div key={item.imageUrl1}>
+                <SearchResult contributionInfo={item} path='edit' />
+              </div>
             ))}
           </div>
         )}
@@ -114,7 +117,7 @@ const Search: React.VFC = () => {
           <ReactPaginate
             previousLabel={(() => {
               //初期表示 又は 検索取得件数が0件の場合
-              if (router.query.page === 0 || !isExistValue(query.data)) {
+              if ((router.query.page as unknown as number) === 0 || !isExistValue(query.data)) {
                 return <></>;
               } else {
                 return <ArrowIcon icon='<' pathName='/search' router={router} />;
@@ -122,7 +125,7 @@ const Search: React.VFC = () => {
             })()}
             nextLabel={(() => {
               //初期表示 又は 検索取得件数が0件の場合
-              if (router.query.page === 0 || !isExistValue(query.data)) {
+              if ((router.query.page as unknown as number) === 0 || !isExistValue(query.data)) {
                 return <></>;
               } else {
                 return <ArrowIcon icon='>' pathName='/search' router={router} />;
@@ -132,14 +135,14 @@ const Search: React.VFC = () => {
             pageRangeDisplayed={4}
             breakLabel={'...'}
             breakClassName={'break'}
-            initialPage={router.query.page - 1}
+            initialPage={(router.query.page as unknown as number) - 1}
             disableInitialCallback={true}
             pageCount={
               isExistValue(query.data)
                 ? calculatePageCount(query.data!.length, DISPLAY_DATA_NUM.ONE_PAGE)
                 : 0
             }
-            onPageChange={(e: any) => {
+            onPageChange={(e: { selected: number }) => {
               changePageNum(e.selected + 1, '/search', router);
             }}
             containerClassName={'flex w-full justify-center'}

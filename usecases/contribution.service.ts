@@ -139,4 +139,23 @@ export class ContributionService {
       throw new InternalServerErrorException({ code: error.code, message: errorMsg });
     }
   }
+
+  //投稿情報更新
+  async updateContributionInfo(
+    contributionId: number,
+    updateContributionInfoParam: Prisma.ContributionInfoUpdateInput
+  ): Promise<void> {
+    try {
+      await this.prisma.contributionInfo.update({
+        where: {
+          contributionId: contributionId,
+        },
+        data: updateContributionInfoParam,
+      });
+    } catch (error: any) {
+      //エラーコードに合わせたメッセージを取得
+      const errorMsg = getDbErrorMessage(error.code);
+      throw new InternalServerErrorException({ code: error.code, message: errorMsg });
+    }
+  }
 }

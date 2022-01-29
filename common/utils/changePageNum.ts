@@ -1,9 +1,9 @@
-import { Router } from 'next/router';
+import { NextRouter } from 'next/router';
 
 //ページング処理で必要なパラメータセット
-const changePageNum = (pageNum: string, pathName: string, router: Router) => {
+const changePageNum = (pageNum: number, pathName: string, router: NextRouter) => {
   //選択した番号をページにセット
-  router.query.page = pageNum;
+  router.query.page = pageNum.toString();
 
   router.push({
     pathname: pathName,
