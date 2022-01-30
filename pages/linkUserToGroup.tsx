@@ -142,6 +142,7 @@ const LinkUserToGroup: React.VFC = () => {
               register={register({ required: true })}
               errors={errors.groupId}
               allGroupInfo={query.data as GetAllGroupInfoResType}
+              selectedGroupId={loginUserInfo.groupId}
             />
 
             <label htmlFor='groupPass'>パスワード</label>

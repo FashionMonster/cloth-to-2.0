@@ -11,6 +11,7 @@ type Props = {
   register: LegacyRef<HTMLSelectElement> | undefined;
   errors: FieldError | undefined;
   allGroupInfo: GetAllGroupInfoResType;
+  selectedGroupId: string;
 };
 
 //グループ選択コンポーネント
@@ -25,10 +26,16 @@ const SelectGroupName: React.VFC<Props> = (props) => {
       >
         <option value=''></option>
         {props.allGroupInfo.map((item) => {
+          //ユーザーがすでにグループを紐付けている場合
+          let isSelected = false;
+          if (item.groupId === props.selectedGroupId) {
+            isSelected = true;
+          }
+
           return (
             //Reactの配列にはkeyが必要 ※条件によっては不要
             //https://zenn.dev/luvmini511/articles/f7b22d93e9c182
-            <option value={item.groupId} key={item.groupId}>
+            <option value={item.groupId} key={item.groupId} selected={isSelected}>
               {item.groupName}
             </option>
           );
