@@ -1,7 +1,7 @@
 import 'globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { AuthProvider } from 'interfaces/ui/components/organisms/authProvider';
+import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
@@ -26,9 +26,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name='viewport' content='width=device-width,initial-scale=1.0' />
       </Head>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
+        <RecoilRoot>
           <Component {...pageProps} />
-        </AuthProvider>
+        </RecoilRoot>
         <ReactQueryDevtools initialIsOpen />
       </QueryClientProvider>
     </>

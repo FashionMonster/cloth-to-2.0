@@ -21,11 +21,14 @@ import { getFbAuthErrorMsg } from 'common/utils/frontend/getFbAuthErrorMsg';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import type { AuthContextType } from 'constants/types/authContextType';
 import type { LoginFormType } from 'constants/types/form/loginFormType';
-import type { LoginUserInfo } from 'constants/types/loginUserInfo';
 import { LoginResType } from 'constants/types/response/loginResType';
+import { loginUserState } from 'common/utils/frontend/loginUserState';
+import { useRecoilState } from 'recoil';
 
 //ログイン画面
 const Login: React.VFC = () => {
+  const [loginUserInfo, setLoginUserInfo] = useRecoilState(loginUserState);
+
   const { handleSubmit, register, errors } = useForm<LoginFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const modalMessage = useRef<string>('');
@@ -61,10 +64,10 @@ const Login: React.VFC = () => {
     });
 
     //コンテキストにユーザー情報をセット
-    authContext.setLoginUserInfo({
+    setLoginUserInfo({
       userId: res.userId,
       userName: res.userName,
-      groupId: res.groupId,
+      groupId: isExistValue(res.groupId) ? (res.groupId as string) : '',
     });
 
     //グループ紐付け完了済の場合は検索画面へ遷移

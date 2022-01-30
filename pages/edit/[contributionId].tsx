@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { NextRouter, useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { QueryClient, useMutation, useQuery, useQueryClient, UseQueryResult } from 'react-query';
-import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
 import { Navigation } from 'interfaces/ui/components/organisms/navigation';
@@ -16,6 +16,7 @@ import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWind
 import { Error } from 'interfaces/ui/components/organisms/error';
 import { ImageDisplay } from 'interfaces/ui/components/molecules/others/imageDisplay';
 import { ContributeForm } from 'interfaces/ui/components/molecules/contributePage/contributeForm';
+import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { isExistValue } from 'common/utils/isExistValue';
 import { isImageExt } from 'common/utils/isImageExt';
 import { readFile } from 'common/utils/readFile';
@@ -30,7 +31,7 @@ import type { UpdateContribution } from 'constants/types/updateContribution';
 
 //投稿編集画面
 const ContributionId: React.VFC = () => {
-  const value = useContext(AuthContext);
+  const [loginUserInfo] = useRecoilState(loginUserState);
   const [imgFile, setImgFile] = useState<ReadImageType[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const modalMessage = useRef<string>('');
@@ -103,8 +104,8 @@ const ContributionId: React.VFC = () => {
 
       //フォーム以外のデータをセット
       postFormData.imageUrl = idList;
-      postFormData.userId = value!.loginUserInfo.userId;
-      postFormData.groupId = value!.loginUserInfo.groupId;
+      postFormData.userId = loginUserInfo.userId;
+      postFormData.groupId = loginUserInfo.groupId;
       postFormData.contributionId = router.query.contributionId as string;
 
       const res: AxiosResponse<{ updateContribution: UpdateContribution }> = await axios

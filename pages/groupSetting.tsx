@@ -1,8 +1,7 @@
 import axios from 'axios';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
 import { Navigation } from 'interfaces/ui/components/organisms/navigation';
@@ -19,7 +18,6 @@ import { Error } from 'interfaces/ui/components/organisms/error';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { DB_ERROR } from 'constants/dbErrorInfo';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
-import type { AuthContextType } from 'constants/types/authContextType';
 import type { CreateGroupAccountFormType } from 'constants/types/form/createGroupAccountFormType';
 
 //グループアカウント登録画面
@@ -27,7 +25,6 @@ const GroupSetting: React.VFC = () => {
   const { handleSubmit, register, errors } = useForm<CreateGroupAccountFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const modalMessage = useRef<string>('');
-  const value: AuthContextType | undefined = useContext(AuthContext);
 
   //フォーム送信時
   const submitCreateGroupAccount = async (createGroupAccountForm: CreateGroupAccountFormType) => {

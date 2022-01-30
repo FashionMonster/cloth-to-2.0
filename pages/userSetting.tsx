@@ -1,9 +1,9 @@
 import axios from 'axios';
 import Router from 'next/router';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
 import { Navigation } from 'interfaces/ui/components/organisms/navigation';
@@ -18,21 +18,21 @@ import { Loading } from 'interfaces/ui/components/atoms/others/loading';
 import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWindow';
 import { Error } from 'interfaces/ui/components/organisms/error';
 import { usePreviousValue } from 'common/customHooks/usePreviousValue';
+import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { updateUserInfo } from 'common/utils/frontend/updateUserInfo';
 import { getFbAuthErrorMsg } from 'common/utils/frontend/getFbAuthErrorMsg';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
-import type { AuthContextType } from 'constants/types/authContextType';
 import type { UpdateUserInfoFormType } from 'constants/types/form/updateUserInfoFormType';
 
 //ユーザー情報更新画面
 const UserSetting: React.VFC = () => {
+  const [loginUserInfo] = useRecoilState(loginUserState);
   const { handleSubmit, register, errors } = useForm<UpdateUserInfoFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isUpdateSuccess, setIsUpdateSuccess] = useState<boolean>(false);
   const previousModalIsOpen = usePreviousValue(isModalOpen);
   const modalMessage = useRef<string>('');
-  const value: AuthContextType | undefined = useContext(AuthContext);
 
   //フォーム送信時
   const submitUpdateUserInfo = (updateUserInfoForm: UpdateUserInfoFormType) => {
@@ -56,8 +56,8 @@ const UserSetting: React.VFC = () => {
     } catch (error: any) {
       //更新前のデータをセット
       const param = {
-        userId: value!.loginUserInfo.userId,
-        userName: value!.loginUserInfo.userName,
+        userId: loginUserInfo.userId,
+        userName: loginUserInfo.userName,
         previousUserId: formData.userId,
       };
 
@@ -128,7 +128,7 @@ const UserSetting: React.VFC = () => {
             <InputText
               name='userName'
               id='userName'
-              defaultValue={value!.loginUserInfo.userName}
+              defaultValue={loginUserInfo.userName}
               placeholder=''
               register={register({ required: true, maxLength: 20 })}
               errors={errors.userName}
@@ -141,7 +141,7 @@ const UserSetting: React.VFC = () => {
             <InputEmail
               name='userId'
               id='userId'
-              defaultValue={value!.loginUserInfo.userId}
+              defaultValue={loginUserInfo.userId}
               placeholder=''
               register={register({
                 required: true,

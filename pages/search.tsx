@@ -1,9 +1,9 @@
 import { NextRouter, useRouter } from 'next/router';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import ReactPaginate from 'react-paginate';
 import { useQuery, UseQueryResult } from 'react-query';
-import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
 import { Navigation } from 'interfaces/ui/components/organisms/navigation';
@@ -15,6 +15,7 @@ import { ArrowIcon } from 'interfaces/ui/components/atoms/icon/arrowIcon';
 import { SelectSearchCategory } from 'interfaces/ui/components/atoms/selectBoxes/selectSearchCategory';
 import { SearchInput } from 'interfaces/ui/components/molecules/searchPage/searchInput';
 import { SearchResult } from 'interfaces/ui/components/molecules/searchPage/searchResult';
+import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { isExistValue } from 'common/utils/isExistValue';
 import { getNumberPerOneDisplay } from 'common/utils/frontend/getNumberPerOneDisplay';
 import { changePageNum } from 'common/utils/frontend/changePageNum';
@@ -27,14 +28,14 @@ import type { SearchResType } from 'constants/types/response/searchResType';
 
 const Search: React.VFC = () => {
   const router: NextRouter = useRouter();
-  const value = useContext(AuthContext);
+  const [loginUserInfo] = useRecoilState(loginUserState);
   const { handleSubmit, register, errors, clearErrors } = useForm();
   const [category, setCategory] = useState('1');
 
   //初期表示時、検索処理
   const query: UseQueryResult<({ src: string } & SearchResType)[] | null, any> = useQuery(
     ['searchPath', router.asPath],
-    () => fetchContributions('./api/contribution/search', router, value!.loginUserInfo)
+    () => fetchContributions('./api/contribution/search', router, loginUserInfo)
   );
 
   //フォーム送信時

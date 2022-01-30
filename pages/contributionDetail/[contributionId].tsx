@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { useQuery, UseQueryResult } from 'react-query';
-import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
 import { Navigation } from 'interfaces/ui/components/organisms/navigation';
@@ -13,13 +12,14 @@ import { Error } from 'interfaces/ui/components/organisms/error';
 import { ImageDisplay } from 'interfaces/ui/components/molecules/others/imageDisplay';
 import { ContributeForm } from 'interfaces/ui/components/molecules/contributePage/contributeForm';
 import { BackBtn } from 'interfaces/ui/components/atoms/buttons/backBtn';
+import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { isExistValue } from 'common/utils/isExistValue';
 import { fetchContributionDetail } from 'common/utils/frontend/getContributionDetail/fetchContributionDetail';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import type { ContributionInfoDetail } from 'constants/types/contributionInfoDetail';
 
 const ContributionId: React.VFC = () => {
-  const value = useContext(AuthContext);
+  const [loginUserInfo] = useRecoilState(loginUserState);
   const router = useRouter();
   const { register, errors, getValues, setError, clearErrors } = useForm();
 
@@ -31,12 +31,6 @@ const ContributionId: React.VFC = () => {
 
   //データフェッチ中、ローディング画像を表示
   if (query.isFetching || query.isLoading) return <Loading />;
-
-  //ログインしていない場合に、画面が見えないようにする
-  //応急処置なので、対応予定
-  // if (value.userInfo.userId === '') {
-  //   return <></>;
-  // }
 
   //エラー発生時
   if (query.isError)
