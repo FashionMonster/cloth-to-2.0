@@ -36,57 +36,38 @@ const Login: React.VFC = () => {
   };
 
   //ログイン処理
-  const mutation: any = useMutation(
-    async (formData: LoginFormType) => {
-      //Firebaseのログイン認証
-      const result: null | string = await login(formData.userId, formData.password).catch(
-        (error) => {
-          //エラーメッセージをセット
-          modalMessage.current = getFbAuthErrorMsg(error.code);
+  const mutation: any = useMutation(async (formData: LoginFormType) => {
+    //Firebaseのログイン認証
+    const result: null | string = await login(formData.userId, formData.password).catch((error) => {
+      //エラーメッセージをセット
+      modalMessage.current = getFbAuthErrorMsg(error.code);
 
-          //モーダルを開く
-          setIsModalOpen(true);
+      //モーダルを開く
+      setIsModalOpen(true);
 
-          return error.code;
-        }
-      );
+      return error.code;
+    });
 
-      //エラーメッセージがセットされている場合
-      if (isExistValue(result)) {
-        return;
-      }
-
-      //ユーザー情報を取得
-      const res: LoginResType = await getUserInfo(formData.userId).catch((error) => {
-        //mutation.isErrorが検知
-        throw error;
-      });
-
-      //コンテキストにユーザー情報をセット
-      setLoginUserInfo({
-        userId: res.userId,
-        userName: res.userName,
-        groupId: isExistValue(res.groupId) ? (res.groupId as string) : '',
-      });
-
-      return res;
-    },
-    {
-      //ログイン後の画面遷移
-      onSuccess: (res: LoginResType | undefined) => {
-        //ログイン処理に失敗した場合
-        if (!isExistValue(res)) {
-          return;
-          //グループ紐付け完了済の場合
-        } else if (isExistValue(res!.groupId)) {
-          Router.push('/search');
-          //グループ紐付け未完了の場合
-        } else {
-          Router.push('/linkUserToGroup');
-        }
-      },
+    //エラーメッセージがセットされている場合
+    if (isExistValue(result)) {
+      return;
     }
-  );
+
+    //ユーザー情報を取得
+    const res: LoginResType = await getUserInfo(formData.userId).catch((error) => {
+      //mutation.isErrorが検知
+      throw error;
+    });
+
+    //コンテキストにユーザー情報をセット
+    setLoginUserInfo({
+      userId: res.userId,
+      userName: res.userName,
+      groupId: isExistValue(res.groupId) ? (res.groupId as string) : '',
+    });
+
+    return res;
+  });
 
   //ローディング画面を表示
   if (mutation.isFetching || mutation.isLoading) return <Loading />;
@@ -100,6 +81,18 @@ const Login: React.VFC = () => {
         isLogined={false}
       />
     );
+  }
+
+  if (mutation.isSuccess) {
+    //グループ紐付け完了済の場合
+    if (isExistValue(mutation.data.groupId)) {
+      Router.push('/search');
+      //グループ紐付け未完了の場合
+    } else {
+      Router.push('/linkUserToGroup');
+    }
+    //空画面を表示　※ない場合、一瞬ログイン画面が見えてしまう
+    return <></>;
   }
 
   return (
