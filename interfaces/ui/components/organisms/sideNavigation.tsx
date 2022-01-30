@@ -63,7 +63,7 @@ const SideNavigation: React.VFC = () => {
                 </SideNavLink>
                 {/* 設定とサブナビ */}
                 <SettingSideNav />
-                <SideNavLink href='/' image='logout.png' isLogout={true}>
+                <SideNavLink href='/' image='logout.png' isLogoutLink={true}>
                   ログアウト
                 </SideNavLink>
               </>

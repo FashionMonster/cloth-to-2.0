@@ -5,8 +5,8 @@ import type { ContributionInfoDetail } from 'constants/types/contributionInfoDet
 //投稿データ詳細を取得する
 const fetchContributionDetail = async () => {
   //パスに含まれる投稿IDを取得
-  const urlParamNum = window.location.href.lastIndexOf('/') + 1;
-  const contributionId = window.location.href.substr(urlParamNum);
+  const urlParamNum: number = window.location.href.lastIndexOf('/') + 1;
+  const contributionId: string = window.location.href.substr(urlParamNum);
 
   const res: AxiosResponse<{ contributionInfoDetail: ContributionInfoDetail }> = await axios
     .get('../api/contribution/getContributionDetail', {
@@ -25,7 +25,7 @@ const fetchContributionDetail = async () => {
 
   for (let imageName of res.data.contributionInfoDetail.imageName) {
     //downloadUrlを取得
-    const src = await downloadImage(imageName);
+    const src: string = await downloadImage(imageName);
 
     //downloadURLの配列を生成
     res.data.contributionInfoDetail.imageUrl.push(src);

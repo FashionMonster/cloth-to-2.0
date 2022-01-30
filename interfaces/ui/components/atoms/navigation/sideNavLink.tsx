@@ -11,7 +11,7 @@ type Props = {
   href: string;
   image?: string;
   children: React.ReactNode;
-  isLogout?: boolean;
+  isLogoutLink?: boolean;
 };
 
 //サイドナビリンクコンポーネント
@@ -19,8 +19,8 @@ const SideNavLink: React.VFC<Props> = (props) => {
   const [loginUserInfo, setLoginUserInfo] = useRecoilState(loginUserState);
   const queryClient = useQueryClient();
 
-  //閉じるの場合
-  if (isExistValue(props.isLogout) && props.isLogout) {
+  //ログアウトリンクの場合
+  if (props.isLogoutLink) {
     return (
       <div
         className='grid grid-cols-sideNav gap-2'

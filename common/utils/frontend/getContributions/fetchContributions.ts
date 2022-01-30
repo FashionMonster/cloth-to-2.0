@@ -69,7 +69,7 @@ const fetchContributions = async (
 
     //srcを追加したオブジェクトを生成
     const combinedData: { src: string } & SearchResType = Object.assign(
-      { src: src },
+      { src: src as string },
       contributionInfo
     );
 

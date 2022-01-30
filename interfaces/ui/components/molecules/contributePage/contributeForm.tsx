@@ -235,7 +235,6 @@ const ContributeForm: React.VFC<Props> = (props) => {
         register={props.register({ maxLength: 200 })}
         errors={props.errors.comment}
       />
-      {/* <div /> */}
     </>
   );
 };
