@@ -85,7 +85,7 @@ const Search: React.VFC = () => {
             register={register()}
           />
           <SearchInput category={category} register={register} errors={errors} />
-          <SubmitBtn value='検索' width='20' />
+          <SubmitBtn value='検索' width='20' query={query} />
         </form>
         {isExistValue(query.data) && (
           //PCは１行に５件、スマホは１行に２件表示する
