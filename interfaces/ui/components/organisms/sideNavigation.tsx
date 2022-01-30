@@ -1,17 +1,18 @@
-import { useState, useContext } from 'react';
-import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { SideNavLink } from 'interfaces/ui/components/atoms/navigation/sideNavlink';
 import { Hamburger } from 'interfaces/ui/components/atoms/navigation/hamburger';
 import { Close } from 'interfaces/ui/components/atoms/navigation/close';
 import { SettingSideNav } from 'interfaces/ui/components/molecules/navigation/settingSideNav';
+import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { isExistValue } from 'common/utils/isExistValue';
 import { subString } from 'common/utils/subString';
 import { SideNavBackground } from 'interfaces/ui/components/atoms/others/sideNavBackground';
 
 //サイドナビゲーション(メニュー)　※スマホ時のみ使用
 const SideNavigation: React.VFC = () => {
+  const [loginUserInfo] = useRecoilState(loginUserState);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const value = useContext(AuthContext);
 
   //初期表示 または メニューを閉じている時
   let sideNav = (
@@ -33,10 +34,8 @@ const SideNavigation: React.VFC = () => {
           </div>
           <nav className='absolute top-10 left-4 z-10 grid grid-rows-7 gap-4'>
             {/* ログイン後のみ表示 */}
-            {isExistValue(value?.loginUserInfo.userId) && (
-              <div className='text-white'>
-                ようこそ {subString(value!.loginUserInfo.userName, 4)} さん
-              </div>
+            {isExistValue(loginUserInfo.userId) && (
+              <div className='text-white'>ようこそ {subString(loginUserInfo.userName, 4)} さん</div>
             )}
             <SideNavLink href='/' image='top.png'>
               トップ
@@ -45,13 +44,13 @@ const SideNavigation: React.VFC = () => {
               ユーザー登録
             </SideNavLink>
             {/* 　ログイン前のみ表示 */}
-            {!isExistValue(value?.loginUserInfo.userId) && (
+            {!isExistValue(loginUserInfo.userId) && (
               <SideNavLink href='/login' image='login.png'>
                 ログイン
               </SideNavLink>
             )}
             {/* ログイン後のみ表示 */}
-            {isExistValue(value?.loginUserInfo.userId) && (
+            {isExistValue(loginUserInfo.userId) && (
               <>
                 <SideNavLink href='/search' image='search.png'>
                   一覧/検索

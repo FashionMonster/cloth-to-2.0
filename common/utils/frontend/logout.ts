@@ -1,19 +1,26 @@
 import Router from 'next/router';
+import type { SetterOrUpdater } from 'recoil';
+import { QueryClient } from 'react-query';
 import { firebase } from 'common/utils/frontend/firebase';
-import { AuthContextType } from 'constants/types/authContextType';
 
 //ログアウト
-const logout = async (contextVal: AuthContextType): Promise<void> => {
+const logout = async (
+  setLoginUserInfo: SetterOrUpdater<any>,
+  queryClient: QueryClient
+): Promise<void> => {
   await firebase
     .auth()
     .signOut()
     .then(() => {
-      //コンテキストバリューを初期化する
-      contextVal.setLoginUserInfo({
+      //ログインユーザー情報を初期化する
+      setLoginUserInfo({
         userId: '',
         userName: '',
         groupId: '',
       });
+
+      //react-queryで保持したキャッシュをクリアする
+      queryClient.clear();
 
       //ログアウト後TOP画面に遷移
       Router.push('/');

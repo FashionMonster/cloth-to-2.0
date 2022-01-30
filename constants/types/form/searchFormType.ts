@@ -1,6 +1,6 @@
 //投稿データ検索フォームの型定義
 type SearchFormType = {
-  page?: number;
+  page?: string;
   searchCategory?: string;
   keyword?: string;
   compositionRatio?: string;

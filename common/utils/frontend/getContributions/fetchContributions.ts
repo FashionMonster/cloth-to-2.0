@@ -1,86 +1,6 @@
-// import axios from 'axios';
-// import queryString from 'query-string';
-// import { downloadImage } from 'common/utils/downloadImage';
-// import { getUserInfo } from 'common/utils/getUserInfo';
-// import { isExistValue } from 'common/utils/isExistValue';
-// import { LoginUserInfo } from 'constants/types/loginUserInfo';
-// import { Search } from 'constants/types/request/contribution/search';
-
-// //検索条件を元に投稿情報を取得する
-// const fetchContributions = async (apiPath: string, router: any, userInfo: LoginUserInfo) => {
-//   //リクエストデータ
-//   // let reqData: any;
-
-//   //通常の遷移
-//   if (isExistValue(router.query.page)) {
-//     let reqData: Search = {
-//       page: router.query.page,
-//       groupId: userInfo.groupId,
-//       searchCategory: router.query.searchCategory,
-//       keyword: router.query.keyword,
-//       compositionRatio: router.query.compositionRatio,
-//       compareCondition: router.query.compareCondition,
-//     };
-
-//     //履歴・編集での検索処理で必要になる追加データ
-//     if (router.pathname === '/contributionHistory') {
-//       reqData.userId = userInfo.userId;
-//     }
-
-//     //データが空のプロパティを削除
-//     (Object.keys(reqData) as (keyof Search)[]).map((key) => {
-//       if (!isExistValue(reqData[key])) {
-//         delete reqData[key];
-//       }
-//     });
-
-//     //URL直叩きの場合
-//   } else {
-//     //useContext()のデータ取得はフェッチ後になるので、以下で再取得
-//     const userInfo = await getUserInfo();
-//     const urlData = queryString.parseUrl(router.asPath, {
-//       parseFragmentIdentifier: true,
-//     });
-//     reqData = {
-//       page: urlData.query.page,
-//       groupId: userInfo.groupId,
-//       searchCategory: urlData.query.searchCategory,
-//       keyword: urlData.query.keyword,
-//       compositionRatio: urlData.query.compositionRatio,
-//       compareCondition: urlData.query.compareCondition,
-//     };
-//     //履歴・編集での検索処理で必要になる追加データ
-//     if (router.pathname === '/contributionHistory') {
-//       reqData.userId = userInfo.userId;
-//     }
-//   }
-
-//   const { data } = await axios
-//     .get(apiPath, {
-//       params: reqData,
-//     })
-//     .catch((error) => {
-//       throw error;
-//     });
-
-//   //downloadUrlを取得、dataにセットする
-//   if (data.totalCount > 0) {
-//     for (let res of data.images) {
-//       const src = await downloadImage(res.imageUrl).catch((errMsg) => {
-//         throw new Error(errMsg);
-//       });
-//       res.src = src;
-//     }
-//   }
-//   return data;
-// };
-
-// export { fetchContributions };
-
 import axios, { AxiosResponse } from 'axios';
 import queryString from 'query-string';
 import { downloadImage } from 'common/utils/frontend/downloadImage';
-import { getUserInfo } from 'common/utils/frontend/getUserInfo';
 import { isExistValue } from 'common/utils/isExistValue';
 import { LoginUserInfo } from 'constants/types/loginUserInfo';
 import type { SearchFormType } from 'constants/types/form/searchFormType';
@@ -93,21 +13,33 @@ const fetchContributions = async (
   router: any,
   userInfo: LoginUserInfo
 ): Promise<({ src: string } & SearchResType)[] | null> => {
+  const urlData: queryString.ParsedUrl = queryString.parseUrl(router.asPath, {
+    parseFragmentIdentifier: true,
+  });
+
+  //リクエストパラメータを生成
   let reqData: SearchFormType & UserInfoType = {
-    page: router.query.page,
-    searchCategory: router.query.searchCategory,
-    keyword: router.query.keyword,
-    compositionRatio: router.query.compositionRatio,
-    compareCondition: router.query.compareCondition,
+    page: isExistValue(urlData.query.page) ? (urlData.query.page as string) : undefined,
     groupId: userInfo.groupId,
+    searchCategory: isExistValue(urlData.query.searchCategory)
+      ? (urlData.query.searchCategory as string)
+      : undefined,
+    keyword: isExistValue(urlData.query.keyword) ? (urlData.query.keyword as string) : undefined,
+    compositionRatio: isExistValue(urlData.query.compositionRatio)
+      ? (urlData.query.compositionRatio as string)
+      : undefined,
+    compareCondition: isExistValue(urlData.query.compareCondition)
+      ? (urlData.query.compareCondition as string)
+      : undefined,
   };
 
-  //履歴・編集での検索処理で必要になる追加データ
+  //履歴・編集での検索処理の場合
   if (router.pathname === '/contributionHistory') {
+    //ユーザーIDをリクエストパラメータに追加
     reqData.userId = userInfo.userId;
   }
 
-  //データが空のプロパティを削除
+  //データが存在しないプロパティを削除
   (Object.keys(reqData) as (keyof SearchFormType)[]).map((key) => {
     if (!isExistValue(reqData[key])) {
       delete reqData[key];

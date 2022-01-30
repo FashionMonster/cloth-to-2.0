@@ -2,7 +2,6 @@ import { useContext, useRef, useState } from 'react';
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
 import { FunctionExplain } from 'interfaces/ui/components/atoms/others/functionExplain';
@@ -19,7 +18,6 @@ import { getUserInfo } from 'common/utils/frontend/getUserInfo';
 import { isExistValue } from 'common/utils/isExistValue';
 import { getFbAuthErrorMsg } from 'common/utils/frontend/getFbAuthErrorMsg';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
-import type { AuthContextType } from 'constants/types/authContextType';
 import type { LoginFormType } from 'constants/types/form/loginFormType';
 import { LoginResType } from 'constants/types/response/loginResType';
 import { loginUserState } from 'common/utils/frontend/loginUserState';
@@ -28,11 +26,9 @@ import { useRecoilState } from 'recoil';
 //ログイン画面
 const Login: React.VFC = () => {
   const [loginUserInfo, setLoginUserInfo] = useRecoilState(loginUserState);
-
   const { handleSubmit, register, errors } = useForm<LoginFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const modalMessage = useRef<string>('');
-  const authContext: any = useContext<AuthContextType | undefined>(AuthContext);
 
   //フォーム送信時
   const submitLogin = (loginForm: LoginFormType) => {

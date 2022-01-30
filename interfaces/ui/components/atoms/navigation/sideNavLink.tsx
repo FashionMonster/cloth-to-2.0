@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/Link';
-import { useContext } from 'react';
-import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
+import { useQueryClient } from 'react-query';
+import { useRecoilState } from 'recoil';
+import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { isExistValue } from 'common/utils/isExistValue';
 import { logout } from 'common/utils/frontend/logout';
-import type { AuthContextType } from 'constants/types/authContextType';
 
 //引数の型定義
 type Props = {
@@ -16,14 +16,16 @@ type Props = {
 
 //サイドナビリンクコンポーネント
 const SideNavLink: React.VFC<Props> = (props) => {
-  const value: AuthContextType | undefined = useContext(AuthContext);
+  const [loginUserInfo, setLoginUserInfo] = useRecoilState(loginUserState);
+  const queryClient = useQueryClient();
 
+  //閉じるの場合
   if (isExistValue(props.isLogout) && props.isLogout) {
     return (
       <div
         className='grid grid-cols-sideNav gap-2'
         onClick={() => {
-          logout(value!);
+          logout(setLoginUserInfo, queryClient);
         }}
       >
         {/* 画像が指定されている場合 */}
