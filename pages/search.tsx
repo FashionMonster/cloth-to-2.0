@@ -1,5 +1,5 @@
 import { NextRouter, useRouter } from 'next/router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import ReactPaginate from 'react-paginate';
@@ -46,12 +46,6 @@ const Search: React.VFC = () => {
       query: createQueryParam(searchForm),
     });
   };
-
-  //ログインしていない場合に、画面が見えないようにする
-  //応急処置なので、対応予定
-  // if (value.userInfo.userId === '') {
-  //   return <></>;
-  // }
 
   //初期表示(データ取得)でエラー発生時
   if (query.error)

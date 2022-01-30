@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
@@ -55,12 +55,6 @@ const GroupSetting: React.VFC = () => {
 
   //データフェッチ中、ローディング画像を表示
   if (mutation.isFetching || mutation.isLoading) return <Loading />;
-
-  //ログインしていない場合に、画面が見えないようにする
-  //TODO: 応急処置なので、対応予定
-  // if (value?.loginUserInfo.userId === '') {
-  //   return <></>;
-  // }
 
   //エラー発生時
   if (mutation.isError)

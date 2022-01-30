@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Router from 'next/router';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -83,12 +83,6 @@ const UserSetting: React.VFC = () => {
 
   //データフェッチ中、ローディング画像を表示
   if (mutation.isFetching || mutation.isLoading) return <Loading />;
-
-  //ログインしていない場合に、画面が見えないようにする
-  //応急処置なので、対応予定
-  // if (value.userInfo.userId === "") {
-  //   return <></>;
-  // }
 
   //エラー発生時
   if (mutation.isError) {

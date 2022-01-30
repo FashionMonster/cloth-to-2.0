@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
 import Router from 'next/router';
-import React, { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, UseQueryResult } from 'react-query';
-import { AuthContext } from 'interfaces/ui/components/organisms/authProvider';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
 import { Navigation } from 'interfaces/ui/components/organisms/navigation';
@@ -16,20 +16,20 @@ import { Loading } from 'interfaces/ui/components/atoms/others/loading';
 import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWindow';
 import { Error } from 'interfaces/ui/components/organisms/error';
 import { usePreviousValue } from 'common/customHooks/usePreviousValue';
+import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import { RESULT_MSG } from 'constants/resultMsg';
-import type { AuthContextType } from 'constants/types/authContextType';
 import type { GetAllGroupInfoResType } from 'constants/types/response/getallGroupInfoResType';
 import type { LinkUserToGroupFormType } from 'constants/types/form/linkUserToGroupFormType';
 
 //ユーザー情報グループ紐付け画面
 const LinkUserToGroup: React.VFC = () => {
+  const [loginUserInfo] = useRecoilState(loginUserState);
   const { handleSubmit, register, errors } = useForm<LinkUserToGroupFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isUpdateSuccess, setIsUpdateSuccess] = useState<boolean>(false);
   const previousModalIsOpen = usePreviousValue(isModalOpen);
   const modalMessage = useRef<string>('');
-  const value: AuthContextType | undefined = useContext(AuthContext);
 
   //初期表示時、グループ情報全件取得
   const query: UseQueryResult<GetAllGroupInfoResType | null, any> = useQuery(
@@ -58,7 +58,7 @@ const LinkUserToGroup: React.VFC = () => {
     const param = {
       groupId: formData.groupId,
       groupPass: formData.groupPass,
-      userId: value!.loginUserInfo.userId,
+      userId: loginUserInfo.userId,
     };
 
     await axios
@@ -90,12 +90,6 @@ const LinkUserToGroup: React.VFC = () => {
   //データフェッチ中、ローディング画像を表示
   if (query.isFetching || query.isLoading || mutation.isFetching || mutation.isLoading)
     return <Loading />;
-
-  //ログインしていない場合に、画面が見えないようにする
-  //TODO: 応急処置なので、対応予定
-  // if (value?.loginUserInfo.userId === '') {
-  //   return <></>;
-  // }
 
   //初期表示(データ取得)でエラー発生時
   if (query.error)

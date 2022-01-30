@@ -18,7 +18,7 @@ const defaultOptions = {
 
 const queryClient = new QueryClient(defaultOptions);
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
@@ -33,6 +33,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       </QueryClientProvider>
     </>
   );
-}
+};
 
 export default MyApp;
