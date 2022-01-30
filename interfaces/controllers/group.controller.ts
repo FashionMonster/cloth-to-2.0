@@ -17,7 +17,6 @@ import { GroupService } from 'usecases/group.service';
 import { GroupAccountEntity } from 'domains/entities/groupAccountEntity';
 import { CreateGroupReqDto } from 'domains/dto/group/request/createGroupReq.dto';
 import { createHashPass } from 'common/utils/backend/createHashPass';
-import { RESULT_MSG } from 'constants/resultMsg';
 
 @Controller('group')
 @UseFilters(InternalServerErrorExceptionFilter, BadRequestExceptionFilter)
@@ -33,7 +32,7 @@ export class GroupController {
       (error: any) => {
         throw new InternalServerErrorException({
           code: 'UNEXPECTED',
-          message: RESULT_MSG.ERR.OTHER,
+          message: error,
         });
       }
     );

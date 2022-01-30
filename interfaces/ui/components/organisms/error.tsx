@@ -19,9 +19,15 @@ const Error: React.VFC<Props> = (props) => {
     <Body isLogined={props.isLogined}>
       <div id='headerWrapper'>
         <Header isLogined={props.isLogined} />
-        <div className='sm:hidden'>
-          <Navigation />
-        </div>
+        {() => {
+          if (props.isLogined) {
+            return (
+              <div className='sm:hidden'>
+                <Navigation />
+              </div>
+            );
+          }
+        }}
       </div>
       {/* 画面説明 */}
       <FunctionExplain>

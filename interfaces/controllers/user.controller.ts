@@ -20,6 +20,7 @@ import { UserService } from 'usecases/user.service';
 import { GroupService } from 'usecases/group.service';
 import { UserAccountEntity } from 'domains/entities/userAccountEntity';
 import { SignupReqDto } from 'domains/dto/user/request/signupReq.dto';
+import { GetUserInfoReqDto } from 'domains/dto/user/request/getUserInfoReq.dto';
 import { UpdateUserInfoReqDto } from 'domains/dto/user/request/updateUserInfoReq.dto';
 import { LinkUserToGroupReqDto } from 'domains/dto/user/request/linkUserToGroupReq.dto';
 import { CancelSignupReqDto } from 'domains/dto/user/request/cancelSignupReq.dto';
@@ -45,12 +46,11 @@ export class UserController {
     return { statusCode: HttpStatus.CREATED };
   }
 
-  //TODO:DTOによるバリデーション
   //ユーザー情報取得処理
   @Get('getUserInfo')
-  async getUserInfo(@Query('userId') getUserInfoReqData: string, @Res() res: Response) {
+  async getUserInfo(@Query() getUserInfoReqData: GetUserInfoReqDto, @Res() res: Response) {
     const userInfo: UserAccountEntity | null = await this.userService
-      .selectUser({ userId: getUserInfoReqData })
+      .selectUser({ userId: getUserInfoReqData.userId })
       .catch((error) => {
         throw error;
       });

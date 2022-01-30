@@ -1,4 +1,12 @@
-import { IsString, IsEmail, IsOptional, IsArray, IsNumberString } from 'class-validator';
+import {
+  IsString,
+  IsEmail,
+  IsOptional,
+  IsArray,
+  IsNumberString,
+  ArrayNotEmpty,
+  isString,
+} from 'class-validator';
 
 //投稿情報登録リクエストDTO
 export class ContributeReqDto {
@@ -68,5 +76,8 @@ export class ContributeReqDto {
   @IsOptional()
   comment?: string;
 
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
   imageUrl!: string[];
 }
