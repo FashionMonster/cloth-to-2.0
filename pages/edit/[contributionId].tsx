@@ -126,9 +126,9 @@ const ContributionId: React.VFC = () => {
       //クエリキーをリセット、キャッシュを削除
       //検索系、投稿情報詳細表示系画面が対象
       onSuccess: () => {
-        queryClient.invalidateQueries('editPath');
         queryClient.invalidateQueries('searchPath');
         queryClient.invalidateQueries('contributionHistoryPath');
+        queryClient.invalidateQueries('editPath');
         queryClient.invalidateQueries('contributionDetail');
       },
     }
