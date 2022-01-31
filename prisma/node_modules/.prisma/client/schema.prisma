@@ -58,11 +58,11 @@ model ContributionInfo {
 model ContributionImage {
   relationContributionId ContributionInfo  @relation(fields: [contributionId], references: [contributionId])
   contributionId         Int               @id
-  imageUrl1              String            @db.VarChar(255)
-  imageUrl2              String?           @db.VarChar(255)
-  imageUrl3              String?           @db.VarChar(255)
-  imageUrl4              String?           @db.VarChar(255)
-  imageUrl5              String?           @db.VarChar(255)
+  imageName1             String            @db.VarChar(255)
+  imageName2             String?           @db.VarChar(255)
+  imageName3             String?           @db.VarChar(255)
+  imageName4             String?           @db.VarChar(255)
+  imageName5             String?           @db.VarChar(255)
   createdAt              DateTime          @default(now())
   updatedAt              DateTime          @updatedAt
 }

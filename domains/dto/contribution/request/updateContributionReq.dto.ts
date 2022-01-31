@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsArray, IsNumberString } from 'class-validator';
+import { IsString, IsOptional, IsArray, IsNumberString, ArrayNotEmpty } from 'class-validator';
 
 //投稿情報更新リクエストDTO
 export class UpdateContributionReqDto {
@@ -69,5 +69,8 @@ export class UpdateContributionReqDto {
   @IsOptional()
   comment?: string;
 
-  imageUrl!: string[];
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
+  imageName!: string[];
 }

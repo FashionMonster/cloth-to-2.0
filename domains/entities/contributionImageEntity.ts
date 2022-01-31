@@ -1,10 +1,10 @@
 //投稿画像テーブルデータの型定義
 type ContributionImageEntity = {
-  readonly imageUrl1: string;
-  readonly imageUrl2: string | null;
-  readonly imageUrl3: string | null;
-  readonly imageUrl4: string | null;
-  readonly imageUrl5: string | null;
+  readonly imageName1: string;
+  readonly imageName2: string | null;
+  readonly imageName3: string | null;
+  readonly imageName4: string | null;
+  readonly imageName5: string | null;
 };
 
 export type { ContributionImageEntity };

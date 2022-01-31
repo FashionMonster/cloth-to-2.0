@@ -18,8 +18,8 @@ type ContributeFormType = {
   unitPrice?: number;
   supplier?: string;
   comment?: string;
-  imageUrl: string[];
-  imageFiles?: any; //フォーム内のnameなので一時的に必要
+  imageName: string[];
+  imageFiles?: FileList; //フォーム内のnameなので一時的に必要
 };
 
 export type { ContributeFormType };

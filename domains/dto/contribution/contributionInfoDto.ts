@@ -2,7 +2,7 @@
 type ContributionInfoDto = {
   contributionId: number;
   materialName: string;
-  imageUrl1: string | null;
+  imageName1: string | null;
 };
 
 export type { ContributionInfoDto };

@@ -1,6 +1,6 @@
 import type { LegacyRef } from 'react';
 import type { FieldError } from 'react-hook-form';
-import type { GetAllGroupInfoResType } from 'constants/types/response/getallGroupInfoResType';
+import type { GetAllGroupInfoResType } from 'constants/types/response/getAllGroupInfoResType';
 
 //引数の型定義
 type Props = {

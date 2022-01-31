@@ -1,7 +1,7 @@
 import { ContributionInfoDetailDto } from 'domains/dto/contribution/contributionInfoDetailDto';
 import { ContributionImageEntity } from 'domains/entities/contributionImageEntity';
 import { ContributionInfoDetailEntity } from 'domains/entities/contributionInfoDetailEntity';
-import { isExistValue } from '../isExistValue';
+import { isExistValue } from 'common/utils/isExistValue';
 
 // 取得した投稿情報詳細EntityをDTOに変換
 const convertContributionInfoDetailEntityToDto = (

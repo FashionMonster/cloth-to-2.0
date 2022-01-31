@@ -11,7 +11,7 @@ const convertContributionInfosEntityToDto = (
     const dto = {
       contributionId: entity.contributionId,
       materialName: entity.materialName,
-      imageUrl1: entity.relationContributionImage!.imageUrl1,
+      imageName1: entity.relationContributionImage!.imageName1,
     };
 
     contributionInfosDto.push(dto);

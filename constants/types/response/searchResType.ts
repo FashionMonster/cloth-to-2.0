@@ -2,7 +2,7 @@
 type SearchResType = {
   contributionId: number;
   materialName: string;
-  imageUrl1: string;
+  imageName1: string;
 };
 
 export type { SearchResType };

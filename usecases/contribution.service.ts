@@ -74,7 +74,7 @@ export class ContributionService {
             materialName: true,
             relationContributionImage: {
               select: {
-                imageUrl1: true,
+                imageName1: true,
               },
             },
           },
@@ -121,11 +121,11 @@ export class ContributionService {
             comment: true,
             relationContributionImage: {
               select: {
-                imageUrl1: true,
-                imageUrl2: true,
-                imageUrl3: true,
-                imageUrl4: true,
-                imageUrl5: true,
+                imageName1: true,
+                imageName2: true,
+                imageName3: true,
+                imageName4: true,
+                imageName5: true,
               },
             },
           },

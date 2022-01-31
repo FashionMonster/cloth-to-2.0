@@ -63,7 +63,7 @@ const fetchContributions = async (
   //ダウンロードURLを取得、レスポンスデータに追加する
   let responseData: ({ src: string } & SearchResType)[] = [];
   for (let contributionInfo of res.data.contributionInfos as SearchResType[]) {
-    const src: string = await downloadImage(contributionInfo.imageUrl1).catch((errorMsg: any) => {
+    const src: string = await downloadImage(contributionInfo.imageName1).catch((errorMsg: any) => {
       throw new Error(errorMsg);
     });
 

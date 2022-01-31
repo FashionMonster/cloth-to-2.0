@@ -2,7 +2,7 @@
 type ContributionInfoEntity = {
   readonly contributionId: number;
   readonly materialName: string;
-  readonly relationContributionImage: { imageUrl1: string } | null;
+  readonly relationContributionImage: { imageName1: string } | null;
 };
 
 export type { ContributionInfoEntity };

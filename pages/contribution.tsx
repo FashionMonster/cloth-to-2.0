@@ -92,7 +92,7 @@ const Contribution: React.VFC = () => {
       const idList = uploadImage(imgFile);
 
       //フォーム以外のデータをセット
-      postFormData.imageUrl = idList;
+      postFormData.imageName = idList;
       postFormData.userId = loginUserInfo.userId;
       postFormData.groupId = loginUserInfo.groupId;
 

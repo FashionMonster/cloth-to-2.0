@@ -3,7 +3,7 @@ import { SearchFormType } from 'constants/types/form/searchFormType';
 //クエリパラメータを生成
 const createQueryParam = (formData: SearchFormType): SearchFormType => {
   let queryParam: SearchFormType = {
-    page: 1,
+    page: '1',
     searchCategory: formData.searchCategory,
     keyword: formData.keyword,
   };

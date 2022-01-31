@@ -5,7 +5,6 @@ import {
   IsArray,
   IsNumberString,
   ArrayNotEmpty,
-  isString,
 } from 'class-validator';
 
 //投稿情報登録リクエストDTO
@@ -79,5 +78,5 @@ export class ContributeReqDto {
   @IsArray()
   @ArrayNotEmpty()
   @IsString({ each: true })
-  imageUrl!: string[];
+  imageName!: string[];
 }

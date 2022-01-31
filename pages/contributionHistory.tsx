@@ -103,7 +103,7 @@ const Search: React.VFC = () => {
             )} sm:gap-3 sm:w-352 sm:mx-auto`}
           >
             {query.data!.map((item: { src: string } & SearchResType) => (
-              <div key={item.imageUrl1}>
+              <div key={item.imageName1}>
                 <SearchResult
                   path='edit'
                   contributionId={item.contributionId}
