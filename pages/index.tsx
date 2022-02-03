@@ -6,7 +6,7 @@ import { SlickImages } from 'interfaces/ui/components/molecules/others/slickImag
 
 //TOP画面
 const Top: React.VFC = () => (
-  <body className='w-1080'>
+  <body>
     <div className='mb-8 w-full sm:mb-4'>
       <Header isLogined={false} />
     </div>
