@@ -33,7 +33,7 @@ const SLIDER: {
     },
     {
       IMG: '/slideShow/linkUserToGroup.png',
-      MSG: 'グループ紐づけします(もしくはグループ作成します)',
+      MSG: 'ユーザーをグループに紐付けます(もしくはグループ作成します)',
       KEY: 'createUserImage',
     },
     {

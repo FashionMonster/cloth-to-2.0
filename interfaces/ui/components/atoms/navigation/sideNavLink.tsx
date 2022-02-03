@@ -29,7 +29,7 @@ const SideNavLink: React.VFC<Props> = (props) => {
         }}
       >
         {/* 画像が指定されている場合 */}
-        {!isExistValue(props.image) && (
+        {isExistValue(props.image) && (
           <Image src={`/menu/${props.image}`} alt='' width='24px' height='24px' />
         )}
         <div className='text-white col-start-2'>{props.children}</div>
@@ -40,7 +40,7 @@ const SideNavLink: React.VFC<Props> = (props) => {
       <Link href={props.href}>
         <div className='grid grid-cols-sideNav gap-2'>
           {/* 画像が指定されている場合 */}
-          {!isExistValue(props.image) && (
+          {isExistValue(props.image) && (
             <Image src={`/menu/${props.image}`} alt='' width='24px' height='24px' />
           )}
           <a className='text-white col-start-2'>{props.children}</a>
