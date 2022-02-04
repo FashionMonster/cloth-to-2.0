@@ -1,6 +1,6 @@
 import { ExceptionFilter, Catch, ArgumentsHost, BadRequestException, Logger } from '@nestjs/common';
 import { Response } from 'express';
-import { RESULT_MSG } from '../../constants/resultMsg';
+import { RESULT_MSG } from 'constants/resultMsg';
 
 @Catch(BadRequestException) // @Catch() デコレータの適用、BadRequestException をハンドルすることを宣言
 export class BadRequestExceptionFilter implements ExceptionFilter {
@@ -14,11 +14,11 @@ export class BadRequestExceptionFilter implements ExceptionFilter {
 
     //レスポンスデータ
     //プロパティ：code,message
-    const resData = { errorInfo: { code: 'UNEXPECTED', message: RESULT_MSG.ERR.BAD_REQUEST } };
+    const resData = { errorInfo: { code: 'BAD_REQUEST', message: RESULT_MSG.ERR.BAD_REQUEST } };
 
     //エラーログ出力
     this.logger.error(`ステータスコード：${status}`);
-    this.logger.error(`エラートレース：${exception.stack}`);
+    this.logger.error(`エラー内容：${JSON.stringify(exception.getResponse(), null, 2)}`);
     this.logger.error(`レスポンスデータ：${JSON.stringify(resData, null, 2)}`);
 
     // レスポンス

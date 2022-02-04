@@ -4,6 +4,7 @@ import { PrismaService } from './prisma.service';
 import { UserAccountEntity } from 'domains/entities/userAccountEntity';
 import { UpdateUserInfoReqDto } from 'domains/dto/user/request/updateUserInfoReq.dto';
 import { getDbErrorMessage } from 'common/utils/getDbErrorMessage';
+import { DB_ERROR } from 'constants/dbErrorInfo';
 
 @Injectable()
 export class UserService {
@@ -16,8 +17,14 @@ export class UserService {
         data: createUserParam,
       });
     } catch (error: any) {
-      //エラーコードに合わせたメッセージを取得
-      const errorMsg = getDbErrorMessage(error.code);
+      let errorMsg;
+      if (error.code === DB_ERROR.UNIQUE_CONSTRAINT.CODE) {
+        errorMsg = getDbErrorMessage(error.code, 'メールアドレス(ID)');
+      } else {
+        //エラーコードに合わせたメッセージを取得
+        errorMsg = getDbErrorMessage(error.code);
+      }
+
       throw new InternalServerErrorException({ code: error.code, message: errorMsg });
     }
   }

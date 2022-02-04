@@ -43,8 +43,8 @@ const Signup: React.VFC = () => {
 
     //DBにユーザー登録
     const result = await axios.post('./api/user/signup', postFormData).catch((error: any) => {
-      //DB登録で一意制約エラーが発生した場合
-      if ((error.response.data.errorInfo.code = DB_ERROR.UNIQUE_CONSTRAINT.CODE)) {
+      //DB登録時、一意制約エラーが発生した場合
+      if (error.response.data.errorInfo.code === DB_ERROR.UNIQUE_CONSTRAINT.CODE) {
         //失敗メッセージのモーダル表示設定
         setIsModalOpen(true);
         modalMessage.current = error.response.data.errorInfo.message;
