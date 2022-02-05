@@ -1,19 +1,31 @@
-import { IsString, IsOptional, IsArray, IsNumberString, ArrayNotEmpty } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsArray,
+  IsNumberString,
+  ArrayNotEmpty,
+  IsNotEmpty,
+} from 'class-validator';
 
 //投稿情報更新リクエストDTO
 export class UpdateContributionReqDto {
+  @IsNotEmpty()
   @IsNumberString()
   contributionId!: string;
 
+  @IsNotEmpty()
   @IsString()
   groupId!: string;
 
+  @IsNotEmpty()
   @IsString()
   userId!: string;
 
+  @IsNotEmpty()
   @IsString()
   materialName!: string;
 
+  @IsNotEmpty()
   @IsString()
   category!: string;
 

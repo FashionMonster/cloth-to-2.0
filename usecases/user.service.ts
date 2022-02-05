@@ -58,8 +58,14 @@ export class UserService {
         },
       });
     } catch (error: any) {
-      //エラーコードに合わせたメッセージを取得
-      const errorMsg = getDbErrorMessage(error.code);
+      let errorMsg;
+      if (error.code === DB_ERROR.UNIQUE_CONSTRAINT.CODE) {
+        errorMsg = getDbErrorMessage(error.code, 'メールアドレス(ID)');
+      } else {
+        //エラーコードに合わせたメッセージを取得
+        errorMsg = getDbErrorMessage(error.code);
+      }
+
       throw new InternalServerErrorException({ code: error.code, message: errorMsg });
     }
   }

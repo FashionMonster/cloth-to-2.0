@@ -167,6 +167,7 @@ const ContributionId: React.VFC = () => {
           <form
             onSubmit={handleSubmit(submitUpdateContribution)}
             className='grid grid-cols-contributeFormWrapper gap-16 sm:grid-cols-1'
+            noValidate={true}
           >
             {/* ファイル選択(画面左) */}
             <div className='grid grid-rows-fileUpload gap-6 sm:grid-rows-sm_fileUpload'>

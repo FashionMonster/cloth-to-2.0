@@ -1,9 +1,8 @@
 import axios from 'axios';
-import Router from 'next/router';
 import { useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
 import { Navigation } from 'interfaces/ui/components/organisms/navigation';
@@ -21,18 +20,21 @@ import { usePreviousValue } from 'common/customHooks/usePreviousValue';
 import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { updateUserInfo } from 'common/utils/frontend/updateUserInfo';
 import { getFbAuthErrorMsg } from 'common/utils/frontend/getFbAuthErrorMsg';
+import { logout } from 'common/utils/frontend/logout';
 import { RESULT_MSG } from 'constants/resultMsg';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import type { UpdateUserInfoFormType } from 'constants/types/form/updateUserInfoFormType';
+import { DB_ERROR } from 'constants/dbErrorInfo';
 
 //ユーザー情報更新画面
 const UserSetting: React.VFC = () => {
-  const [loginUserInfo] = useRecoilState(loginUserState);
+  const [loginUserInfo, setLoginUserInfo] = useRecoilState(loginUserState);
   const { handleSubmit, register, errors } = useForm<UpdateUserInfoFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isUpdateSuccess, setIsUpdateSuccess] = useState<boolean>(false);
   const previousModalIsOpen = usePreviousValue(isModalOpen);
   const modalMessage = useRef<string>('');
+  const queryClient = useQueryClient();
 
   //フォーム送信時
   const submitUpdateUserInfo = (updateUserInfoForm: UpdateUserInfoFormType) => {
@@ -40,46 +42,67 @@ const UserSetting: React.VFC = () => {
   };
 
   //ユーザー情報更新処理
-  const mutation: any = useMutation(async (formData: UpdateUserInfoFormType) => {
-    //パスワードを除いたオブジェクトを生成
-    const { password, ...postFormData } = formData;
-
-    //DBにユーザー更新
-    await axios.put('./api/user/updateUserInfo', postFormData).catch((error: any) => {
-      //mutation.isErrorがキャッチする
-      throw error;
-    });
-
-    try {
-      //Firebaseにユーザー更新
-      await updateUserInfo(formData.userId, formData.password);
-    } catch (error: any) {
-      //更新前のデータをセット
+  const mutation: any = useMutation(
+    async (formData: UpdateUserInfoFormType): Promise<UpdateUserInfoFormType> => {
+      //リクエストデータを生成
       const param = {
-        userId: loginUserInfo.userId,
-        userName: loginUserInfo.userName,
-        previousUserId: formData.userId,
+        userId: formData.userId,
+        userName: formData.userName,
+        previousUserId: loginUserInfo.userId,
       };
 
-      //DBにユーザー更新(巻き戻し)
-      await axios.put('./api/user/updateUserInfo', param).catch((error: any) => {
-        //mutation.isErrorがキャッチする
-        throw error;
+      //ユーザー更新
+      const result = await axios.put('./api/user/updateUserInfo', param).catch((error: any) => {
+        //DB更新時、一意制約エラーが発生した場合
+        if (error.response.data.errorInfo.code === DB_ERROR.UNIQUE_CONSTRAINT.CODE) {
+          //失敗メッセージのモーダル表示設定
+          setIsModalOpen(true);
+          modalMessage.current = error.response.data.errorInfo.message;
+          return error.response.data.errorInfo.code;
+        } else {
+          //mutation.isErrorが検知
+          throw error;
+        }
       });
 
-      //モーダルを開く
+      //エラーメッセージがセットされている場合
+      if (result === DB_ERROR.UNIQUE_CONSTRAINT.CODE) {
+        return formData;
+      }
+
+      try {
+        //Firebaseにユーザー更新
+        await updateUserInfo(formData.userId, formData.password);
+      } catch (error: any) {
+        //更新前のデータをセット
+        const param = {
+          userId: loginUserInfo.userId,
+          userName: loginUserInfo.userName,
+          previousUserId: formData.userId,
+        };
+
+        //DBにユーザー更新(巻き戻し)
+        await axios.put('./api/user/updateUserInfo', param).catch((error: any) => {
+          //mutation.isErrorがキャッチする
+          throw error;
+        });
+
+        //モーダルを開く
+        setIsModalOpen(true);
+        //Firebaseで発生したエラーメッセージをセット
+        modalMessage.current = getFbAuthErrorMsg(error.code);
+
+        return formData;
+      }
+
+      //成功メッセージ表示設定
+      setIsUpdateSuccess(true);
       setIsModalOpen(true);
-      //Firebaseで発生したエラーメッセージをセット
-      modalMessage.current = getFbAuthErrorMsg(error.code);
+      modalMessage.current = RESULT_MSG.OK.FIN_UPDATE_USER;
+
+      return formData;
     }
-
-    //成功メッセージ表示設定
-    setIsUpdateSuccess(true);
-    setIsModalOpen(true);
-    modalMessage.current = RESULT_MSG.OK.FIN_UPDATE_USER;
-
-    return formData;
-  });
+  );
 
   //データフェッチ中、ローディング画像を表示
   if (mutation.isFetching || mutation.isLoading) return <Loading />;
@@ -97,7 +120,8 @@ const UserSetting: React.VFC = () => {
 
   //更新完了メッセージが開いた状態から閉じる時
   if (previousModalIsOpen && !isModalOpen && isUpdateSuccess) {
-    Router.push('/login');
+    //更新情報でログインしてもらうため、ログアウトする
+    logout(setLoginUserInfo, queryClient);
   }
 
   return (
@@ -117,7 +141,11 @@ const UserSetting: React.VFC = () => {
         </FunctionExplain>
         {/* メイン(コンテンツ) */}
         <Main>
-          <form onSubmit={handleSubmit(submitUpdateUserInfo)} className='grid grid-cols-2 gap-8'>
+          <form
+            onSubmit={handleSubmit(submitUpdateUserInfo)}
+            className='grid grid-cols-2 gap-8'
+            noValidate={true}
+          >
             <InputLabel for='userName'>ユーザー名</InputLabel>
             <InputText
               name='userName'

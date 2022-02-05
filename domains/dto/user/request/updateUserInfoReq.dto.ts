@@ -1,22 +1,18 @@
-import { IsString, IsEmail, IsOptional } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
 
 //ユーザーアカウント更新リクエストDTO
 export class UpdateUserInfoReqDto {
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   @IsEmail()
-  userId?: string;
+  userId!: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  userName?: string;
+  userName!: string;
 
-  @IsOptional()
-  @IsString()
-  groupId?: string;
-
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   @IsEmail()
-  previousUserId?: string;
+  previousUserId!: string;
 }

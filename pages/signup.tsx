@@ -41,7 +41,7 @@ const Signup: React.VFC = () => {
     //パスワードを除いたオブジェクトを生成
     const { password, ...postFormData } = formData;
 
-    //DBにユーザー登録
+    //ユーザー登録
     const result = await axios.post('./api/user/signup', postFormData).catch((error: any) => {
       //DB登録時、一意制約エラーが発生した場合
       if (error.response.data.errorInfo.code === DB_ERROR.UNIQUE_CONSTRAINT.CODE) {

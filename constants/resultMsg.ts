@@ -13,7 +13,7 @@ const RESULT_MSG = {
     INVALID_EMAIL: 'ユーザーID(メールアドレス)の\n形式が不正です',
     OPERATION_NOT_ALLOWED: 'ユーザー登録処理は\n現在許可されていません',
     WEAK_PASSWORD: 'パスワードが脆弱です。\n変更して下さい',
-    USER_DISABLED: '現在使用できないユーザーです',
+    USER_DISABLED: '現在操作できないユーザーです',
     USER_NOT_FOUND: '入力したメールアドレス(ID)は\n存在しません',
     WRONG_PASSWORD: 'パスワードが誤っています',
     WRONG_PASSWORD_TOO_MANY: '複数回の認証に失敗しました。\n時間を置いて再度実行してください。',

@@ -5,21 +5,26 @@ import {
   IsArray,
   IsNumberString,
   ArrayNotEmpty,
+  IsNotEmpty,
 } from 'class-validator';
 
 //投稿情報登録リクエストDTO
 export class ContributeReqDto {
+  @IsNotEmpty()
   @IsString()
   @IsEmail()
   groupId!: string;
 
+  @IsNotEmpty()
   @IsString()
   @IsEmail()
   userId!: string;
 
+  @IsNotEmpty()
   @IsString()
   materialName!: string;
 
+  @IsNotEmpty()
   @IsString()
   category!: string;
 

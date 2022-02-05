@@ -76,6 +76,7 @@ const Search: React.VFC = () => {
         <form
           onSubmit={handleSubmit(submitSearch)}
           className='w-496 h-16 mx-auto grid grid-cols-searchForm gap-4 sm:w-352 sm:grid-cols-1 sm:grid-rows-3 sm:mb-10 sm:h-auto'
+          noValidate={true}
         >
           <SelectSearchCategory
             onChange={(e: any) => {
