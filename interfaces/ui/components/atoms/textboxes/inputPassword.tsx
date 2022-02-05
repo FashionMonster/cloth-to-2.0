@@ -1,5 +1,7 @@
-import type { LegacyRef } from 'react';
+import { LegacyRef, useState } from 'react';
 import type { FieldError } from 'react-hook-form';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 //引数の型定義
 type Props = {
@@ -12,6 +14,8 @@ type Props = {
 
 //パスワード入力コンポーネント
 const InputPassword: React.VFC<Props> = (props) => {
+  // const [isReveal, setIsReveal] = useState<boolean>(false);
+
   return (
     <div className={`w-${props.width} h-8`}>
       <input
@@ -21,6 +25,7 @@ const InputPassword: React.VFC<Props> = (props) => {
         className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400`}
         ref={props.register}
       />
+      {/* <FontAwesomeIcon icon={faChevronRight} /> */}
       {props.errors?.type === 'required' && (
         <div className='text-red-600 text-sm relative'>必須入力です</div>
       )}

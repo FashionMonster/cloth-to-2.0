@@ -38,20 +38,16 @@ const Login: React.VFC = () => {
   //ログイン処理
   const mutation: any = useMutation(async (formData: LoginFormType) => {
     //Firebaseのログイン認証
-    const result: null | string = await login(formData.userId, formData.password).catch((error) => {
+    await login(formData.userId, formData.password).catch((error) => {
       //エラーメッセージをセット
       modalMessage.current = getFbAuthErrorMsg(error.code);
 
       //モーダルを開く
       setIsModalOpen(true);
 
-      return error.code;
+      //mutation.isErrorが検知
+      throw error;
     });
-
-    //エラーメッセージがセットされている場合
-    if (isExistValue(result)) {
-      return;
-    }
 
     //ユーザー情報を取得
     const res: LoginResType = await getUserInfo(formData.userId).catch((error) => {
@@ -74,15 +70,20 @@ const Login: React.VFC = () => {
 
   //エラー発生時
   if (mutation.isError) {
-    return (
-      <Error
-        backType={BACK_PAGE_TYPE.RELOAD}
-        errorMsg={mutation.error.response.data.errorMessage}
-        isLogined={false}
-      />
-    );
+    //firebaseログイン認証でエラーが発生していない場合
+    //(firebaseの認証エラーはモーダル、それ以外はエラー画面にメッセージを表示する)
+    if (!isExistValue(mutation.error.code)) {
+      return (
+        <Error
+          backType={BACK_PAGE_TYPE.RELOAD}
+          errorMsg={mutation.error.response.data.errorInfo.message}
+          isLogined={false}
+        />
+      );
+    }
   }
 
+  //ログイン認証処理成功時
   if (mutation.isSuccess) {
     //グループ紐付け完了済の場合
     if (isExistValue(mutation.data.groupId)) {
