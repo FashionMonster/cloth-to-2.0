@@ -35,14 +35,14 @@ const GroupSetting: React.VFC = () => {
   const mutation: any = useMutation(
     async (formData: CreateGroupAccountFormType) =>
       await axios
-        .post('./api/group/createGroup', formData)
+        .post('./api/group/createGroup', { groupId: '' })
         .then(() => {
           setIsModalOpen(true);
           modalMessage.current = RESULT_MSG.OK.FIN_CREATE_GROUP;
         })
         .catch((error: any) => {
           //DB登録で一意制約エラーが発生した場合
-          if ((error.response.data.errorInfo.code = DB_ERROR.UNIQUE_CONSTRAINT.CODE)) {
+          if (error.response.data.errorInfo.code === DB_ERROR.UNIQUE_CONSTRAINT.CODE) {
             //失敗メッセージのモーダル表示設定
             setIsModalOpen(true);
             modalMessage.current = error.response.data.errorInfo.message;
@@ -53,7 +53,7 @@ const GroupSetting: React.VFC = () => {
         })
   );
 
-  //データフェッチ中、ローディング画像を表示
+  //ローディング画面を表示
   if (mutation.isFetching || mutation.isLoading) return <Loading />;
 
   //エラー発生時
@@ -77,7 +77,7 @@ const GroupSetting: React.VFC = () => {
         </div>
         {/* 画面説明 */}
         <FunctionExplain>
-          グループ情報を登録します。
+          グループアカウントを登録します。
           <br />
           下記の項目を入力して登録して下さい。
         </FunctionExplain>
@@ -129,7 +129,7 @@ const GroupSetting: React.VFC = () => {
               errors={errors.groupPass}
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
-              <SubmitBtn value='グループアカウント登録' width={'200 sm:w-40'} />
+              <SubmitBtn value='グループ作成' width={'200 sm:w-40'} />
             </div>
           </form>
         </Main>

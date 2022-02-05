@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from './prisma.service';
 import { GroupAccountEntity } from 'domains/entities/groupAccountEntity';
 import { getDbErrorMessage } from 'common/utils/getDbErrorMessage';
+import { DB_ERROR } from 'constants/dbErrorInfo';
 
 @Injectable()
 export class GroupService {
@@ -15,8 +16,17 @@ export class GroupService {
         data: createGroupParam,
       });
     } catch (error: any) {
-      //エラーコードに合わせたメッセージを取得
-      const errorMsg = getDbErrorMessage(error.code);
+      let errorMsg;
+      if (error.code === DB_ERROR.UNIQUE_CONSTRAINT.CODE) {
+        if (error.meta.target === 'PRIMARY') {
+          errorMsg = getDbErrorMessage(error.code, 'メールアドレス(ID)');
+        } else {
+          errorMsg = getDbErrorMessage(error.code, 'グループ名');
+        }
+      } else {
+        //エラーコードに合わせたメッセージを取得
+        errorMsg = getDbErrorMessage(error.code);
+      }
       throw new InternalServerErrorException({ code: error.code, message: errorMsg });
     }
   }

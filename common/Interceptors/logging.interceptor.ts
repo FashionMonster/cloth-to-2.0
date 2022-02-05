@@ -16,9 +16,9 @@ export class LoggingInterceptor implements NestInterceptor {
     //リクエストデータにパスワードが存在する場合
     let groupPass: string | undefined;
     if (request.body !== null && request.body.hasOwnProperty('groupPass')) {
-      groupPass = request.body.groupPass;
+      groupPass = (request.body as unknown as { groupPass: string }).groupPass;
       //ログにパスワードが表示されないように変更
-      request.body.groupPass = '********';
+      (request.body as unknown as { groupPass: string }).groupPass = '********';
     }
 
     //リクエスト時のログ出力
@@ -27,7 +27,7 @@ export class LoggingInterceptor implements NestInterceptor {
 
     if (request.body !== null && request.body.hasOwnProperty('groupPass')) {
       //変更した値を元に戻す
-      request.body.groupPass = groupPass;
+      (request.body as unknown as { groupPass: string }).groupPass = groupPass as string;
     }
 
     //レスポンス時のログ出力
