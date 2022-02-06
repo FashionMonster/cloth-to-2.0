@@ -39,7 +39,7 @@ const SettingNav: React.VFC = () => {
           </li>
           <li>
             <NavLink href='/linkUserToGroup' isSettingNav={true}>
-              グループ紐づけ
+              グループ紐付け
             </NavLink>
           </li>
         </ul>

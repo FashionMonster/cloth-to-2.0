@@ -1,9 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
-import Router from 'next/router';
 import { useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery, UseQueryResult } from 'react-query';
+import { useMutation, useQuery, useQueryClient, UseQueryResult } from 'react-query';
 import { Body } from 'interfaces/ui/components/organisms/bodyElement';
 import { Header } from 'interfaces/ui/components/organisms/header';
 import { Navigation } from 'interfaces/ui/components/organisms/navigation';
@@ -17,6 +16,7 @@ import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWind
 import { Error } from 'interfaces/ui/components/organisms/error';
 import { usePreviousValue } from 'common/customHooks/usePreviousValue';
 import { loginUserState } from 'common/utils/frontend/loginUserState';
+import { logout } from 'common/utils/frontend/logout';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import { RESULT_MSG } from 'constants/resultMsg';
 import type { GetAllGroupInfoResType } from 'constants/types/response/getAllGroupInfoResType';
@@ -24,12 +24,13 @@ import type { LinkUserToGroupFormType } from 'constants/types/form/linkUserToGro
 
 //ユーザー情報グループ紐付け画面
 const LinkUserToGroup: React.VFC = () => {
-  const [loginUserInfo] = useRecoilState(loginUserState);
+  const [loginUserInfo, setLoginUserInfo] = useRecoilState(loginUserState);
   const { handleSubmit, register, errors } = useForm<LinkUserToGroupFormType>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isUpdateSuccess, setIsUpdateSuccess] = useState<boolean>(false);
   const previousModalIsOpen = usePreviousValue(isModalOpen);
   const modalMessage = useRef<string>('');
+  const queryClient = useQueryClient();
 
   //初期表示時、グループ情報全件取得
   const query: UseQueryResult<GetAllGroupInfoResType | null, any> = useQuery(
@@ -55,8 +56,14 @@ const LinkUserToGroup: React.VFC = () => {
   //グループ紐付け処理
   const mutation: any = useMutation(async (formData: LinkUserToGroupFormType) => {
     //リクエストデータを生成
+    // const param = {
+    //   groupId: formData.groupId,
+    //   groupPass: formData.groupPass,
+    //   userId: loginUserInfo.userId,
+    // };
+
     const param = {
-      groupId: formData.groupId,
+      groupId: '',
       groupPass: formData.groupPass,
       userId: loginUserInfo.userId,
     };
@@ -71,7 +78,7 @@ const LinkUserToGroup: React.VFC = () => {
       })
       .catch((error: any) => {
         //グループのパスワードが誤りの場合
-        if ((error.response.data.errorInfo.code = 'WRONG_PASSWORD')) {
+        if (error.response.data.errorInfo.code === 'WRONG_PASSWORD') {
           //失敗メッセージのモーダル表示設定
           setIsModalOpen(true);
           modalMessage.current = error.response.data.errorInfo.message;
@@ -84,7 +91,8 @@ const LinkUserToGroup: React.VFC = () => {
 
   //更新完了メッセージが開いた状態から閉じる時
   if (previousModalIsOpen && !isModalOpen && isUpdateSuccess) {
-    Router.push('/login');
+    //更新情報でログインしてもらうため、ログアウトする
+    logout(setLoginUserInfo, queryClient);
   }
 
   //データフェッチ中、ローディング画像を表示
