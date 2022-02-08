@@ -24,7 +24,8 @@ import { ContributionInfoDetailDto } from 'domains/dto/contribution/contribution
 import { UpdateContributionReqDto } from 'domains/dto/contribution/request/updateContributionReq.dto';
 import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
 import { getContributionInfoDetailReqDto } from 'domains/dto/contribution/request/getContributionInfoDetailReq.dto';
-import { Prisma } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
+import { ParseContributeReqPipe } from 'common/pipes/parseContributeReq.pipe';
 
 @Controller('contribution')
 @UseFilters(InternalServerErrorExceptionFilter, BadRequestExceptionFilter)
@@ -36,35 +37,41 @@ export class ContributionController {
   ) {}
 
   //投稿情報登録処理
+  //※ParseContributeReqPipeでリクエストデータを型変換する
   @Post('contribute')
-  async contribute(@Body() contributeReqData: ContributeReqDto) {
+  async contribute(@Body(new ParseContributeReqPipe()) contributeReqData: ContributeReqDto) {
     //投稿画像データの取得
     const imageNameArray: string[] = contributeReqData.imageName;
 
     //投稿画像情報を除いた(投稿情報)オブジェクトを生成
-    const { imageName, ...contributionInfo }: any = contributeReqData;
-    //文字列型のプロパティに一部数字型に変換しないといけないので変換（TODO:別の変換方法を探す）
-    const contributionInfoCreateInput: ContributionInfoCreateInputDto = contributionInfo;
+    const { imageName, ...contributionInfoCreateInput } = contributeReqData;
 
+    const prisma = new PrismaClient();
     try {
-      //投稿情報の登録
-      await this.contriobutionService.insertContributionInfo(contributionInfoCreateInput);
+      //トランザクション開始(エラー発生時、自動でロールバックする)
+      await prisma.$transaction(async (prisma) => {
+        //投稿情報の登録
+        await this.contriobutionService.insertContributionInfo(
+          prisma,
+          contributionInfoCreateInput as ContributionInfoCreateInputDto
+        );
 
-      //投稿IDを取得
-      const result = await this.contriobutionService.selectContributionId();
+        //投稿IDを取得
+        const result = await this.contriobutionService.selectContributionId(prisma);
 
-      //投稿画像オブジェクトの生成
-      const contributionImage: ContributionImageCreateInputDto = {
-        contributionId: result.contributionId,
-        imageName1: imageNameArray![0],
-        imageName2: isExistValue(imageNameArray![1]) ? imageNameArray![1] : null,
-        imageName3: isExistValue(imageNameArray![2]) ? imageNameArray![2] : null,
-        imageName4: isExistValue(imageNameArray![3]) ? imageNameArray![3] : null,
-        imageName5: isExistValue(imageNameArray![4]) ? imageNameArray![4] : null,
-      };
+        //投稿画像オブジェクトの生成
+        const contributionImage: ContributionImageCreateInputDto = {
+          contributionId: result.contributionId,
+          imageName1: imageNameArray![0],
+          imageName2: isExistValue(imageNameArray![1]) ? imageNameArray![1] : null,
+          imageName3: isExistValue(imageNameArray![2]) ? imageNameArray![2] : null,
+          imageName4: isExistValue(imageNameArray![3]) ? imageNameArray![3] : null,
+          imageName5: isExistValue(imageNameArray![4]) ? imageNameArray![4] : null,
+        };
 
-      //投稿画像(URL)の登録
-      await this.contriobutionImageService.insertContributionImage(contributionImage);
+        //投稿画像(URL)の登録
+        await this.contriobutionImageService.insertContributionImage(prisma, contributionImage);
+      });
     } catch (error: any) {
       throw error;
     }

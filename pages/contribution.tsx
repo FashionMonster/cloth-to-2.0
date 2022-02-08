@@ -94,7 +94,9 @@ const Contribution: React.VFC = () => {
       //フォーム以外のデータをセット
       postFormData.imageName = idList;
       postFormData.userId = loginUserInfo.userId;
-      postFormData.groupId = loginUserInfo.groupId;
+      // postFormData.groupId = loginUserInfo.groupId;
+
+      postFormData.groupId = '';
 
       const data = axios
         .post('./api/contribution/contribute', postFormData)

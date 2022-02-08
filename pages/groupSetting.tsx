@@ -35,7 +35,7 @@ const GroupSetting: React.VFC = () => {
   const mutation: any = useMutation(
     async (formData: CreateGroupAccountFormType) =>
       await axios
-        .post('./api/group/createGroup', { groupId: '' })
+        .post('./api/group/createGroup', formData)
         .then(() => {
           setIsModalOpen(true);
           modalMessage.current = RESULT_MSG.OK.FIN_CREATE_GROUP;

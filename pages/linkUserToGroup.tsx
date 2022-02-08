@@ -56,14 +56,8 @@ const LinkUserToGroup: React.VFC = () => {
   //グループ紐付け処理
   const mutation: any = useMutation(async (formData: LinkUserToGroupFormType) => {
     //リクエストデータを生成
-    // const param = {
-    //   groupId: formData.groupId,
-    //   groupPass: formData.groupPass,
-    //   userId: loginUserInfo.userId,
-    // };
-
     const param = {
-      groupId: '',
+      groupId: formData.groupId,
       groupPass: formData.groupPass,
       userId: loginUserInfo.userId,
     };

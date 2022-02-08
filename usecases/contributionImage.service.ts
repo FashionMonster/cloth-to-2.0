@@ -1,17 +1,24 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { PrismaService } from './prisma.service';
 import { ContributionImageCreateInputDto } from 'domains/dto/contribution/contributionImageCreateInputDto';
 import { getDbErrorMessage } from 'common/utils/getDbErrorMessage';
+import { PrismaTransaction } from 'constants/types/prismaTransaction';
 
 @Injectable()
 export class ContributionImageService {
   constructor(private prisma: PrismaService) {}
 
-  //投稿情報登録
-  async insertContributionImage(data: ContributionImageCreateInputDto): Promise<void> {
+  //投稿画像登録
+  async insertContributionImage(
+    prismaTran: PrismaTransaction,
+    data: ContributionImageCreateInputDto
+  ): Promise<void> {
     try {
-      await this.prisma.contributionImage.create({
+      //一時的に外部キー制約を無効にする
+      await prismaTran.$queryRaw`SET FOREIGN_KEY_CHECKS = 0;`;
+      //投稿画像テーブル登録
+      await prismaTran.contributionImage.create({
         data,
       });
     } catch (error: any) {
@@ -21,7 +28,7 @@ export class ContributionImageService {
     }
   }
 
-  //投稿情報更新
+  //投稿画像更新
   async updateContributionImage(
     contributionId: number,
     updateContributionImageParam: Prisma.ContributionImageUpdateInput

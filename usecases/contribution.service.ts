@@ -11,6 +11,7 @@ import { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
 import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
 import { ContributionInfoDetailDto } from 'domains/dto/contribution/contributionInfoDetailDto';
 import { convertContributionInfoDetailEntityToDto } from 'common/utils/backend/convertContributionInfoDetailEntityToDto';
+import { PrismaTransaction } from 'constants/types/prismaTransaction';
 
 @Injectable()
 export class ContributionService {
@@ -18,10 +19,11 @@ export class ContributionService {
 
   //投稿情報登録
   async insertContributionInfo(
+    prismaTran: PrismaTransaction,
     insertContributionInfoParam: Prisma.ContributionInfoUncheckedCreateInput
   ): Promise<void> {
     try {
-      await this.prisma.contributionInfo.create({
+      await prismaTran.contributionInfo.create({
         data: insertContributionInfoParam,
       });
     } catch (error: any) {
@@ -32,15 +34,12 @@ export class ContributionService {
   }
 
   //投稿ID最大値検索
-  async selectContributionId(): Promise<{ contributionId: number }> {
+  async selectContributionId(prismaTran: PrismaTransaction): Promise<{ contributionId: number }> {
     try {
-      const result = await this.prisma.contributionInfo.aggregate({
-        _max: {
-          contributionId: true,
-        },
-      });
+      const result: { 'last_insert_id()': number }[] =
+        await prismaTran.$queryRaw`SELECT last_insert_id();`;
 
-      return result._max as { contributionId: number };
+      return { contributionId: result[0]['last_insert_id()'] } as { contributionId: number };
     } catch (error: any) {
       //最大値が取得できない場合
       if (!isExistValue(error.code)) {

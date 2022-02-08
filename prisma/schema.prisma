@@ -3,6 +3,8 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+  //トランザクションを利用する場合、previewFeaturesを入れてmigrateし直す必要がある！！
 }
 
 datasource db {
