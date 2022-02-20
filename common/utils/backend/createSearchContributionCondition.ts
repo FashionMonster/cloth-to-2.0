@@ -1,9 +1,11 @@
-import type { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
 import { isExistValue } from 'common/utils/isExistValue';
+import { ContributionSelectWhereInputDto } from 'domains/dto/contribution/contributionSelectWhereInputDto';
 
 //検索条件生成
 //https://www.prisma.io/docs/reference/api-reference/prisma-client-reference
-const createSearchContributionCondition = (param: SearchReqDto): { AND: {}[] } => {
+const createSearchContributionCondition = (
+  param: ContributionSelectWhereInputDto
+): { AND: {}[] } => {
   //検索条件の初期化
   let conditions: { AND: {}[] } = { AND: [] };
 
@@ -126,7 +128,7 @@ const createSearchContributionCondition = (param: SearchReqDto): { AND: {}[] } =
       break;
     //１０：投稿者
     case '10':
-      conditions.AND.push({ xxx: { contains: param.keyword } });
+      conditions.AND.push({ relationUserId: { userName: { contains: param.keyword } } });
       break;
     default:
   }

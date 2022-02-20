@@ -17,7 +17,7 @@ import { SearchInput } from 'interfaces/ui/components/molecules/searchPage/searc
 import { SearchResult } from 'interfaces/ui/components/molecules/searchPage/searchResult';
 import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { isExistValue } from 'common/utils/isExistValue';
-import { getNumberPerOneDisplay } from 'common/utils/frontend/getNumberPerOneDisplay';
+import { getDisplayCount } from 'common/utils/frontend/getDisplayCount';
 import { changePageNum } from 'common/utils/frontend/changePageNum';
 import { fetchContributions } from 'common/utils/frontend/getContributions/fetchContributions';
 import { createQueryParam } from 'common/utils/frontend/getContributions/createQueryParam';
@@ -33,9 +33,14 @@ const Search: React.VFC = () => {
   const [category, setCategory] = useState('1');
 
   //初期表示時、検索処理
-  const query: UseQueryResult<({ src: string } & SearchResType)[] | null, any> = useQuery(
-    ['searchPath', router.asPath],
-    () => fetchContributions('./api/contribution/search', router, loginUserInfo)
+  const query: UseQueryResult<
+    {
+      totalCount: number;
+      contributionInfos: ({ src: string } & SearchResType)[] | null;
+    },
+    any
+  > = useQuery(['searchPath', router.asPath], () =>
+    fetchContributions('./api/contribution/search', router, loginUserInfo)
   );
 
   //フォーム送信時
@@ -75,7 +80,7 @@ const Search: React.VFC = () => {
       <Main isContentPositionCenter={false}>
         <form
           onSubmit={handleSubmit(submitSearch)}
-          className='w-496 h-16 mx-auto grid grid-cols-searchForm gap-4 sm:w-352 sm:grid-cols-1 sm:grid-rows-3 sm:mb-10 sm:h-auto'
+          className='w-532 h-16 mx-auto grid grid-cols-searchForm gap-4 sm:w-352 sm:grid-cols-1 sm:grid-rows-3 sm:gap-6 sm:mb-10 sm:h-auto'
           noValidate={true}
         >
           <SelectSearchCategory
@@ -88,76 +93,85 @@ const Search: React.VFC = () => {
           <SearchInput category={category} register={register} errors={errors} />
           <SubmitBtn value='検索' width='20' query={query} />
         </form>
-        {isExistValue(query.data) && (
+        {/* 投稿情報を取得した場合 */}
+        {isExistValue(query.data?.contributionInfos) && (
           //PCは１行に５件、スマホは１行に２件表示する
           <div
-            className={`grid grid-cols-${
+            className={`grid grid-cols-${DISPLAY_DATA_NUM.ONE_ROW} grid-rows-${getDisplayCount(
+              (query.data!.contributionInfos as ({ src: string } & SearchResType)[]).length,
               DISPLAY_DATA_NUM.ONE_ROW
-            } grid-rows-${getNumberPerOneDisplay(
-              query.data!.length,
-              DISPLAY_DATA_NUM.ONE_ROW
-            )} gap-5 sm:grid-cols-${
-              DISPLAY_DATA_NUM.SM_ONE_ROW
-            } sm:grid-rows-${getNumberPerOneDisplay(
-              query.data!.length,
+            )} gap-5 sm:grid-cols-${DISPLAY_DATA_NUM.SM_ONE_ROW} sm:grid-rows-${getDisplayCount(
+              (query.data!.contributionInfos as ({ src: string } & SearchResType)[]).length,
               DISPLAY_DATA_NUM.SM_ONE_ROW
             )} sm:gap-3 sm:w-352 sm:mx-auto`}
           >
-            {query.data!.map((item: { src: string } & SearchResType) => (
-              <div key={item.imageName1}>
-                <SearchResult
-                  path='contributionDetail'
-                  contributionId={item.contributionId}
-                  materialName={item.materialName}
-                  src={item.src}
-                />
-              </div>
-            ))}
+            {(query.data!.contributionInfos as ({ src: string } & SearchResType)[]).map(
+              (item: { src: string } & SearchResType) => (
+                <div key={item.imageName1}>
+                  <SearchResult
+                    path='contributionDetail'
+                    contributionId={item.contributionId}
+                    materialName={item.materialName}
+                    src={item.src}
+                  />
+                </div>
+              )
+            )}
           </div>
         )}
-        <div className='my-8'>
-          {/* ページネーション */}
-          <ReactPaginate
-            previousLabel={(() => {
-              //初期表示 又は 検索取得件数が0件の場合
-              if ((router.query.page as unknown as number) === 0 || !isExistValue(query.data)) {
-                return <></>;
-              } else {
-                return <ArrowIcon icon='<' pathName='/search' router={router} />;
+        {/* 取得データが存在する場合 */}
+        {isExistValue(query.data?.totalCount) && (
+          <div className='my-8'>
+            <ReactPaginate
+              previousLabel={(() => {
+                //１ページ目以降の場合
+                if (router.query.page !== '1') {
+                  if (query.isFetching || query.isLoading) {
+                    return <></>;
+                  } else {
+                    return <ArrowIcon icon='<' pathName='/search' router={router} />;
+                  }
+                } else {
+                  return <></>;
+                }
+              })()}
+              nextLabel={(() => {
+                //2ページ目以降が存在する、且つ 最終ページではない場合
+                if (
+                  getDisplayCount(query.data!.totalCount, DISPLAY_DATA_NUM.ONE_PAGE) > 1 &&
+                  router.query.page !==
+                    getDisplayCount(query.data!.totalCount, DISPLAY_DATA_NUM.ONE_PAGE).toString()
+                ) {
+                  if (query.isFetching || query.isLoading) {
+                    return <></>;
+                  } else {
+                    return <ArrowIcon icon='>' pathName='/search' router={router} />;
+                  }
+                } else {
+                  return <></>;
+                }
+              })()}
+              marginPagesDisplayed={1}
+              pageRangeDisplayed={4}
+              breakLabel={'...'}
+              breakClassName={'break'}
+              initialPage={(router.query.page as unknown as number) - 1}
+              disableInitialCallback={true}
+              pageCount={getDisplayCount(query.data!.totalCount, DISPLAY_DATA_NUM.ONE_PAGE)}
+              onPageChange={(e: { selected: number }) => {
+                changePageNum(e.selected + 1, '/search', router);
+              }}
+              containerClassName={'flex w-full justify-center'}
+              pageClassName={
+                'w-7 h-7 bg-purple-200 mx-2 text-center rounded-3xl font-semibold hover:bg-purple-600 hover:text-white'
               }
-            })()}
-            nextLabel={(() => {
-              //初期表示 又は 検索取得件数が0件の場合
-              if ((router.query.page as unknown as number) === 0 || !isExistValue(query.data)) {
-                return <></>;
-              } else {
-                return <ArrowIcon icon='>' pathName='/search' router={router} />;
-              }
-            })()}
-            marginPagesDisplayed={1}
-            pageRangeDisplayed={4}
-            breakLabel={'...'}
-            breakClassName={'break'}
-            initialPage={(router.query.page as unknown as number) - 1}
-            disableInitialCallback={true}
-            pageCount={
-              isExistValue(query.data)
-                ? getNumberPerOneDisplay(query.data!.length, DISPLAY_DATA_NUM.ONE_PAGE)
-                : 0
-            }
-            onPageChange={(e: { selected: number }) => {
-              changePageNum(e.selected + 1, '/search', router);
-            }}
-            containerClassName={'flex w-full justify-center'}
-            pageClassName={
-              'w-7 h-7 bg-purple-200 mx-2 text-center rounded-3xl font-semibold hover:bg-purple-600 hover:text-white'
-            }
-            pageLinkClassName={'inline-block w-7 h-7 text-center rounded-3xl font-semibold'}
-            activeClassName={'w-7 h-7 bg-purple-400 font-semibold'}
-            activeLinkClassName={'inline-block w-7 h-7 text-center rounded-3xl font-semibold'}
-            disabledClassName={'hidden'}
-          />
-        </div>
+              pageLinkClassName={'inline-block w-7 h-7 text-center rounded-3xl font-semibold'}
+              activeClassName={'w-7 h-7 bg-purple-400 font-semibold'}
+              activeLinkClassName={'inline-block w-7 h-7 text-center rounded-3xl font-semibold'}
+              disabledClassName={'hidden'}
+            />
+          </div>
+        )}
       </Main>
     </Body>
   );

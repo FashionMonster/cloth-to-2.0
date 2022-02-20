@@ -7,11 +7,12 @@ import { createSearchContributionCondition } from 'common/utils/backend/createSe
 import { convertContributionInfosEntityToDto } from 'common/utils/backend/convertContributionInfosEntityToDto';
 import { ContributionInfoEntity } from 'domains/entities/contributionInfoEntity';
 import { ContributionInfoDetailEntity } from 'domains/entities/contributionInfoDetailEntity';
-import { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
 import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
 import { ContributionInfoDetailDto } from 'domains/dto/contribution/contributionInfoDetailDto';
+import { ContributionSelectWhereInputDto } from 'domains/dto/contribution/contributionSelectWhereInputDto';
 import { convertContributionInfoDetailEntityToDto } from 'common/utils/backend/convertContributionInfoDetailEntityToDto';
 import { PrismaTransaction } from 'constants/types/prismaTransaction';
+import { DISPLAY_DATA_NUM } from 'constants/dispalyDataNum';
 
 @Injectable()
 export class ContributionService {
@@ -55,9 +56,31 @@ export class ContributionService {
     }
   }
 
+  //投稿情報検索件数取得
+  async selectContributionInfosCount(
+    selectContributionInfosParam: ContributionSelectWhereInputDto
+  ): Promise<number> {
+    //検索条件を生成 ※配列の中にオブジェクトが複数存在
+    const conditions: { AND: {}[] } = createSearchContributionCondition(
+      selectContributionInfosParam
+    );
+
+    try {
+      const resultData = await this.prisma.contributionInfo.count({
+        where: conditions,
+      });
+
+      return resultData;
+    } catch (error: any) {
+      //エラーコードに合わせたメッセージを取得
+      const errorMsg = getDbErrorMessage(error.code);
+      throw new InternalServerErrorException({ code: error.code, message: errorMsg });
+    }
+  }
+
   //投稿情報検索
   async selectContributionInfos(
-    selectContributionInfosParam: SearchReqDto
+    selectContributionInfosParam: ContributionSelectWhereInputDto
   ): Promise<ContributionInfoDto[] | null> {
     //検索条件を生成 ※配列の中にオブジェクトが複数存在
     const conditions: { AND: {}[] } = createSearchContributionCondition(
@@ -65,9 +88,16 @@ export class ContributionService {
     );
 
     try {
+      //skip,takeはpaginationの設定
+      //https://www.prisma.io/docs/concepts/components/prisma-client/pagination
       const resultData: ContributionInfoEntity[] | null =
         await this.prisma.contributionInfo.findMany({
           where: conditions,
+          skip:
+            (selectContributionInfosParam.page as number) === 1
+              ? 0
+              : ((selectContributionInfosParam.page as number) - 1) * DISPLAY_DATA_NUM.ONE_PAGE,
+          take: DISPLAY_DATA_NUM.ONE_PAGE,
           select: {
             contributionId: true,
             materialName: true,
@@ -78,11 +108,6 @@ export class ContributionService {
             },
           },
         });
-
-      //取得データが０件の場合
-      if (!isExistValue(resultData)) {
-        return null;
-      }
 
       //DTOに詰め直して返却
       return convertContributionInfosEntityToDto(resultData);

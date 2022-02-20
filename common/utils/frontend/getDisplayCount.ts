@@ -1,5 +1,5 @@
 // 検索画面のページ数の取得、表示する行数の取得
-const getNumberPerOneDisplay = (totalCount: number, oneDisplayData: number): number => {
+const getDisplayCount = (totalCount: number, oneDisplayData: number): number => {
   if (totalCount === 0) {
     return 0;
   } else if (totalCount <= oneDisplayData) {
@@ -9,4 +9,4 @@ const getNumberPerOneDisplay = (totalCount: number, oneDisplayData: number): num
   }
 };
 
-export { getNumberPerOneDisplay };
+export { getDisplayCount };

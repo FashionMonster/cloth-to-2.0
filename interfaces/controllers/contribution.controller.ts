@@ -26,6 +26,8 @@ import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDt
 import { getContributionInfoDetailReqDto } from 'domains/dto/contribution/request/getContributionInfoDetailReq.dto';
 import { Prisma, PrismaClient } from '@prisma/client';
 import { ParseContributeReqPipe } from 'common/pipes/parseContributeReq.pipe';
+import { ParseSearchReqPipe } from 'common/pipes/parseSearchReq.pipe';
+import { ContributionSelectWhereInputDto } from 'domains/dto/contribution/contributionSelectWhereInputDto';
 
 @Controller('contribution')
 @UseFilters(InternalServerErrorExceptionFilter, BadRequestExceptionFilter)
@@ -80,8 +82,10 @@ export class ContributionController {
   }
 
   //投稿情報取得処理
+  //※ParseSearchReqPipeでリクエストデータを型変換する
   @Get('search')
-  async search(@Query() searchReqData: SearchReqDto, @Res() res: Response) {
+  async search(@Query(new ParseSearchReqPipe()) searchReqData: SearchReqDto, @Res() res: Response) {
+    let contributionInfosTotalCount: number = 0;
     let contributionInfos: ContributionInfoDto[] | null = null;
 
     //検索に必須なデータがリクエストに含まれる場合
@@ -90,21 +94,37 @@ export class ContributionController {
       isExistValue(searchReqData.keyword) &&
       isExistValue(searchReqData.searchCategory)
     ) {
-      //投稿情報検索処理
-      contributionInfos = await this.contriobutionService
-        .selectContributionInfos(searchReqData)
+      //投稿情報件数取得処理
+      contributionInfosTotalCount = await this.contriobutionService
+        .selectContributionInfosCount(searchReqData as ContributionSelectWhereInputDto)
         .catch((error: any) => {
           throw error;
         });
+
+      //取得件数が１件以上の場合
+      if (contributionInfosTotalCount > 0) {
+        //投稿情報検索処理
+        contributionInfos = await this.contriobutionService
+          .selectContributionInfos(searchReqData as ContributionSelectWhereInputDto)
+          .catch((error: any) => {
+            throw error;
+          });
+      }
     }
 
     //データ返却
-    res.status(HttpStatus.OK).json({ contributionInfos: contributionInfos });
+    res
+      .status(HttpStatus.OK)
+      .json({ totalCount: contributionInfosTotalCount, contributionInfos: contributionInfos });
 
-    return { statusCode: HttpStatus.OK, contributionInfos: contributionInfos };
+    return {
+      statusCode: HttpStatus.OK,
+      totalCount: contributionInfosTotalCount,
+      contributionInfos: contributionInfos,
+    };
   }
 
-  //投稿情報取得処理
+  //投稿情報詳細取得処理
   @Get('getContributionDetail')
   async getContributionDetail(
     @Query() getContributionInfoDetailReqData: getContributionInfoDetailReqDto,

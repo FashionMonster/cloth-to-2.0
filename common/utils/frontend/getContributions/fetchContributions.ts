@@ -12,7 +12,10 @@ const fetchContributions = async (
   apiPath: string,
   router: any,
   userInfo: LoginUserInfo
-): Promise<({ src: string } & SearchResType)[] | null> => {
+): Promise<{
+  totalCount: number;
+  contributionInfos: ({ src: string } & SearchResType)[] | null;
+}> => {
   const urlData: queryString.ParsedUrl = queryString.parseUrl(router.asPath, {
     parseFragmentIdentifier: true,
   });
@@ -47,17 +50,17 @@ const fetchContributions = async (
   });
 
   //投稿情報検索リクエスト
-  const res: AxiosResponse<{ contributionInfos: SearchResType[] | null }> = await axios
-    .get(apiPath, {
-      params: reqData,
-    })
-    .catch((error) => {
-      throw error;
-    });
+  const res: AxiosResponse<{ totalCount: number; contributionInfos: SearchResType[] | null }> =
+    await axios
+      .get(apiPath, {
+        params: reqData,
+      })
+      .catch((error) => {
+        throw error;
+      });
 
-  //検索結果が０件の場合
   if (!isExistValue(res.data.contributionInfos)) {
-    return null;
+    return { totalCount: res.data.totalCount, contributionInfos: null };
   }
 
   //ダウンロードURLを取得、レスポンスデータに追加する
@@ -76,7 +79,7 @@ const fetchContributions = async (
     responseData.push(combinedData);
   }
 
-  return responseData;
+  return { totalCount: res.data.totalCount, contributionInfos: responseData };
 };
 
 export { fetchContributions };

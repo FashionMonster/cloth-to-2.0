@@ -17,7 +17,7 @@ import { SearchInput } from 'interfaces/ui/components/molecules/searchPage/searc
 import { SearchResult } from 'interfaces/ui/components/molecules/searchPage/searchResult';
 import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { isExistValue } from 'common/utils/isExistValue';
-import { getNumberPerOneDisplay } from 'common/utils/frontend/getNumberPerOneDisplay';
+import { getDisplayCount } from 'common/utils/frontend/getDisplayCount';
 import { changePageNum } from 'common/utils/frontend/changePageNum';
 import { fetchContributions } from 'common/utils/frontend/getContributions/fetchContributions';
 import { createQueryParam } from 'common/utils/frontend/getContributions/createQueryParam';
@@ -91,14 +91,10 @@ const Search: React.VFC = () => {
         {isExistValue(query.data) && (
           //PCは１行に５件、スマホは１行に２件表示する
           <div
-            className={`grid grid-cols-${
-              DISPLAY_DATA_NUM.ONE_ROW
-            } grid-rows-${getNumberPerOneDisplay(
+            className={`grid grid-cols-${DISPLAY_DATA_NUM.ONE_ROW} grid-rows-${getDisplayCount(
               query.data!.length,
               DISPLAY_DATA_NUM.ONE_ROW
-            )} gap-5 sm:grid-cols-${
-              DISPLAY_DATA_NUM.SM_ONE_ROW
-            } sm:grid-rows-${getNumberPerOneDisplay(
+            )} gap-5 sm:grid-cols-${DISPLAY_DATA_NUM.SM_ONE_ROW} sm:grid-rows-${getDisplayCount(
               query.data!.length,
               DISPLAY_DATA_NUM.SM_ONE_ROW
             )} sm:gap-3 sm:w-352 sm:mx-auto`}
@@ -142,7 +138,7 @@ const Search: React.VFC = () => {
             disableInitialCallback={true}
             pageCount={
               isExistValue(query.data)
-                ? getNumberPerOneDisplay(query.data!.length, DISPLAY_DATA_NUM.ONE_PAGE)
+                ? getDisplayCount(query.data!.length, DISPLAY_DATA_NUM.ONE_PAGE)
                 : 0
             }
             onPageChange={(e: { selected: number }) => {

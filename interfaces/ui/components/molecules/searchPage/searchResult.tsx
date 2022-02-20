@@ -31,7 +31,7 @@ const SearchResult: React.VFC<Props> = (props) => {
         />
       </Link>
       <p className='font-semibold w-200 text-center mt-4 sm:w-170'>
-        {subString(props.materialName, 4)}
+        {subString(props.materialName, 8)}
       </p>
     </div>
   );

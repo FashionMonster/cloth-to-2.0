@@ -26,8 +26,8 @@ const InputCompositionRatio: React.VFC<Props> = (props) => {
       {props.errors?.type === 'required' && (
         <div className='text-red-600 text-sm'>必須入力です</div>
       )}
-      {props.errors?.type === 'max' && <div className='text-red-600 text-sm'>最大値は100です</div>}
-      {props.errors?.type === 'min' && <div className='text-red-600 text-sm'>最小値は1です</div>}
+      {props.errors?.type === 'max' && <div className='text-red-600 text-sm'>最大は100です</div>}
+      {props.errors?.type === 'min' && <div className='text-red-600 text-sm'>最小は1です</div>}
     </div>
   );
 };

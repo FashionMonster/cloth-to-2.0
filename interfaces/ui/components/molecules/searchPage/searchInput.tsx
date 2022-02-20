@@ -24,7 +24,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
         name='keyword'
         isDisabled={false}
         defaultValue=''
-        width='280'
+        width='300'
         register={register({ required: true })}
         errors={errors.keyword}
       />
@@ -47,7 +47,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
           name='compositionRatio'
           isDisabled={false}
           defaultValue=''
-          width='20'
+          width='100'
           register={register({ required: true, max: 100, min: 1 })}
           errors={errors.compositionRatio}
         />
@@ -67,7 +67,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
         id='keyword'
         isDisabled={false}
         defaultValue=''
-        width='280'
+        width='300'
         register={register({ required: true })}
         errors={errors.keyword}
       />
@@ -82,7 +82,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
           isDisabled={false}
           defaultValue=''
           placeholder=''
-          width='48'
+          width='204'
           maxLength='100'
           register={register({ required: true, pattern: /^[0-9]+$/ })}
           errors={errors.keyword}
@@ -109,7 +109,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
         isDisabled={false}
         defaultValue=''
         placeholder=''
-        width='280'
+        width='300'
         maxLength=''
         register={register({ required: true })}
         errors={errors.keyword}
