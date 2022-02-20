@@ -148,41 +148,48 @@ export class ContributionController {
   //投稿情報更新処理
   @Post('updateContribution')
   async updateContribution(
-    @Body() updateContributionReqData: UpdateContributionReqDto,
+    @Body(new ParseContributeReqPipe()) updateContributionReqData: UpdateContributionReqDto,
     @Res() res: Response
   ) {
-    //投稿画像データの取得
-    const imageNameArray: string[] = updateContributionReqData.imageName;
+    //投稿IDの取得
     const contributionIdParam: number = parseInt(updateContributionReqData.contributionId);
 
+    //投稿画像データの取得
+    const imageNameArray: string[] = updateContributionReqData.imageName;
+
     //投稿画像情報を除いた(投稿情報)オブジェクトを生成
-    const { imageName, ...contributionInfo }: any = updateContributionReqData;
-    const { contributionId, ...contributionInfo2 }: any = contributionInfo;
+    const { imageName, ...reqWithoutImageName } = updateContributionReqData;
 
-    //文字列型のプロパティに一部数字型に変換しないといけないので変換（TODO:別の変換方法を探す）
-    const contributionInfoUpdateInput: Prisma.ContributionInfoUpdateInput = contributionInfo2;
+    const { contributionId, ...contributionInfoUpdateInput } =
+      reqWithoutImageName as unknown as ContributionInfoCreateInputDto;
 
+    const prisma = new PrismaClient();
     try {
-      //投稿情報の更新
-      await this.contriobutionService.updateContributionInfo(
-        contributionId,
-        contributionInfoUpdateInput
-      );
+      //トランザクション開始(エラー発生時、自動でロールバックする)
+      await prisma.$transaction(async (prisma) => {
+        //投稿情報の更新
+        await this.contriobutionService.updateContributionInfo(
+          prisma,
+          contributionIdParam,
+          contributionInfoUpdateInput
+        );
 
-      //投稿画像オブジェクトの生成
-      const contributionImage: Prisma.ContributionImageUpdateInput = {
-        imageName1: imageNameArray![0],
-        imageName2: isExistValue(imageNameArray![1]) ? imageNameArray![1] : null,
-        imageName3: isExistValue(imageNameArray![2]) ? imageNameArray![2] : null,
-        imageName4: isExistValue(imageNameArray![3]) ? imageNameArray![3] : null,
-        imageName5: isExistValue(imageNameArray![4]) ? imageNameArray![4] : null,
-      };
+        //投稿画像オブジェクトの生成
+        const contributionImage: Prisma.ContributionImageUpdateInput = {
+          imageName1: imageNameArray![0],
+          imageName2: isExistValue(imageNameArray![1]) ? imageNameArray![1] : null,
+          imageName3: isExistValue(imageNameArray![2]) ? imageNameArray![2] : null,
+          imageName4: isExistValue(imageNameArray![3]) ? imageNameArray![3] : null,
+          imageName5: isExistValue(imageNameArray![4]) ? imageNameArray![4] : null,
+        };
 
-      //投稿画像情報の更新
-      await this.contriobutionImageService.updateContributionImage(
-        contributionIdParam,
-        contributionImage
-      );
+        //投稿画像情報の更新
+        await this.contriobutionImageService.updateContributionImage(
+          prisma,
+          contributionIdParam,
+          contributionImage
+        );
+      });
     } catch (error: any) {
       throw error;
     }
@@ -190,6 +197,6 @@ export class ContributionController {
     //データ返却
     res.status(HttpStatus.OK).json({ contributionInfoDetail: contributionInfoUpdateInput });
 
-    return { statusCode: HttpStatus.CREATED };
+    return { statusCode: HttpStatus.OK };
   }
 }

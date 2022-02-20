@@ -30,11 +30,12 @@ export class ContributionImageService {
 
   //投稿画像更新
   async updateContributionImage(
+    prismaTran: PrismaTransaction,
     contributionId: number,
     updateContributionImageParam: Prisma.ContributionImageUpdateInput
   ): Promise<void> {
     try {
-      await this.prisma.contributionImage.update({
+      await prismaTran.contributionImage.update({
         where: {
           contributionId: contributionId,
         },

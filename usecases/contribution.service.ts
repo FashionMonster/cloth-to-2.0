@@ -166,11 +166,12 @@ export class ContributionService {
 
   //投稿情報更新
   async updateContributionInfo(
+    prismaTran: PrismaTransaction,
     contributionId: number,
     updateContributionInfoParam: Prisma.ContributionInfoUpdateInput
   ): Promise<void> {
     try {
-      await this.prisma.contributionInfo.update({
+      await prismaTran.contributionInfo.update({
         where: {
           contributionId: contributionId,
         },

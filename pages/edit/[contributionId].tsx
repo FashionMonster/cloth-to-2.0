@@ -27,7 +27,7 @@ import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import type { ContributionInfoDetail } from 'constants/types/contributionInfoDetail';
 import type { ReadImageType } from 'constants/types/readImageType';
 import type { ContributeFormType } from 'constants/types/form/contributeFormType';
-import type { UpdateContribution } from 'constants/types/updateContribution';
+import { usePreviousValue } from 'common/customHooks/usePreviousValue';
 
 //投稿編集画面
 const ContributionId: React.VFC = () => {
@@ -35,15 +35,19 @@ const ContributionId: React.VFC = () => {
   const [imgFile, setImgFile] = useState<ReadImageType[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const modalMessage = useRef<string>('');
+  const previousIsModalOpen = usePreviousValue(isModalOpen);
   const router: NextRouter = useRouter();
   const { handleSubmit, register, errors, getValues, setError, clearErrors } =
     useForm<ContributeFormType>();
   const queryClient: QueryClient = useQueryClient();
 
   //初期表示時、対象データ取得処理
+  //retryを入れる理由：データ更新後のフェッチ時、Firebase Storage上に画像がまだ存在しないことによるエラーが発生する場合がある。
+  //データが存在する状態でフェッチできるまでretryしたいため
   const query: UseQueryResult<ContributionInfoDetail, any> = useQuery(
-    ['contributionDetail', router.asPath],
-    () => fetchContributionDetail()
+    ['editPath', router.asPath],
+    () => fetchContributionDetail(),
+    { retry: 10 }
   );
 
   //ファイル選択時
@@ -88,61 +92,73 @@ const ContributionId: React.VFC = () => {
 
   //投稿内容更新処理
   const mutation: any = useMutation(
-    async (formData: UpdateContribution) => {
+    async (formData: ContributeFormType) => {
       //データが空のプロパティを削除
-      (Object.keys(formData) as (keyof UpdateContribution)[]).map((key) => {
+      (Object.keys(formData) as (keyof ContributeFormType)[]).map((key) => {
         if (!isExistValue(formData[key])) {
           delete formData[key];
         }
       });
 
       //formのファイルデータを除いたオブジェクトを生成
-      const { imageFiles, ...postFormData }: UpdateContribution = formData;
+      const { imageFiles, ...postFormData }: ContributeFormType & { contributionId?: string } =
+        formData;
 
       //FireBase Storageに画像アップロード
       const idList = uploadImage(imgFile);
 
       //フォーム以外のデータをセット
-      postFormData.imageUrl = idList;
+      postFormData.imageName = idList;
       postFormData.userId = loginUserInfo.userId;
+      postFormData.userId = '';
       postFormData.groupId = loginUserInfo.groupId;
       postFormData.contributionId = router.query.contributionId as string;
 
-      const res: AxiosResponse<{ updateContribution: UpdateContribution }> = await axios
+      const res = await axios
         .post('../api/contribution/updateContribution', postFormData)
         .then(() => {
           setImgFile([]); //初期化
           setIsModalOpen(true);
-          modalMessage.current = RESULT_MSG.OK.FIN_CREATE_CONTRIBUTION;
-          return res;
+          modalMessage.current = RESULT_MSG.OK.FIN_UPDATE_CONTRIBUTION;
         })
         .catch((error: any) => {
           throw error;
         });
 
-      return res.data.updateContribution;
+      return res;
     },
     {
       //クエリキーをリセット、キャッシュを削除
       //検索系、投稿情報詳細表示系画面が対象
       onSuccess: () => {
+        queryClient.invalidateQueries('editPath');
         queryClient.invalidateQueries('searchPath');
         queryClient.invalidateQueries('contributionHistoryPath');
-        queryClient.invalidateQueries('editPath');
         queryClient.invalidateQueries('contributionDetail');
       },
     }
   );
 
   //データフェッチ中、ローディング画像を表示
-  if (query.isFetching || query.isLoading) return <Loading />;
+  if (query.isFetching || query.isLoading || mutation.isFetching || mutation.isLoading)
+    return <Loading />;
 
-  //エラー発生時
+  //初期表示エラー発生時
   if (query.isError)
     return (
       <Error
         backType={BACK_PAGE_TYPE.BROWSER}
         errorMsg={query.error.response.data.errorInfo.message}
+        isLogined={true}
+      />
+    );
+
+  //データ更新エラー発生時
+  if (mutation.isError)
+    return (
+      <Error
+        backType={BACK_PAGE_TYPE.RELOAD}
+        errorMsg={mutation.error.response.data.errorInfo.message}
         isLogined={true}
       />
     );
