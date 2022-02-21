@@ -110,7 +110,6 @@ const ContributionId: React.VFC = () => {
       //フォーム以外のデータをセット
       postFormData.imageName = idList;
       postFormData.userId = loginUserInfo.userId;
-      postFormData.userId = '';
       postFormData.groupId = loginUserInfo.groupId;
       postFormData.contributionId = router.query.contributionId as string;
 

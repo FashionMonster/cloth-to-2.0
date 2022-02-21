@@ -159,7 +159,7 @@ const ContributionHistory: React.VFC = () => {
               disableInitialCallback={true}
               pageCount={getDisplayCount(query.data!.totalCount, DISPLAY_DATA_NUM.ONE_PAGE)}
               onPageChange={(e: { selected: number }) => {
-                changePageNum(e.selected + 1, '/search', router);
+                changePageNum(e.selected + 1, '/contributionHistory', router);
               }}
               containerClassName={'flex w-full justify-center'}
               pageClassName={
