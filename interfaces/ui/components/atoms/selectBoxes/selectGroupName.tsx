@@ -1,4 +1,4 @@
-import type { GetAllGroupInfoResType } from '../../../../../constants/types/response/getAllGroupInfoResType';
+import type { GetAllGroupInfoResType } from 'constants/types/response/test';
 import type { LegacyRef } from 'react';
 import type { FieldError } from 'react-hook-form';
 
