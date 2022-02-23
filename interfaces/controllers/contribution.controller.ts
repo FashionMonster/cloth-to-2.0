@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { InternalServerErrorExceptionFilter } from 'common/exceptionFilters/internalServerException.filter';
-import { BadRequestExceptionFilter } from 'common/exceptionFilters/BadRequestException.filter';
+import { BadRequestExceptionFilter } from 'common/exceptionFilters/badRequestException.filter';
 import { LoggingInterceptor } from 'common/Interceptors/logging.interceptor';
 import { ContributionService } from 'usecases/contribution.service';
 import { ContributionImageService } from 'usecases/contributionImage.service';
