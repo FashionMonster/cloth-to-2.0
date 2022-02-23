@@ -1,4 +1,4 @@
-import Link from 'next/Link';
+import Link from 'next/link';
 
 //会員登録ボタンコンポーネント
 const CreateUserBtn: React.VFC = () => {

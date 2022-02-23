@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/Link';
+import Link from 'next/link';
 import { useQueryClient } from 'react-query';
 import { useRecoilState } from 'recoil';
 import { loginUserState } from 'common/utils/frontend/loginUserState';
