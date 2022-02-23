@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { SideNavLink } from 'interfaces/ui/components/atoms/navigation/sideNavlink';
+import { SideNavLink } from 'interfaces/ui/components/atoms/navigation/sideNavLink';
 import { Hamburger } from 'interfaces/ui/components/atoms/navigation/hamburger';
 import { Close } from 'interfaces/ui/components/atoms/navigation/close';
 import { SettingSideNav } from 'interfaces/ui/components/molecules/navigation/settingSideNav';

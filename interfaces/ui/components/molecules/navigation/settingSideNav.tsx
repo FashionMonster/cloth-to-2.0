@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
-import { SideNavLink } from 'interfaces/ui/components/atoms/navigation/sideNavlink';
+import { SideNavLink } from 'interfaces/ui/components/atoms/navigation/sideNavLink';
 
 //設定ナビゲーション(スマホ時のサイドナビ)コンポーネント
 const SettingSideNav: React.VFC = () => {
