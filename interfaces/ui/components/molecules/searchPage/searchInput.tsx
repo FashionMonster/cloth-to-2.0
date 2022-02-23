@@ -3,7 +3,7 @@ import { SelectColor } from 'interfaces/ui/components/atoms/selectBoxes/selectCo
 import { SelectCompareCondition } from 'interfaces/ui/components/atoms/selectBoxes/selectCompareCondition';
 import { SelectComposition } from 'interfaces/ui/components/atoms/selectBoxes/selectComposition';
 import { InputCompositionRatio } from 'interfaces/ui/components/atoms/textBoxes/inputCompositionRatio';
-import { InputText } from 'interfaces/ui/components/atoms/textBoxes/test';
+import { InputText } from 'interfaces/ui/components/atoms/textBoxes/inputText';
 import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
 
 //引数の型定義

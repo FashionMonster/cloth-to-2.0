@@ -2,7 +2,7 @@ import { SelectCategory } from 'interfaces/ui/components/atoms/selectBoxes/selec
 import { SelectColor } from 'interfaces/ui/components/atoms/selectBoxes/selectColor';
 import { SelectComposition } from 'interfaces/ui/components/molecules/contributePage/selectComposition';
 import { InputCompositionRatio } from 'interfaces/ui/components/molecules/contributePage/inputCompositionRatio';
-import { InputText } from 'interfaces/ui/components/atoms/textBoxes/test';
+import { InputText } from 'interfaces/ui/components/atoms/textBoxes/inputText';
 import { InputTextarea } from 'interfaces/ui/components/atoms/textareas/inputTextarea';
 import type { DeepMap, ErrorOption, FieldError } from 'react-hook-form';
 import type { ContributeFormType } from 'constants/types/form/contributeFormType';
