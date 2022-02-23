@@ -10,7 +10,7 @@ import { Main } from 'interfaces/ui/components/organisms/mainElement';
 import { Loading } from 'interfaces/ui/components/atoms/others/loading';
 import { Error } from 'interfaces/ui/components/organisms/error';
 import { InputLabel } from 'interfaces/ui/components/atoms/others/inputLabel';
-import { InputText } from 'interfaces/ui/components/atoms/textBoxes/inputText';
+import { InputText } from 'interfaces/ui/components/atoms/textBoxes/test';
 import { InputEmail } from 'interfaces/ui/components/atoms/textBoxes/inputEmail';
 import { InputPassword } from 'interfaces/ui/components/atoms/textBoxes/inputPassword';
 import { SubmitBtn } from 'interfaces/ui/components/atoms/buttons/submitBtn';
