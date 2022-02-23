@@ -27,6 +27,19 @@ const Body: React.VFC<Props> = (props) => {
       //ログイン画面へ遷移
       router.push('/login');
     }
+
+    //ログインが必要な画面の場合
+    if (
+      router.asPath !== '/' &&
+      router.asPath !== '/signup' &&
+      router.asPath !== '/login' &&
+      router.asPath !== '/groupSetting' &&
+      isExistValue(loginUserInfo.userId) &&
+      !isExistValue(loginUserInfo.groupId)
+    ) {
+      //ログイン画面へ遷移
+      router.push('/linkUserToGroup');
+    }
   }, []);
 
   //ログインが必要な画面の場合

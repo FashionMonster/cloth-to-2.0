@@ -53,7 +53,7 @@ const Search: React.VFC = () => {
   };
 
   //初期表示(データ取得)でエラー発生時
-  if (query.error)
+  if (query.isError)
     return (
       <Error
         backType={BACK_PAGE_TYPE.RELOAD}

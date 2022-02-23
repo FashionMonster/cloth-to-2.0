@@ -22,9 +22,9 @@ const SLIDER: {
   //https://qiita.com/koba04/items/a4d23245d246c53cd49d
   IMAGES: [
     {
-      IMG: '/slideShow/createUser.png',
+      IMG: '/slideShow/signup.png',
       MSG: '会員登録します',
-      KEY: 'createUserImage',
+      KEY: 'signupImage',
     },
     {
       IMG: '/slideShow/login.png',
@@ -34,12 +34,12 @@ const SLIDER: {
     {
       IMG: '/slideShow/linkUserToGroup.png',
       MSG: 'ユーザーをグループに紐付けます(もしくはグループ作成します)',
-      KEY: 'createUserImage',
+      KEY: 'linkUserToGroupImage',
     },
     {
-      IMG: '/slideShow/contribute.png',
+      IMG: '/slideShow/contribution.png',
       MSG: '投稿して、皆に共有します',
-      KEY: 'linkUserToGroupImage',
+      KEY: 'contributionImage',
     },
     {
       IMG: '/slideShow/search.png',

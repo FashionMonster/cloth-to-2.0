@@ -29,7 +29,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <RecoilRoot>
           <Component {...pageProps} />
         </RecoilRoot>
-        <ReactQueryDevtools initialIsOpen />
+        {/* <ReactQueryDevtools initialIsOpen /> */}
       </QueryClientProvider>
     </>
   );

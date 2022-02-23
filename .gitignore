@@ -25,7 +25,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-# .env ※必要ならば使用
 .env
 .env.local
 .env.development.local
