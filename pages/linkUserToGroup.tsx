@@ -19,7 +19,7 @@ import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { logout } from 'common/utils/frontend/logout';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
 import { RESULT_MSG } from 'constants/resultMsg';
-import type { GetAllGroupInfoResType } from 'constants/types/response/test';
+import type { GetAllGroupInfoResType } from 'constants/types/response/getAllGroupInfoResType';
 import type { LinkUserToGroupFormType } from 'constants/types/form/linkUserToGroupFormType';
 
 //ユーザー情報グループ紐付け画面
