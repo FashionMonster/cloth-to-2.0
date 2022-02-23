@@ -1,4 +1,4 @@
-import { ContributionImageEntity } from 'domains/entities/ContributionImageEntity';
+import { ContributionImageEntity } from 'domains/entities/contributionImageEntity';
 //投稿情報テーブル詳細取得の型定義
 type ContributionInfoDetailEntity = {
   readonly contributionId: number;
