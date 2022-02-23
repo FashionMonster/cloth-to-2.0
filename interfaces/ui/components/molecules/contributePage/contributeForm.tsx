@@ -5,7 +5,7 @@ import { SelectColor } from 'interfaces/ui/components/atoms/selectBoxes/selectCo
 import { SelectComposition } from 'interfaces/ui/components/molecules/contributePage/selectComposition';
 import { InputCompositionRatio } from 'interfaces/ui/components/molecules/contributePage/inputCompositionRatio';
 import { InputTextarea } from 'interfaces/ui/components/atoms/textareas/inputTextarea';
-import { InputText } from 'interfaces/ui/components/atoms/textBoxes/inputText';
+// import { InputText } from 'interfaces/ui/components/atoms/textBoxes/inputText';
 
 //引数の型定義
 type Props = {
@@ -28,7 +28,7 @@ const ContributeForm: React.VFC<Props> = (props) => {
   return (
     <>
       <label htmlFor='materialName'>素材・製品名</label>
-      <InputText
+      {/* <InputText
         id='materialName'
         name='materialName'
         isDisabled={props.isDisabled}
@@ -39,7 +39,7 @@ const ContributeForm: React.VFC<Props> = (props) => {
         maxLength='50'
         register={props.register({ required: true, maxLength: 50 })}
         errors={props.errors.materialName}
-      />
+      /> */}
 
       <label htmlFor='category'>分類</label>
       <SelectCategory
@@ -142,7 +142,7 @@ const ContributeForm: React.VFC<Props> = (props) => {
       </div>
 
       <label htmlFor='fabricStructure'>織・編地</label>
-      <InputText
+      {/* <InputText
         id='fabricStructure'
         name='fabricStructure'
         isDisabled={props.isDisabled}
@@ -153,7 +153,7 @@ const ContributeForm: React.VFC<Props> = (props) => {
         maxLength='50'
         register={props.register({ maxLength: 50 })}
         errors={props.errors.fabricStructure}
-      />
+      /> */}
 
       <label htmlFor='color'>色</label>
       <SelectColor
@@ -166,7 +166,7 @@ const ContributeForm: React.VFC<Props> = (props) => {
         register={props.register()}
       />
 
-      <label htmlFor='pattern'>柄</label>
+      {/* <label htmlFor='pattern'>柄</label>
       <InputText
         id='pattern'
         name='pattern'
@@ -220,7 +220,7 @@ const ContributeForm: React.VFC<Props> = (props) => {
         maxLength='50'
         register={props.register({ maxLength: 50 })}
         errors={props.errors.supplier}
-      />
+      /> */}
 
       <label htmlFor='comment'>コメント</label>
       <InputTextarea
