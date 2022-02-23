@@ -2,7 +2,7 @@ import { SelectCategory } from 'interfaces/ui/components/atoms/selectBoxes/selec
 import { SelectColor } from 'interfaces/ui/components/atoms/selectBoxes/selectColor';
 import { SelectCompareCondition } from 'interfaces/ui/components/atoms/selectBoxes/selectCompareCondition';
 import { SelectComposition } from 'interfaces/ui/components/atoms/selectBoxes/selectComposition';
-import { InputCompositionRatio } from 'interfaces/ui/components/atoms/textBoxes/inputCompositionRatio';
+// import { InputCompositionRatio } from 'interfaces/ui/components/atoms/textBoxes/inputCompositionRatio';
 import { InputText } from 'interfaces/ui/components/atoms/textBoxes/inputText';
 import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
 
@@ -42,7 +42,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
           register={register({ required: true })}
           errors={errors.keyword}
         />
-        <InputCompositionRatio
+        {/* <InputCompositionRatio
           id='compositionRatio'
           name='compositionRatio'
           isDisabled={false}
@@ -50,7 +50,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
           width='100'
           register={register({ required: true, max: 100, min: 1 })}
           errors={errors.compositionRatio}
-        />
+        /> */}
         <SelectCompareCondition
           id='compareCondition'
           name='compareCondition'
