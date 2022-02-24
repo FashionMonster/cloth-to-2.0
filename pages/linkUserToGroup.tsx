@@ -9,7 +9,7 @@ import { Navigation } from 'interfaces/ui/components/organisms/navigation';
 import { FunctionExplain } from 'interfaces/ui/components/atoms/others/functionExplain';
 import { Main } from 'interfaces/ui/components/organisms/mainElement';
 import { SelectGroupName } from 'interfaces/ui/components/atoms/selectBoxes/selectGroupName';
-import { InputPassword } from 'interfaces/ui/components/atoms/textBoxes/inputPassword';
+import { InputPassword } from 'interfaces/ui/components/atoms/inputBoxes/inputPassword';
 import { SubmitBtn } from 'interfaces/ui/components/atoms/buttons/submitBtn';
 import { Loading } from 'interfaces/ui/components/atoms/others/loading';
 import { ModalWindow } from 'interfaces/ui/components/molecules/others/modalWindow';

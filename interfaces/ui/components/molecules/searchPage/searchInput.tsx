@@ -2,8 +2,8 @@ import { SelectCategory } from 'interfaces/ui/components/atoms/selectBoxes/selec
 import { SelectColor } from 'interfaces/ui/components/atoms/selectBoxes/selectColor';
 import { SelectCompareCondition } from 'interfaces/ui/components/atoms/selectBoxes/selectCompareCondition';
 import { SelectComposition } from 'interfaces/ui/components/atoms/selectBoxes/selectComposition';
-// import { InputCompositionRatio } from 'interfaces/ui/components/atoms/textBoxes/inputCompositionRatio';
-// import { InputText } from 'interfaces/ui/components/atoms/textBoxes/inputText';
+import { InputCompositionRatio } from 'interfaces/ui/components/atoms/inputBoxes/inputCompositionRatio';
+import { InputText } from 'interfaces/ui/components/atoms/inputBoxes/inputText';
 import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
 
 //引数の型定義
@@ -42,7 +42,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
           register={register({ required: true })}
           errors={errors.keyword}
         />
-        {/* <InputCompositionRatio
+        <InputCompositionRatio
           id='compositionRatio'
           name='compositionRatio'
           isDisabled={false}
@@ -50,7 +50,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
           width='100'
           register={register({ required: true, max: 100, min: 1 })}
           errors={errors.compositionRatio}
-        /> */}
+        />
         <SelectCompareCondition
           id='compareCondition'
           name='compareCondition'
@@ -76,7 +76,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
   } else if (category === '8') {
     return (
       <div className='grid grid-cols-inputUnitPrice gap-4'>
-        {/* <InputText
+        <InputText
           id='keyword'
           name='keyword'
           isDisabled={false}
@@ -86,7 +86,7 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
           maxLength='100'
           register={register({ required: true, pattern: /^[0-9]+$/ })}
           errors={errors.keyword}
-        /> */}
+        />
         <SelectCompareCondition
           name='compareCondition'
           register={register()}
@@ -103,18 +103,17 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
     // 10:投稿者
   } else {
     return (
-      // <InputText
-      //   name='keyword'
-      //   id='keyword'
-      //   isDisabled={false}
-      //   defaultValue=''
-      //   placeholder=''
-      //   width='300'
-      //   maxLength=''
-      //   register={register({ required: true })}
-      //   errors={errors.keyword}
-      // />
-      <></>
+      <InputText
+        name='keyword'
+        id='keyword'
+        isDisabled={false}
+        defaultValue=''
+        placeholder=''
+        width='300'
+        maxLength=''
+        register={register({ required: true })}
+        errors={errors.keyword}
+      />
     );
   }
 };
