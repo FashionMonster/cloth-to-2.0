@@ -1,5 +1,12 @@
 module.exports = {
-  purge: ['./pages/**/*.ts', './pages/**/*.tsx', './pages/**/*.js'],
+  purge: [
+    './pages/**/*.ts',
+    './pages/**/*.tsx',
+    './pages/**/*.js',
+    './interfaces/**/*.ts',
+    './interfaces/**/*.tsx',
+    './interfaces/**/*.js',
+  ],
   theme: {
     extend: {
       fontSize: {
