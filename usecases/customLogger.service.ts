@@ -1,6 +1,7 @@
 import { Injectable, LoggerService } from '@nestjs/common';
 import { createLogger, format, Logger, transports } from 'winston';
 import dayjs from 'dayjs';
+import path from 'path';
 
 //ライブラリwinstonを使ってログ出力
 @Injectable()
@@ -26,8 +27,14 @@ export class CustomLoggerService implements LoggerService {
       transports: [
         //出力先とログレベルの設定
         new transports.Console(),
-        new transports.File({ filename: 'logs/error.log', level: 'error' }),
-        new transports.File({ filename: 'logs/info.log', level: 'info' }),
+        new transports.File({
+          filename: path.join(__dirname, '../logs/error.log'),
+          level: 'error',
+        }),
+        new transports.File({
+          filename: path.join(__dirname, '../logs/info.log'),
+          level: 'info',
+        }),
       ],
     });
   }
