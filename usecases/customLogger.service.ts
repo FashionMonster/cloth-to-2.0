@@ -28,11 +28,13 @@ export class CustomLoggerService implements LoggerService {
         //出力先とログレベルの設定
         new transports.Console(),
         new transports.File({
-          filename: path.join(__dirname, '../logs/error.log'),
+          // filename: 'logs/error.log', //dev用
+          filename: '../../tmp/logs/error.log', //production用
           level: 'error',
         }),
         new transports.File({
-          filename: path.join(__dirname, '../logs/info.log'),
+          // filename: 'logs/info.log', //dev用
+          filename: '../../tmp/logs/info.log', //production用
           level: 'info',
         }),
       ],
