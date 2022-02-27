@@ -1,286 +1,104 @@
-本アプリは以下で作成したサンプルを元に開発しています
+## 開発の動機
 
-Next.js,Nest.js を中心に色々組み込んだサンプルプロジェクト
+####　 【目的】
 
-## 技術構成
+アパレル生産関係者(商社営業、メーカー企画など)における、
+個々人が持っている情報資産を簡単に共有すること
 
-| 項目             | 技術                        |
-| ---------------- | --------------------------- |
-| 言語             | TypeScript                  |
-| ライブラリ       | React                       |
-| フレームワーク１ | Next.js                     |
-| フレームワーク２ | Nest.js                     |
-| インフラ         | docker                      |
-| データベース     | MySQL                       |
-| ORM              | Prisma                      |
-| スタイル         | TailwindCSS                 |
-| アーキテクチャ   | クリーンアーキテクチャ      |
-| UI デザイン      | アトミックデザイン          |
-| ソース管理       | Git, Github                 |
-| エディタ         | Visual Studio Code          |
-| その他設定       | Prettier,ESLint,babel etc.. |
+####　 【課題】
 
-## 始め方
+前職は繊維商社の営業(生産管理)でした。モノづくりが事業の基盤になっている繊維商社やメーカーにおいて、
+モノづくりの工程には必ず素材選定が必要です。営業担当それぞれが異なる得意先・仕入先・コネクションを持つが
+社内で情報の共有が不十分である(=共有はしているが共有の仕方に問題がある)と思っていました。
+社内で情報を共有することに特化したツールが必要だと考えました。
 
-#### 1. ソースのクローン
+## アプリの概要
 
-```bash
-git clone https://github.com/FashionMonster/ts-libraries-frameworks-template.git
-```
+####　 【想定する使用対象者】
 
-#### 2. パッケージをインストール
+アパレル生産関係者(商社営業、メーカー企画など)
 
-```bash
-npm install
-# or
-yarn
-```
+####　 【システム要件】(このアプリで期待できること)
 
-#### 3. docker の導入(MySQL)　※Docker Desktop をインストールしていることが前提
+- 素材・資材・製品に関する情報を簡潔にして、より個人・全体で管理しやすくなる
+- 会議等による情報共有はハードルが高かったが、Web 上での投稿形式にすることで必要な情報を最小限の時間で取得・公開できる
 
-3.1 イメージの作成
+####　 【機能要件】(このアプリに必要な機能)
 
-```bash
-cd docker-compose.ymlのあるディレクトリ
-docker-compose build
-```
+以下、本アプリに実装した機能です
 
-3.2 コンテナの作成、起動
+- ユーザー登録機能
+- ログイン、ログアウト機能
+- ユーザー情報更新機能
+- グループアカウント作成機能
+- グループとユーザーの紐付け機能(同一グループ内にのみ検索等の機能を制限する)
+- 検索機能
+- 投稿機能
+- 履歴検索機能(自身の投稿履歴を検索する)
+- 投稿編集機能
 
-```bash
-docker-compose up -d
-```
+## アプリの詳細
 
-#### 4. [DB マイグレーションの実行](https://docs.nestjs.com/recipes/prisma#set-up-prisma)
+####　 【サービス名】
 
-→ prisma/schema.prisma に定義した内容でローカル DB にテーブルが作成されれば OK
+_Cloth-To_
+close to ～(～に接する又は身近な～)と Cloth(服)を掛け合わせている。
+服のアイデア・情報を持つ人と人やモノとモノ、人とモノを繋ぐ意味が込められている
 
-```bash
-npx prisma migrate dev --name init
-```
+####　 技術構成（※１）
 
-#### 5. プロジェクトの起動
+| 項目              | 技術                        |
+| ----------------- | --------------------------- |
+| 言語              | TypeScript                  |
+| ライブラリ        | React                       |
+| フレームワーク１  | Next.js                     |
+| フレームワーク２  | Nest.js                     |
+| インフラ系（※２） | docker, AWS(RDS)            |
+| データベース      | MySQL                       |
+| ORM               | Prisma                      |
+| スタイル          | TailwindCSS                 |
+| アーキテクチャ    | クリーンアーキテクチャ      |
+| UI デザイン       | アトミックデザイン          |
+| ソース管理        | Git, Github                 |
+| デプロイツール    | Vercel                      |
+| エディタ          | Visual Studio Code          |
+| その他設定        | Prettier,ESLint,babel etc.. |
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+_※１ 廣岡が作成したサンプルプロジェクトをベースにしています。_
+https://github.com/FashionMonster/ts-libraries-frameworks-template
 
-#### 6. ブラウザで http://localhost:3000 を開く
+_※２ docker は MySQL をローカルで起動するのに使用、AWS(RDS)は本番環境用 DB 作成に使用_
 
-#### 7. 「Nest 初回リクエスト」ボタンをクリックして、「Hello World!」と表示されれば OK
+## アプリを実際に使ってみたい方へ
 
-![image](https://user-images.githubusercontent.com/42830906/144754252-d8f977a2-c252-4d0c-9839-c77337e58780.png)
+自身でサンプルデータを用意するのが面倒だと思いますので、
+事前に用意しました。以下を実施頂くと検索機能の動作等が確認しやすいです。
 
-#### 8. 「Prisma ユーザー作成」、「Prisma ポスト作成」、「Prisma ポスト取得」ボタンでローカル DB にデータの登録、取得ができれば OK
+####　 サンプルユーザー
 
-![image](https://user-images.githubusercontent.com/42830906/144859103-7573ee5b-5475-4889-ba9a-6d969beecd39.png)
+以下のユーザーでログインして、触ることができます。
+※勿論、自身でユーザー登録して使うこともできます
+ID: test@gmail.com
+PW: test12345678
 
-## 作成過程
+####　 検索画面について
 
-#### 1. [Next.js（TypeScript）の雛形プロジェクト作成](https://nextjs.org/docs/basic-features/typescript)
+以下の手順で事前に登録しておいたサンプルデータ(20〜30 件)を画面に表示できます
+①「分類」を選択
+②「生地」を選択
+③ 検索ボタンを押下
 
-```bash
-npx create-next-app@latest --ts
-# or
-yarn create next-app --typescript
-```
+##　 現時点の技術的課題
+アプリ開発を通じて、改善が必要なことや自身の課題が見えました。
+今後、手を加えていく予定です。
 
-#### 2. [Nest.js に必要なパッケージをインストール](https://docs.nestjs.com/)
-
-```bash
-npm i --save @nestjs/core @nestjs/common rxjs reflect-metadata
-# or
-yarn add @nestjs/core @nestjs/common rxjs reflect-metadata
-```
-
-#### 3. [pages/api 配下に\[...routes\].ts を作成する　※"routes"は別の名前でも問題ない](https://nextjs.org/docs/api-routes/dynamic-api-routes#catch-all-api-routes)
-
-#### 4. \[...routes\].ts に Nest.js アプリケーションインスタンスの生成とミドルウェアを設定
-
-#### 5. [クリーンアーキテクチャに沿ったフォルダ（とそのサブディレクトリ）を作成](https://kkoudev.netlify.app/2020/05/nextjs-architecture-design/)
-
-- interfaces
-- usecases
-- domains
-- infrastructures
-
-#### ６. Nest .js の Controller, Provider, Module ファイルを作成
-
-- interfaces/controllers/app.controller.ts
-- usecases/app.service.ts
-- domains/usecases/app.module.ts
-
-#### 7. Nest.js の service を DI する箇所でエラーが発生しないように設定
-
-7-1 設定に必要なパッケージをインストールしておく
-
-```bash
-npm i --save-dev babel-plugin-transform-typescript-metadata @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators @babel/plugin-proposal-private-methods @babel/plugin-proposal-private-property-in-object
-# or
-yarn add --dev babel-plugin-transform-typescript-metadata @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators @babel/plugin-proposal-private-methods @babel/plugin-proposal-private-property-in-object
-```
-
-7-2 .babelrc を作成する
-
-#### 8. tsconfig.json の編集（デコレータの有効化など）
-
-#### 9. ESLint と Prettier の導入
-
-9-1 設定に必要なパッケージをインストール
-
-```bash
-npm i --save-dev prettier eslint-config-prettier
-# or
-yarn add --dev prettier eslint-config-prettier
-```
-
-9-2 .prettierrc を作成、eslintrc.json を編集
-
-9-3 [VSCode の拡張機能をインストール](https://qiita.com/genbu-jp/items/a48bcb9df209b71c2de3)
-
-#### 10. [TailwindCSS の導入](https://fwywd.com/tech/next-tailwind)
-
-10-1 設定に必要なパッケージをインストール
-
-```bash
-npm install --save-dev tailwindcss@latest postcss@latest autoprefixer@latest
-# or
-yarn add --dev tailwindcss@latest postcss@latest autoprefixer@latest
-```
-
-10-2 設定ファイルの作成
-
-- tailwind.config.js
-- postcss.config.js
-- globals.css
-
-10-3 TailwindCSS を全ファイルに適用する
-
-10-4 pages/\_app.tsx に以下のコードを追加する
-
-```
-import '../globals.css';
-```
-
-#### 11. docker の導入(MySQL)　※Docker Desktop をインストールしていることが前提
-
-11-1 docker-compose.yml を作成
-
-11-2 イメージの作成
-
-```bash
-cd docker-compose.ymlのあるディレクトリ
-docker-compose build
-```
-
-11-3 コンテナの作成、起動
-
-```bash
-docker-compose up -d
-```
-
-11-4 コンテナの停止、削除 （必要な時に使用）
-
-```bash
-docker-compose down
-```
-
-#### 12. Prisma の導入
-
-12-1 [Prisma Client のセットアップ](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases-typescript-mysql)
-
-```bash
-npm install prisma --save-dev
-# or
-yarn add --dev prisma
-```
-
-```bash
-npm install @prisma/client
-# or
-yarn add @prisma/client
-```
-
-```bash
-npx prisma init
-```
-
-12-2 [.env と prisma/schema.prisma の編集](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project/relational-databases/connect-your-database-typescript-mysql/)
-**※ローカル以外の DB 接続を定義する場合、.env は git の管理対象から外すように.gitignore を編集する**
-
-12-3 [データモデルを定義する](https://docs.nestjs.com/recipes/prisma#set-up-prisma)
-
-prisma/schema.prisma
-サンプル
-
-```typescript
-model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String?
-  posts Post[]
-}
-
-model Post {
-  id        Int      @default(autoincrement()) @id
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
-}
-```
-
-12-4 [DB マイグレーションの実行](https://docs.nestjs.com/recipes/prisma#set-up-prisma)
-→ prisma/schema.prisma に定義した内容でローカル DB にテーブルが作成されれば OK **※Docker コンテナ(MySQL)が起動していることが前提**
-
-```bash
-npx prisma migrate dev --name init
-```
-
-12-5 [DB 接続サービスファイルの作成](https://docs.nestjs.com/recipes/prisma#set-up-prisma)
-
-- usecases/prisma.service.ts
-
-12-6 [サービスファイル（クエリ実行）の作成](https://docs.nestjs.com/recipes/prisma#set-up-prisma)
-
-- usecases/user.service.ts
-- usecases/post.service.ts
-
-12-7 [コントローラーファイル（サービス呼出し）の作成](https://docs.nestjs.com/recipes/prisma#set-up-prisma)
-参照リンクの「app.controller.ts」をモデル毎に分割しています
-
-- interfaces/controllers/user.controller.ts
-- interfaces/controllers/post.controller.ts
-
-12-8 domains/usecases/app.module.ts に 12-5〜12-7 で作成した Controller, Service を追加
-
-```typescript
-const CONTROLLER_ARRAY = [AppController, UserController, PostController];
-const SERVICE_ARRAY = [PrismaService, AppService, UserService, PostService];
-
-@Module({
-  imports: [],
-  controllers: CONTROLLER_ARRAY,
-  providers: SERVICE_ARRAY,
-})
-export class AppModule {}
-```
-
-12-9 index.tsx にリクエスト処理を追加
-
-- Prisma ユーザー作成
-- Prisma ポスト作成
-- Prisma ポスト取得
-
-#### 13. 「始め方」の 4 以降を実行
-
-## ディレクトリ構成
-
-記載予定
-
-## デプロイ方法
-
-記載予定
+- パスワードを表示することができない
+  → 目のアイコンを追加して、ユーザーが確認できるよう修正が必要
+- 編集画面において、画像を選択しないと更新ができない
+  → 編集時は画像選択をしなくても更新できるよう修正が必要
+- 一部、型定義が曖昧(any)なデータが存在する
+  → 型を明示する修正が必要
+- インフラ(AWS)の知識が乏しく、VPC(セキュリティ)や設定がまだしっかりできていない
+  → AWS の基本から勉強が必要
+- 単体テスト等では、今回は打鍵のみで確認を行なっていた
+  → Jest 等を使用したテストを実施する
