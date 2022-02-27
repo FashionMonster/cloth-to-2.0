@@ -14,24 +14,24 @@ const NavLink: React.VFC<Props> = (props) => {
 
   let defaultStyle;
   let activeStyle;
-  let width;
+  let linkStyle;
   //設定サブナビの場合
   if (props.isSettingNav) {
     defaultStyle =
       'bg-purple-200 font-semibold h-12 leading-12 text-center hover:bg-purple-300 border-t-2';
     activeStyle = 'bg-purple-300 font-semibold h-12 leading-12 text-center border-t-2';
-    width = 266;
+    linkStyle = 'w-266 block';
   } else {
     defaultStyle =
       'bg-purple-200 font-semibold h-12 leading-12 text-center hover:bg-purple-300 border-l-2';
     activeStyle = 'bg-purple-300 font-semibold h-12 leading-12 text-center border-l-2';
-    width = 270;
+    linkStyle = 'w-270 block';
   }
 
   return (
     <li className={isActiveUrl(props.href, router.pathname) ? activeStyle : defaultStyle}>
       <Link href={props.href}>
-        <a className={`w-${width} block`}>{props.children}</a>
+        <a className={linkStyle}>{props.children}</a>
       </Link>
     </li>
   );
