@@ -18,10 +18,10 @@ import { getUserInfo } from 'common/utils/frontend/getUserInfo';
 import { isExistValue } from 'common/utils/isExistValue';
 import { getFbAuthErrorMsg } from 'common/utils/frontend/getFbAuthErrorMsg';
 import { BACK_PAGE_TYPE } from 'constants/backPageType';
-import type { LoginFormType } from 'constants/types/form/loginFormType';
-import { LoginResType } from 'constants/types/response/loginResType';
 import { loginUserState } from 'common/utils/frontend/loginUserState';
 import { useRecoilState } from 'recoil';
+import type { LoginFormType } from 'constants/types/form/loginFormType';
+import type { LoginResType } from 'constants/types/response/loginResType';
 
 //ログイン画面
 const Login: React.VFC = () => {

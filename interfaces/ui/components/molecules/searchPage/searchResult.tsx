@@ -14,7 +14,7 @@ type Props = {
 //検索結果(画像一枚)表示
 const SearchResult: React.VFC<Props> = (props) => {
   return (
-    <div className='w-200 sm:w-170'>
+    <div className='w-200 sm:w-170 m-0'>
       <Link
         href={`/${props.path}/[contributionId]`}
         as={`/${props.path}/${props.contributionId}`}
