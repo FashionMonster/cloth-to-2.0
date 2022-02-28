@@ -1315,3 +1315,270 @@
   "totalCount": 0,
   "contributionInfos": null
 }
+[2022-03-01 00:42:32] info：Starting Nest application...
+[2022-03-01 00:42:32] info：AppModule dependencies initialized
+[2022-03-01 00:42:32] info：UserController {/api/user}:
+[2022-03-01 00:42:32] info：Mapped {/api/user/signup, POST} route
+[2022-03-01 00:42:32] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-03-01 00:42:32] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-03-01 00:42:32] info：Mapped {/api/user/delete, DELETE} route
+[2022-03-01 00:42:32] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-03-01 00:42:32] info：GroupController {/api/group}:
+[2022-03-01 00:42:32] info：Mapped {/api/group/createGroup, POST} route
+[2022-03-01 00:42:32] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-03-01 00:42:32] info：ContributionController {/api/contribution}:
+[2022-03-01 00:42:32] info：Mapped {/api/contribution/contribute, POST} route
+[2022-03-01 00:42:32] info：Mapped {/api/contribution/search, GET} route
+[2022-03-01 00:42:32] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-03-01 00:42:32] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-03-01 00:42:32] info：Nest application successfully started
+[2022-03-01 00:42:32] info：リクエストURL：/api/user/getUserInfo?userId=yhirookajpn%40gmail.com
+[2022-03-01 00:42:32] info：リクエストボディ：{}
+[2022-03-01 00:42:33] info：レスポンスデータ：{
+  "statusCode": 200,
+  "userInfo": {
+    "userId": "yhirookajpn@gmail.com",
+    "userName": "廣岡佑介",
+    "groupId": "yhirookajpn@gmail.com"
+  }
+}
+[2022-03-01 00:42:33] info：Starting Nest application...
+[2022-03-01 00:42:33] info：AppModule dependencies initialized
+[2022-03-01 00:42:33] info：UserController {/api/user}:
+[2022-03-01 00:42:33] info：Mapped {/api/user/signup, POST} route
+[2022-03-01 00:42:33] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-03-01 00:42:33] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-03-01 00:42:33] info：Mapped {/api/user/delete, DELETE} route
+[2022-03-01 00:42:33] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-03-01 00:42:33] info：GroupController {/api/group}:
+[2022-03-01 00:42:33] info：Mapped {/api/group/createGroup, POST} route
+[2022-03-01 00:42:33] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-03-01 00:42:33] info：ContributionController {/api/contribution}:
+[2022-03-01 00:42:33] info：Mapped {/api/contribution/contribute, POST} route
+[2022-03-01 00:42:33] info：Mapped {/api/contribution/search, GET} route
+[2022-03-01 00:42:33] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-03-01 00:42:33] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-03-01 00:42:33] info：Nest application successfully started
+[2022-03-01 00:42:33] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com
+[2022-03-01 00:42:33] info：リクエストボディ：{}
+[2022-03-01 00:42:33] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-03-01 00:42:38] info：リクエストURL：/api/contribution/search?page=1&groupId=yhirookajpn%40gmail.com&searchCategory=2&keyword=2
+[2022-03-01 00:42:38] info：リクエストボディ：{}
+[2022-03-01 00:42:38] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 46,
+  "contributionInfos": [
+    {
+      "contributionId": 1,
+      "materialName": "ダブルガーゼ",
+      "imageName1": "-s-Sr8ICEsD5CDEVmA-ye"
+    },
+    {
+      "contributionId": 3,
+      "materialName": "グリーンリネン",
+      "imageName1": "8_JL20MaglVXS1FI1TePJ"
+    },
+    {
+      "contributionId": 4,
+      "materialName": "ドット柄",
+      "imageName1": "Z3koFKkMRHPr_UJNpZEif"
+    },
+    {
+      "contributionId": 5,
+      "materialName": "コーデュロイキャメル",
+      "imageName1": "R5ZH4lz3sTzni1PLNPo6A"
+    },
+    {
+      "contributionId": 6,
+      "materialName": "ストライプドット",
+      "imageName1": "1KvBKIKVN6wfNO-ga6YCo"
+    },
+    {
+      "contributionId": 7,
+      "materialName": "フラワー",
+      "imageName1": "GmJVjEOnxJ88G45uU7kSd"
+    },
+    {
+      "contributionId": 8,
+      "materialName": "ネイビーリネン",
+      "imageName1": "2sCrZZrAdnGXtRW9WZShT"
+    },
+    {
+      "contributionId": 9,
+      "materialName": "白黒ドット",
+      "imageName1": "JOFfxCAyIv9v-YEKqvVnK"
+    },
+    {
+      "contributionId": 10,
+      "materialName": "シルク",
+      "imageName1": "e6o-QYQsJMFuZSNaX_afT"
+    },
+    {
+      "contributionId": 11,
+      "materialName": "ストライプ",
+      "imageName1": "4fUUJPA6mC7VsOelbcFHu"
+    },
+    {
+      "contributionId": 12,
+      "materialName": "チェック柄",
+      "imageName1": "cVIT_NDavpLRWkOylbpVk"
+    },
+    {
+      "contributionId": 13,
+      "materialName": "刺繍",
+      "imageName1": "RWPpUUSVJPP0sqIT6MUvy"
+    },
+    {
+      "contributionId": 14,
+      "materialName": "オーガニック素材",
+      "imageName1": "R9QqNyCmCKOmGRebrThsX"
+    },
+    {
+      "contributionId": 15,
+      "materialName": "イエロー無地",
+      "imageName1": "7xvjEgfioKrnBpELQDPIG"
+    },
+    {
+      "contributionId": 16,
+      "materialName": "先染め",
+      "imageName1": "xZ9gpu0fDBZtHLHRqlUex"
+    },
+    {
+      "contributionId": 17,
+      "materialName": "スイミー柄",
+      "imageName1": "sCDrQlsBv5bLTPdB0P0Q7"
+    },
+    {
+      "contributionId": 18,
+      "materialName": "鳥の目",
+      "imageName1": "zNgqrq0mt6SWkHpowJnWn"
+    },
+    {
+      "contributionId": 19,
+      "materialName": "オックスフォード",
+      "imageName1": "WzC-XIbUA-J5EUe0XomVl"
+    },
+    {
+      "contributionId": 20,
+      "materialName": "ペイズリー柄レッド",
+      "imageName1": "jvIF4bU4uYJZUyZOZVegN"
+    },
+    {
+      "contributionId": 21,
+      "materialName": "帆布",
+      "imageName1": "29I5JX13XoRO-Cj4Wrrm3"
+    }
+  ]
+}
+[2022-03-01 00:42:45] info：リクエストURL：/api/contribution/search?page=1&searchCategory=2&keyword=2
+[2022-03-01 00:42:45] info：リクエストボディ：{}
+[2022-03-01 00:42:45] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 46,
+  "contributionInfos": [
+    {
+      "contributionId": 1,
+      "materialName": "ダブルガーゼ",
+      "imageName1": "-s-Sr8ICEsD5CDEVmA-ye"
+    },
+    {
+      "contributionId": 3,
+      "materialName": "グリーンリネン",
+      "imageName1": "8_JL20MaglVXS1FI1TePJ"
+    },
+    {
+      "contributionId": 4,
+      "materialName": "ドット柄",
+      "imageName1": "Z3koFKkMRHPr_UJNpZEif"
+    },
+    {
+      "contributionId": 5,
+      "materialName": "コーデュロイキャメル",
+      "imageName1": "R5ZH4lz3sTzni1PLNPo6A"
+    },
+    {
+      "contributionId": 6,
+      "materialName": "ストライプドット",
+      "imageName1": "1KvBKIKVN6wfNO-ga6YCo"
+    },
+    {
+      "contributionId": 7,
+      "materialName": "フラワー",
+      "imageName1": "GmJVjEOnxJ88G45uU7kSd"
+    },
+    {
+      "contributionId": 8,
+      "materialName": "ネイビーリネン",
+      "imageName1": "2sCrZZrAdnGXtRW9WZShT"
+    },
+    {
+      "contributionId": 9,
+      "materialName": "白黒ドット",
+      "imageName1": "JOFfxCAyIv9v-YEKqvVnK"
+    },
+    {
+      "contributionId": 10,
+      "materialName": "シルク",
+      "imageName1": "e6o-QYQsJMFuZSNaX_afT"
+    },
+    {
+      "contributionId": 11,
+      "materialName": "ストライプ",
+      "imageName1": "4fUUJPA6mC7VsOelbcFHu"
+    },
+    {
+      "contributionId": 12,
+      "materialName": "チェック柄",
+      "imageName1": "cVIT_NDavpLRWkOylbpVk"
+    },
+    {
+      "contributionId": 13,
+      "materialName": "刺繍",
+      "imageName1": "RWPpUUSVJPP0sqIT6MUvy"
+    },
+    {
+      "contributionId": 14,
+      "materialName": "オーガニック素材",
+      "imageName1": "R9QqNyCmCKOmGRebrThsX"
+    },
+    {
+      "contributionId": 15,
+      "materialName": "イエロー無地",
+      "imageName1": "7xvjEgfioKrnBpELQDPIG"
+    },
+    {
+      "contributionId": 16,
+      "materialName": "先染め",
+      "imageName1": "xZ9gpu0fDBZtHLHRqlUex"
+    },
+    {
+      "contributionId": 17,
+      "materialName": "スイミー柄",
+      "imageName1": "sCDrQlsBv5bLTPdB0P0Q7"
+    },
+    {
+      "contributionId": 18,
+      "materialName": "鳥の目",
+      "imageName1": "zNgqrq0mt6SWkHpowJnWn"
+    },
+    {
+      "contributionId": 19,
+      "materialName": "オックスフォード",
+      "imageName1": "WzC-XIbUA-J5EUe0XomVl"
+    },
+    {
+      "contributionId": 20,
+      "materialName": "ペイズリー柄レッド",
+      "imageName1": "jvIF4bU4uYJZUyZOZVegN"
+    },
+    {
+      "contributionId": 21,
+      "materialName": "帆布",
+      "imageName1": "29I5JX13XoRO-Cj4Wrrm3"
+    }
+  ]
+}

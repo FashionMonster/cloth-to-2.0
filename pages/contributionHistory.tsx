@@ -106,14 +106,13 @@ const ContributionHistory: React.VFC = () => {
           >
             {(query.data!.contributionInfos as ({ src: string } & SearchResType)[]).map(
               (item: { src: string } & SearchResType) => (
-                <div key={item.imageName1}>
-                  <SearchResult
-                    path='edit'
-                    contributionId={item.contributionId}
-                    materialName={item.materialName}
-                    src={item.src}
-                  />
-                </div>
+                <SearchResult
+                  path='edit'
+                  contributionId={item.contributionId}
+                  materialName={item.materialName}
+                  src={item.src}
+                  key={item.imageName1}
+                />
               )
             )}
           </div>
