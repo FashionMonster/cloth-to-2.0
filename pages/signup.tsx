@@ -127,8 +127,8 @@ const Signup: React.VFC = () => {
               defaultValue=''
               register={register({ required: true, maxLength: 20 })}
               errors={errors.userName}
-              width='200 sm:w-40'
               maxLength='20'
+              componentName='signup'
             />
 
             <InputLabel for='userId'>メールアドレス（ID）</InputLabel>
@@ -137,7 +137,6 @@ const Signup: React.VFC = () => {
               id='userId'
               defaultValue=''
               placeholder='fashion@example.com'
-              width='200 sm:w-40'
               register={register({
                 required: true,
                 pattern: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$/,
@@ -150,7 +149,6 @@ const Signup: React.VFC = () => {
             <InputPassword
               name='password'
               id='password'
-              width='200 sm:w-40'
               register={register({
                 required: true,
                 minLength: 6,
@@ -159,7 +157,7 @@ const Signup: React.VFC = () => {
               errors={errors.password}
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
-              <SubmitBtn value='登録' width={'20 sm:w-40'} />
+              <SubmitBtn value='登録' componentName='signup' />
             </div>
           </form>
         </Main>

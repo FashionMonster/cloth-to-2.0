@@ -8,8 +8,6 @@ type Props = {
   isDisabled: boolean;
   defaultValue: string;
   placeholder: string;
-  width: string;
-  smWidth?: string;
   maxLength: string;
   register: LegacyRef<HTMLTextAreaElement> | undefined;
   errors: FieldError | undefined;
@@ -18,7 +16,7 @@ type Props = {
 //テキストエリアコンポーネント
 const InputTextarea: React.VFC<Props> = (props) => {
   return (
-    <div className={`w-${props.width} h-112`}>
+    <div className='w-408 sm:w-352 h-112'>
       <textarea
         id={props.id}
         name={props.name}
@@ -26,7 +24,7 @@ const InputTextarea: React.VFC<Props> = (props) => {
         defaultValue={props.defaultValue}
         placeholder={props.placeholder}
         ref={props.register}
-        className={`w-${props.width} h-112 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black sm:w-${props.smWidth}`}
+        className='w-408 sm:w-352 h-112 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black'
       />
       {props.errors?.type === 'maxLength' && (
         <div className='text-red-600 text-sm'>最大は{props.maxLength}文字です</div>

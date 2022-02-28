@@ -91,7 +91,7 @@ const Search: React.VFC = () => {
             register={register()}
           />
           <SearchInput category={category} register={register} errors={errors} />
-          <SubmitBtn value='検索' width='20' query={query} />
+          <SubmitBtn value='検索' componentName='search' query={query} />
         </form>
         {/* 投稿情報を取得した場合 */}
         {isExistValue(query.data?.contributionInfos) && (

@@ -7,13 +7,20 @@ type Props = {
   imgFileUrl: string;
   oneSideLength: string;
   smOneSideLength: string;
+  isMain?: boolean;
 };
 
 //画像表示コンポーネント
 const ImageDisplay: React.VFC<Props> = (props) => {
   //画像がない場合
   if (!isExistValue(props.imgFileUrl)) {
-    return <NoImage oneSideLength={props.oneSideLength} smOneSideLength={props.smOneSideLength} />;
+    return (
+      <NoImage
+        oneSideLength={props.oneSideLength}
+        smOneSideLength={props.smOneSideLength}
+        isMain={props.isMain}
+      />
+    );
   } else {
     return (
       <Image

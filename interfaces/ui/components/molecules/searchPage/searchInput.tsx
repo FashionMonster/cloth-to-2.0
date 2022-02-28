@@ -16,6 +16,8 @@ type Props = {
 //一覧/検索ページ
 //入力エリアコンポーネント
 const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
+  const componentName = 'searchInput';
+
   //2:分類
   if (category === '2') {
     return (
@@ -24,9 +26,9 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
         name='keyword'
         isDisabled={false}
         defaultValue=''
-        width='300'
         register={register({ required: true })}
         errors={errors.keyword}
+        componentName={componentName}
       />
     );
     //3:主組成
@@ -38,7 +40,6 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
           name='keyword'
           isDisabled={false}
           defaultValue=''
-          width='120'
           register={register({ required: true })}
           errors={errors.keyword}
         />
@@ -47,7 +48,6 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
           name='compositionRatio'
           isDisabled={false}
           defaultValue=''
-          width='100'
           register={register({ required: true, max: 100, min: 1 })}
           errors={errors.compositionRatio}
         />
@@ -67,9 +67,9 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
         id='keyword'
         isDisabled={false}
         defaultValue=''
-        width='300'
         register={register({ required: true })}
         errors={errors.keyword}
+        componentName={componentName}
       />
     );
     //8:単価
@@ -82,10 +82,10 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
           isDisabled={false}
           defaultValue=''
           placeholder=''
-          width='204'
           maxLength='100'
           register={register({ required: true, pattern: /^[0-9]+$/ })}
           errors={errors.keyword}
+          componentName={componentName + 'UnitPrice'}
         />
         <SelectCompareCondition
           name='compareCondition'
@@ -109,10 +109,10 @@ const SearchInput: React.VFC<Props> = ({ category, register, errors }) => {
         isDisabled={false}
         defaultValue=''
         placeholder=''
-        width='300'
         maxLength=''
         register={register({ required: true })}
         errors={errors.keyword}
+        componentName={componentName}
       />
     );
   }

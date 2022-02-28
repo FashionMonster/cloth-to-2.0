@@ -160,6 +160,7 @@ const Contribution: React.VFC = () => {
                 imgFileUrl={imgFile[0] === undefined ? '' : (imgFile[0].imgFileUrl as string)}
                 oneSideLength='484'
                 smOneSideLength='352'
+                isMain={true}
               />
               <div className='grid grid-cols-imageSubDisplay gap-3 sm:grid-cols-sm_imageSubDisplay'>
                 {(() => {
@@ -195,7 +196,7 @@ const Contribution: React.VFC = () => {
                 clearErrors={clearErrors}
               />
               <div className='flex justify-around col-start-2 sm:col-start-1'>
-                <SubmitBtn value='投稿する' width={'24'} />
+                <SubmitBtn value='投稿する' componentName='contribution' />
               </div>
             </div>
             <div />

@@ -7,7 +7,6 @@ type Props = {
   name: string;
   id: string;
   defaultValue: string;
-  width: string;
   register: LegacyRef<HTMLSelectElement> | undefined;
   errors: FieldError | undefined;
   allGroupInfo: GetAllGroupInfoResType;
@@ -17,11 +16,11 @@ type Props = {
 //グループ選択コンポーネント
 const SelectGroupName: React.VFC<Props> = (props) => {
   return (
-    <div className={`w-${props.width} h-8`}>
+    <div className='w-200 sm:w-40 h-8'>
       <select
         name={props.name}
         id={props.id}
-        className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400`}
+        className='w-200 sm:w-40 h-8 border border-solid rounded-sm border-gray-400'
         ref={props.register}
       >
         <option value=''></option>

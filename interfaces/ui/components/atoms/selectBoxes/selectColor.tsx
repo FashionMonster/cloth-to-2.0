@@ -7,20 +7,32 @@ type Props = {
   name: string;
   isDisabled: boolean;
   defaultValue: string;
-  width: string;
-  smWidth?: string;
   register: LegacyRef<HTMLSelectElement> | undefined;
   errors?: FieldError | undefined;
+  componentName: string;
 };
 
 //色選択コンポーネント
 const SelectColor: React.VFC<Props> = (props) => {
+  let wrapStyle;
+  let selectStyle;
+
+  if (props.componentName == 'searchInput') {
+    wrapStyle = 'w-300 h-8';
+    selectStyle =
+      'w-300 h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black disabled:opacity-100';
+  } else if (props.componentName == 'contributeForm') {
+    wrapStyle = 'w-408 sm:w-352 h-8';
+    selectStyle =
+      'w-408 sm:w-352 h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black disabled:opacity-100';
+  }
+
   return (
-    <div className={`w-${props.width} h-8`}>
+    <div className={wrapStyle}>
       <select
         name={props.name}
         id={props.id}
-        className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black disabled:opacity-100 sm:w-${props.smWidth}`}
+        className={selectStyle}
         ref={props.register}
         disabled={props.isDisabled}
         defaultValue={props.defaultValue}

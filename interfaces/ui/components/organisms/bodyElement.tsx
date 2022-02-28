@@ -54,13 +54,11 @@ const Body: React.VFC<Props> = (props) => {
   }
 
   //ログインの有無で適用するスタイルを切替え
-  const gridLayout = props.isLogined ? 'grid-rows-loginedBody' : 'grid-rows-body';
+  const gridLayout = props.isLogined
+    ? 'relative grid grid-rows-loginedBody gap-8 min-h-screen sm:grid-rows-sm_body'
+    : 'relative grid grid-rows-body gap-8 min-h-screen sm:grid-rows-sm_body';
 
-  return (
-    <body className={`relative grid ${gridLayout} gap-8 min-h-screen sm:grid-rows-sm_body`}>
-      {props.children}
-    </body>
-  );
+  return <body className={gridLayout}>{props.children}</body>;
 };
 
 export { Body };

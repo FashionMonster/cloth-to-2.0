@@ -20,10 +20,7 @@ type Props = {
 
 //投稿画面フォームコンポーネント
 const ContributeForm: React.VFC<Props> = (props) => {
-  const baseWidth = '408'; //基本の横幅
-  const baseSmWidth = '352'; //スマホ
-  const compositionWidth = '16'; //主組成の横幅
-  const compositionSmWidth = '55'; //スマホ
+  const componentName = 'contributeForm';
 
   return (
     <>
@@ -34,11 +31,10 @@ const ContributeForm: React.VFC<Props> = (props) => {
         isDisabled={props.isDisabled}
         defaultValue={props.data === undefined ? '' : props.data.materialName}
         placeholder='例：2020SS シャツ用生地'
-        width={baseWidth}
-        smWidth={baseSmWidth}
         maxLength='50'
         register={props.register({ required: true, maxLength: 50 })}
         errors={props.errors.materialName}
+        componentName={componentName}
       />
 
       <label htmlFor='category'>分類</label>
@@ -47,10 +43,9 @@ const ContributeForm: React.VFC<Props> = (props) => {
         name='category'
         isDisabled={props.isDisabled}
         defaultValue={props.data === undefined ? '' : props.data.category}
-        width={baseWidth}
-        smWidth={baseSmWidth}
         register={props.register({ required: true })}
         errors={props.errors.category}
+        componentName={componentName}
       />
 
       <label htmlFor='composition1'>主組成</label>
@@ -61,8 +56,6 @@ const ContributeForm: React.VFC<Props> = (props) => {
             name='composition1'
             isDisabled={props.isDisabled}
             defaultValue={props.data === undefined ? '' : props.data.composition1}
-            width={compositionWidth}
-            smWidth={compositionSmWidth}
             register={props.register()}
             errors={props.errors.composition1}
             getValues={props.getValues}
@@ -74,8 +67,6 @@ const ContributeForm: React.VFC<Props> = (props) => {
             name='compositionRatio1'
             isDisabled={props.isDisabled}
             defaultValue={props.data === undefined ? '' : props.data.compositionRatio1}
-            width={compositionWidth}
-            smWidth={compositionSmWidth}
             register={props.register()}
             errors={props.errors.compositionRatio1}
             getValues={props.getValues}
@@ -89,8 +80,6 @@ const ContributeForm: React.VFC<Props> = (props) => {
             id='composition2'
             isDisabled={props.isDisabled}
             defaultValue={props.data === undefined ? '' : props.data.composition2}
-            width={compositionWidth}
-            smWidth={compositionSmWidth}
             register={props.register()}
             errors={props.errors.composition2}
             getValues={props.getValues}
@@ -102,8 +91,6 @@ const ContributeForm: React.VFC<Props> = (props) => {
             name='compositionRatio2'
             isDisabled={props.isDisabled}
             defaultValue={props.data === undefined ? '' : props.data.compositionRatio2}
-            width={compositionWidth}
-            smWidth={compositionSmWidth}
             register={props.register()}
             errors={props.errors.compositionRatio2}
             getValues={props.getValues}
@@ -117,8 +104,6 @@ const ContributeForm: React.VFC<Props> = (props) => {
             id='composition3'
             isDisabled={props.isDisabled}
             defaultValue={props.data === undefined ? '' : props.data.composition3}
-            width={compositionWidth}
-            smWidth={compositionSmWidth}
             register={props.register()}
             errors={props.errors.composition3}
             getValues={props.getValues}
@@ -130,8 +115,6 @@ const ContributeForm: React.VFC<Props> = (props) => {
             name='compositionRatio3'
             isDisabled={props.isDisabled}
             defaultValue={props.data === undefined ? '' : props.data.compositionRatio3}
-            width={compositionWidth}
-            smWidth={compositionSmWidth}
             register={props.register()}
             errors={props.errors.compositionRatio3}
             getValues={props.getValues}
@@ -148,11 +131,10 @@ const ContributeForm: React.VFC<Props> = (props) => {
         isDisabled={props.isDisabled}
         defaultValue={props.data === undefined ? '' : props.data.fabricStructure}
         placeholder='例：サテン'
-        width={baseWidth}
-        smWidth={baseSmWidth}
         maxLength='50'
         register={props.register({ maxLength: 50 })}
         errors={props.errors.fabricStructure}
+        componentName={componentName}
       />
 
       <label htmlFor='color'>色</label>
@@ -161,9 +143,8 @@ const ContributeForm: React.VFC<Props> = (props) => {
         name='color'
         isDisabled={props.isDisabled}
         defaultValue={props.data === undefined ? '' : props.data.color}
-        width={baseWidth}
-        smWidth={baseSmWidth}
         register={props.register()}
+        componentName={componentName}
       />
 
       <label htmlFor='pattern'>柄</label>
@@ -173,11 +154,10 @@ const ContributeForm: React.VFC<Props> = (props) => {
         isDisabled={props.isDisabled}
         defaultValue={props.data === undefined ? '' : props.data.pattern}
         placeholder='例：ストライプ'
-        width={baseWidth}
-        smWidth={baseSmWidth}
         maxLength='50'
         register={props.register({ maxLength: 50 })}
         errors={props.errors.pattern}
+        componentName={componentName}
       />
 
       <label htmlFor='processing'>加工</label>
@@ -187,11 +167,10 @@ const ContributeForm: React.VFC<Props> = (props) => {
         isDisabled={props.isDisabled}
         defaultValue={props.data === undefined ? '' : props.data.processing}
         placeholder='例：撥水加工、防汚加工'
-        width={baseWidth}
-        smWidth={baseSmWidth}
         maxLength='50'
         register={props.register({ maxLength: 50 })}
         errors={props.errors.processing}
+        componentName={componentName}
       />
 
       <label htmlFor='unitPrice'>単価</label>
@@ -201,11 +180,10 @@ const ContributeForm: React.VFC<Props> = (props) => {
         placeholder='例：480'
         register={props.register({ maxLength: 12, pattern: /^[0-9]+$/ })}
         errors={props.errors.unitPrice}
-        width={baseWidth}
-        smWidth={baseSmWidth}
         isDisabled={props.isDisabled}
         defaultValue={props.data === undefined ? '' : props.data.unitPrice}
         maxLength='12'
+        componentName={componentName}
       />
 
       <label htmlFor='supplier'>仕入先</label>
@@ -215,11 +193,10 @@ const ContributeForm: React.VFC<Props> = (props) => {
         isDisabled={props.isDisabled}
         defaultValue={props.data === undefined ? '' : props.data.supplier}
         placeholder='例：株式会社 〇〇'
-        width={baseWidth}
-        smWidth={baseSmWidth}
         maxLength='50'
         register={props.register({ maxLength: 50 })}
         errors={props.errors.supplier}
+        componentName={componentName}
       />
 
       <label htmlFor='comment'>コメント</label>
@@ -229,8 +206,6 @@ const ContributeForm: React.VFC<Props> = (props) => {
         isDisabled={props.isDisabled}
         defaultValue={props.data === undefined ? '' : props.data.comment}
         placeholder='その他共有したい内容があればご入力ください。'
-        width={baseWidth}
-        smWidth={baseSmWidth}
         maxLength='200'
         register={props.register({ maxLength: 200 })}
         errors={props.errors.comment}

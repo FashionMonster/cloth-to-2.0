@@ -119,7 +119,6 @@ const Login: React.VFC = () => {
               id='userId'
               defaultValue=''
               placeholder='fashion@example.com'
-              width='200 sm:w-40'
               register={register({
                 required: true,
                 pattern: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$/,
@@ -132,7 +131,6 @@ const Login: React.VFC = () => {
             <InputPassword
               name='password'
               id='password'
-              width='200 sm:w-40'
               register={register({
                 required: true,
                 minLength: 6,
@@ -141,7 +139,7 @@ const Login: React.VFC = () => {
               errors={errors.password}
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
-              <SubmitBtn value='ログイン' width={'24 sm:w-40'} />
+              <SubmitBtn value='ログイン' componentName='login' />
             </div>
           </form>
         </Main>

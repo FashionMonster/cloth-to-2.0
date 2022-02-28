@@ -1,0 +1,983 @@
+[2022-02-28 00:01:08] info：Starting Nest application...
+[2022-02-28 00:01:09] info：AppModule dependencies initialized
+[2022-02-28 00:01:09] info：UserController {/api/user}:
+[2022-02-28 00:01:09] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 00:01:09] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 00:01:09] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 00:01:09] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 00:01:09] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 00:01:09] info：GroupController {/api/group}:
+[2022-02-28 00:01:09] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 00:01:09] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 00:01:09] info：ContributionController {/api/contribution}:
+[2022-02-28 00:01:09] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 00:01:09] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 00:01:09] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 00:01:09] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 00:01:09] info：Nest application successfully started
+[2022-02-28 00:01:09] info：リクエストURL：/api/user/getUserInfo?userId=yhirookajpn%40gmail.com
+[2022-02-28 00:01:09] info：リクエストボディ：{}
+[2022-02-28 00:01:09] info：レスポンスデータ：{
+  "statusCode": 200,
+  "userInfo": {
+    "userId": "yhirookajpn@gmail.com",
+    "userName": "廣岡佑介",
+    "groupId": "yhirookajpn@gmail.com"
+  }
+}
+[2022-02-28 00:01:09] info：Starting Nest application...
+[2022-02-28 00:01:09] info：AppModule dependencies initialized
+[2022-02-28 00:01:09] info：UserController {/api/user}:
+[2022-02-28 00:01:09] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 00:01:09] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 00:01:09] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 00:01:09] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 00:01:09] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 00:01:09] info：GroupController {/api/group}:
+[2022-02-28 00:01:09] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 00:01:09] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 00:01:09] info：ContributionController {/api/contribution}:
+[2022-02-28 00:01:09] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 00:01:09] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 00:01:09] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 00:01:09] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 00:01:09] info：Nest application successfully started
+[2022-02-28 00:01:09] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com
+[2022-02-28 00:01:09] info：リクエストボディ：{}
+[2022-02-28 00:01:09] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-02-28 00:01:35] info：Starting Nest application...
+[2022-02-28 00:01:35] info：AppModule dependencies initialized
+[2022-02-28 00:01:35] info：UserController {/api/user}:
+[2022-02-28 00:01:35] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 00:01:35] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 00:01:35] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 00:01:35] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 00:01:35] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 00:01:35] info：GroupController {/api/group}:
+[2022-02-28 00:01:35] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 00:01:35] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 00:01:35] info：ContributionController {/api/contribution}:
+[2022-02-28 00:01:35] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 00:01:35] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 00:01:35] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 00:01:35] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 00:01:35] info：Nest application successfully started
+[2022-02-28 00:01:35] info：リクエストURL：/api/group/getAllGroupInfo
+[2022-02-28 00:01:35] info：リクエストボディ：{}
+[2022-02-28 00:01:35] info：レスポンスデータ：{
+  "statusCode": 200,
+  "allGroupInfo": [
+    {
+      "groupId": "thirookajpn@gmail.com",
+      "groupName": "友恵（株）"
+    },
+    {
+      "groupId": "yhirookajpn@gmail.com",
+      "groupName": "株式会社GSI"
+    },
+    {
+      "groupId": "textile@gmail.com",
+      "groupName": "株式会社大阪織物"
+    }
+  ]
+}
+[2022-02-28 00:58:55] info：Starting Nest application...
+[2022-02-28 00:58:55] info：AppModule dependencies initialized
+[2022-02-28 00:58:55] info：UserController {/api/user}:
+[2022-02-28 00:58:55] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 00:58:55] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 00:58:55] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 00:58:55] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 00:58:55] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 00:58:55] info：GroupController {/api/group}:
+[2022-02-28 00:58:55] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 00:58:55] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 00:58:55] info：ContributionController {/api/contribution}:
+[2022-02-28 00:58:55] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 00:58:55] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 00:58:55] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 00:58:55] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 00:58:55] info：Nest application successfully started
+[2022-02-28 00:58:55] info：リクエストURL：/api/user/getUserInfo?userId=yhirookajpn%40gmail.com
+[2022-02-28 00:58:55] info：リクエストボディ：{}
+[2022-02-28 00:58:55] info：レスポンスデータ：{
+  "statusCode": 200,
+  "userInfo": {
+    "userId": "yhirookajpn@gmail.com",
+    "userName": "廣岡佑介",
+    "groupId": "yhirookajpn@gmail.com"
+  }
+}
+[2022-02-28 00:58:56] info：Starting Nest application...
+[2022-02-28 00:58:56] info：AppModule dependencies initialized
+[2022-02-28 00:58:56] info：UserController {/api/user}:
+[2022-02-28 00:58:56] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 00:58:56] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 00:58:56] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 00:58:56] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 00:58:56] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 00:58:56] info：GroupController {/api/group}:
+[2022-02-28 00:58:56] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 00:58:56] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 00:58:56] info：ContributionController {/api/contribution}:
+[2022-02-28 00:58:56] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 00:58:56] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 00:58:56] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 00:58:56] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 00:58:56] info：Nest application successfully started
+[2022-02-28 00:58:56] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com
+[2022-02-28 00:58:56] info：リクエストボディ：{}
+[2022-02-28 00:58:56] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-02-28 00:59:03] info：Starting Nest application...
+[2022-02-28 00:59:03] info：AppModule dependencies initialized
+[2022-02-28 00:59:03] info：UserController {/api/user}:
+[2022-02-28 00:59:03] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 00:59:03] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 00:59:03] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 00:59:03] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 00:59:03] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 00:59:03] info：GroupController {/api/group}:
+[2022-02-28 00:59:03] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 00:59:03] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 00:59:03] info：ContributionController {/api/contribution}:
+[2022-02-28 00:59:03] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 00:59:03] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 00:59:03] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 00:59:03] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 00:59:03] info：Nest application successfully started
+[2022-02-28 00:59:03] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com&userId=yhirookajpn%40gmail.com
+[2022-02-28 00:59:03] info：リクエストボディ：{}
+[2022-02-28 00:59:03] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-02-28 00:59:08] info：Starting Nest application...
+[2022-02-28 00:59:08] info：AppModule dependencies initialized
+[2022-02-28 00:59:08] info：UserController {/api/user}:
+[2022-02-28 00:59:08] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 00:59:08] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 00:59:08] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 00:59:08] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 00:59:08] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 00:59:08] info：GroupController {/api/group}:
+[2022-02-28 00:59:08] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 00:59:08] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 00:59:08] info：ContributionController {/api/contribution}:
+[2022-02-28 00:59:08] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 00:59:08] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 00:59:08] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 00:59:08] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 00:59:08] info：Nest application successfully started
+[2022-02-28 00:59:08] info：リクエストURL：/api/group/getAllGroupInfo
+[2022-02-28 00:59:08] info：リクエストボディ：{}
+[2022-02-28 00:59:08] info：レスポンスデータ：{
+  "statusCode": 200,
+  "allGroupInfo": [
+    {
+      "groupId": "thirookajpn@gmail.com",
+      "groupName": "友恵（株）"
+    },
+    {
+      "groupId": "yhirookajpn@gmail.com",
+      "groupName": "株式会社GSI"
+    },
+    {
+      "groupId": "textile@gmail.com",
+      "groupName": "株式会社大阪織物"
+    }
+  ]
+}
+[2022-02-28 01:38:48] info：Starting Nest application...
+[2022-02-28 01:38:48] info：AppModule dependencies initialized
+[2022-02-28 01:38:48] info：UserController {/api/user}:
+[2022-02-28 01:38:48] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 01:38:48] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 01:38:48] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 01:38:48] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 01:38:48] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 01:38:48] info：GroupController {/api/group}:
+[2022-02-28 01:38:48] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 01:38:48] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 01:38:48] info：ContributionController {/api/contribution}:
+[2022-02-28 01:38:48] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 01:38:48] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 01:38:48] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 01:38:48] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 01:38:48] info：Nest application successfully started
+[2022-02-28 01:38:48] info：リクエストURL：/api/user/getUserInfo?userId=yhirookajpn%40gmail.com
+[2022-02-28 01:38:48] info：リクエストボディ：{}
+[2022-02-28 01:38:48] info：レスポンスデータ：{
+  "statusCode": 200,
+  "userInfo": {
+    "userId": "yhirookajpn@gmail.com",
+    "userName": "廣岡佑介",
+    "groupId": "yhirookajpn@gmail.com"
+  }
+}
+[2022-02-28 01:38:49] info：Starting Nest application...
+[2022-02-28 01:38:49] info：AppModule dependencies initialized
+[2022-02-28 01:38:49] info：UserController {/api/user}:
+[2022-02-28 01:38:49] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 01:38:49] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 01:38:49] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 01:38:49] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 01:38:49] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 01:38:49] info：GroupController {/api/group}:
+[2022-02-28 01:38:49] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 01:38:49] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 01:38:49] info：ContributionController {/api/contribution}:
+[2022-02-28 01:38:49] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 01:38:49] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 01:38:49] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 01:38:49] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 01:38:49] info：Nest application successfully started
+[2022-02-28 01:38:49] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com
+[2022-02-28 01:38:49] info：リクエストボディ：{}
+[2022-02-28 01:38:49] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-02-28 01:39:27] info：Starting Nest application...
+[2022-02-28 01:39:27] info：AppModule dependencies initialized
+[2022-02-28 01:39:27] info：UserController {/api/user}:
+[2022-02-28 01:39:27] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 01:39:27] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 01:39:27] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 01:39:27] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 01:39:27] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 01:39:27] info：GroupController {/api/group}:
+[2022-02-28 01:39:27] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 01:39:27] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 01:39:27] info：ContributionController {/api/contribution}:
+[2022-02-28 01:39:27] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 01:39:27] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 01:39:27] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 01:39:27] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 01:39:27] info：Nest application successfully started
+[2022-02-28 01:39:27] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com&userId=yhirookajpn%40gmail.com
+[2022-02-28 01:39:27] info：リクエストボディ：{}
+[2022-02-28 01:39:27] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-02-28 01:39:34] info：Starting Nest application...
+[2022-02-28 01:39:34] info：AppModule dependencies initialized
+[2022-02-28 01:39:34] info：UserController {/api/user}:
+[2022-02-28 01:39:34] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 01:39:34] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 01:39:34] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 01:39:34] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 01:39:34] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 01:39:34] info：GroupController {/api/group}:
+[2022-02-28 01:39:34] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 01:39:34] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 01:39:34] info：ContributionController {/api/contribution}:
+[2022-02-28 01:39:34] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 01:39:34] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 01:39:34] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 01:39:34] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 01:39:34] info：Nest application successfully started
+[2022-02-28 01:39:34] info：リクエストURL：/api/group/getAllGroupInfo
+[2022-02-28 01:39:34] info：リクエストボディ：{}
+[2022-02-28 01:39:34] info：レスポンスデータ：{
+  "statusCode": 200,
+  "allGroupInfo": [
+    {
+      "groupId": "thirookajpn@gmail.com",
+      "groupName": "友恵（株）"
+    },
+    {
+      "groupId": "yhirookajpn@gmail.com",
+      "groupName": "株式会社GSI"
+    },
+    {
+      "groupId": "textile@gmail.com",
+      "groupName": "株式会社大阪織物"
+    }
+  ]
+}
+[2022-02-28 01:39:55] info：リクエストURL：/api/group/getAllGroupInfo
+[2022-02-28 01:39:55] info：リクエストボディ：{}
+[2022-02-28 01:39:55] info：レスポンスデータ：{
+  "statusCode": 200,
+  "allGroupInfo": [
+    {
+      "groupId": "thirookajpn@gmail.com",
+      "groupName": "友恵（株）"
+    },
+    {
+      "groupId": "yhirookajpn@gmail.com",
+      "groupName": "株式会社GSI"
+    },
+    {
+      "groupId": "textile@gmail.com",
+      "groupName": "株式会社大阪織物"
+    }
+  ]
+}
+[2022-02-28 01:41:33] info：Starting Nest application...
+[2022-02-28 01:41:33] info：AppModule dependencies initialized
+[2022-02-28 01:41:33] info：UserController {/api/user}:
+[2022-02-28 01:41:33] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 01:41:33] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 01:41:33] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 01:41:33] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 01:41:33] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 01:41:33] info：GroupController {/api/group}:
+[2022-02-28 01:41:33] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 01:41:33] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 01:41:33] info：ContributionController {/api/contribution}:
+[2022-02-28 01:41:33] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 01:41:33] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 01:41:33] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 01:41:33] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 01:41:33] info：Nest application successfully started
+[2022-02-28 01:41:33] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com
+[2022-02-28 01:41:33] info：リクエストボディ：{}
+[2022-02-28 01:41:33] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-02-28 01:44:08] info：Starting Nest application...
+[2022-02-28 01:44:08] info：AppModule dependencies initialized
+[2022-02-28 01:44:08] info：UserController {/api/user}:
+[2022-02-28 01:44:08] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 01:44:08] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 01:44:08] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 01:44:08] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 01:44:08] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 01:44:08] info：GroupController {/api/group}:
+[2022-02-28 01:44:08] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 01:44:08] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 01:44:08] info：ContributionController {/api/contribution}:
+[2022-02-28 01:44:08] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 01:44:08] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 01:44:08] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 01:44:08] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 01:44:09] info：Nest application successfully started
+[2022-02-28 01:44:09] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com&userId=yhirookajpn%40gmail.com
+[2022-02-28 01:44:09] info：リクエストボディ：{}
+[2022-02-28 01:44:09] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-02-28 01:46:49] info：Starting Nest application...
+[2022-02-28 01:46:49] info：AppModule dependencies initialized
+[2022-02-28 01:46:49] info：UserController {/api/user}:
+[2022-02-28 01:46:49] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 01:46:49] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 01:46:49] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 01:46:49] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 01:46:49] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 01:46:49] info：GroupController {/api/group}:
+[2022-02-28 01:46:49] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 01:46:49] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 01:46:49] info：ContributionController {/api/contribution}:
+[2022-02-28 01:46:49] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 01:46:49] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 01:46:49] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 01:46:49] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 01:46:49] info：Nest application successfully started
+[2022-02-28 01:46:49] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com
+[2022-02-28 01:46:49] info：リクエストボディ：{}
+[2022-02-28 01:46:49] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-02-28 01:46:54] info：リクエストURL：/api/contribution/search?page=1&groupId=yhirookajpn%40gmail.com&searchCategory=2&keyword=2
+[2022-02-28 01:46:54] info：リクエストボディ：{}
+[2022-02-28 01:46:54] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 46,
+  "contributionInfos": [
+    {
+      "contributionId": 1,
+      "materialName": "ダブルガーゼ",
+      "imageName1": "-s-Sr8ICEsD5CDEVmA-ye"
+    },
+    {
+      "contributionId": 3,
+      "materialName": "グリーンリネン",
+      "imageName1": "8_JL20MaglVXS1FI1TePJ"
+    },
+    {
+      "contributionId": 4,
+      "materialName": "ドット柄",
+      "imageName1": "Z3koFKkMRHPr_UJNpZEif"
+    },
+    {
+      "contributionId": 5,
+      "materialName": "コーデュロイキャメル",
+      "imageName1": "R5ZH4lz3sTzni1PLNPo6A"
+    },
+    {
+      "contributionId": 6,
+      "materialName": "ストライプドット",
+      "imageName1": "1KvBKIKVN6wfNO-ga6YCo"
+    },
+    {
+      "contributionId": 7,
+      "materialName": "フラワー",
+      "imageName1": "GmJVjEOnxJ88G45uU7kSd"
+    },
+    {
+      "contributionId": 8,
+      "materialName": "ネイビーリネン",
+      "imageName1": "2sCrZZrAdnGXtRW9WZShT"
+    },
+    {
+      "contributionId": 9,
+      "materialName": "白黒ドット",
+      "imageName1": "JOFfxCAyIv9v-YEKqvVnK"
+    },
+    {
+      "contributionId": 10,
+      "materialName": "シルク",
+      "imageName1": "e6o-QYQsJMFuZSNaX_afT"
+    },
+    {
+      "contributionId": 11,
+      "materialName": "ストライプ",
+      "imageName1": "4fUUJPA6mC7VsOelbcFHu"
+    },
+    {
+      "contributionId": 12,
+      "materialName": "チェック柄",
+      "imageName1": "cVIT_NDavpLRWkOylbpVk"
+    },
+    {
+      "contributionId": 13,
+      "materialName": "刺繍",
+      "imageName1": "RWPpUUSVJPP0sqIT6MUvy"
+    },
+    {
+      "contributionId": 14,
+      "materialName": "オーガニック素材",
+      "imageName1": "R9QqNyCmCKOmGRebrThsX"
+    },
+    {
+      "contributionId": 15,
+      "materialName": "イエロー無地",
+      "imageName1": "7xvjEgfioKrnBpELQDPIG"
+    },
+    {
+      "contributionId": 16,
+      "materialName": "先染め",
+      "imageName1": "xZ9gpu0fDBZtHLHRqlUex"
+    },
+    {
+      "contributionId": 17,
+      "materialName": "スイミー柄",
+      "imageName1": "sCDrQlsBv5bLTPdB0P0Q7"
+    },
+    {
+      "contributionId": 18,
+      "materialName": "鳥の目",
+      "imageName1": "zNgqrq0mt6SWkHpowJnWn"
+    },
+    {
+      "contributionId": 19,
+      "materialName": "オックスフォード",
+      "imageName1": "WzC-XIbUA-J5EUe0XomVl"
+    },
+    {
+      "contributionId": 20,
+      "materialName": "ペイズリー柄レッド",
+      "imageName1": "jvIF4bU4uYJZUyZOZVegN"
+    },
+    {
+      "contributionId": 21,
+      "materialName": "帆布",
+      "imageName1": "29I5JX13XoRO-Cj4Wrrm3"
+    }
+  ]
+}
+[2022-02-28 01:47:04] info：Starting Nest application...
+[2022-02-28 01:47:04] info：AppModule dependencies initialized
+[2022-02-28 01:47:04] info：UserController {/api/user}:
+[2022-02-28 01:47:04] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 01:47:04] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 01:47:04] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 01:47:04] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 01:47:04] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 01:47:04] info：GroupController {/api/group}:
+[2022-02-28 01:47:04] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 01:47:04] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 01:47:04] info：ContributionController {/api/contribution}:
+[2022-02-28 01:47:04] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 01:47:04] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 01:47:04] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 01:47:04] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 01:47:04] info：Nest application successfully started
+[2022-02-28 01:47:04] info：リクエストURL：/api/contribution/getContributionDetail?contributionId=4
+[2022-02-28 01:47:04] info：リクエストボディ：{}
+[2022-02-28 01:47:04] info：レスポンスデータ：{
+  "statusCode": 200,
+  "contributionInfoDetail": {
+    "contributionId": 4,
+    "materialName": "ドット柄",
+    "category": "2",
+    "composition1": null,
+    "compositionRatio1": null,
+    "composition2": null,
+    "compositionRatio2": null,
+    "composition3": null,
+    "compositionRatio3": null,
+    "fabricStructure": null,
+    "color": null,
+    "pattern": null,
+    "processing": null,
+    "unitPrice": null,
+    "supplier": null,
+    "comment": null,
+    "imageName": [
+      "Z3koFKkMRHPr_UJNpZEif"
+    ]
+  }
+}
+[2022-02-28 01:47:12] info：リクエストURL：/api/contribution/search?page=1&groupId=yhirookajpn%40gmail.com&searchCategory=2&keyword=2&userId=yhirookajpn%40gmail.com
+[2022-02-28 01:47:12] info：リクエストボディ：{}
+[2022-02-28 01:47:12] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 43,
+  "contributionInfos": [
+    {
+      "contributionId": 1,
+      "materialName": "ダブルガーゼ",
+      "imageName1": "-s-Sr8ICEsD5CDEVmA-ye"
+    },
+    {
+      "contributionId": 3,
+      "materialName": "グリーンリネン",
+      "imageName1": "8_JL20MaglVXS1FI1TePJ"
+    },
+    {
+      "contributionId": 4,
+      "materialName": "ドット柄",
+      "imageName1": "Z3koFKkMRHPr_UJNpZEif"
+    },
+    {
+      "contributionId": 5,
+      "materialName": "コーデュロイキャメル",
+      "imageName1": "R5ZH4lz3sTzni1PLNPo6A"
+    },
+    {
+      "contributionId": 6,
+      "materialName": "ストライプドット",
+      "imageName1": "1KvBKIKVN6wfNO-ga6YCo"
+    },
+    {
+      "contributionId": 7,
+      "materialName": "フラワー",
+      "imageName1": "GmJVjEOnxJ88G45uU7kSd"
+    },
+    {
+      "contributionId": 8,
+      "materialName": "ネイビーリネン",
+      "imageName1": "2sCrZZrAdnGXtRW9WZShT"
+    },
+    {
+      "contributionId": 9,
+      "materialName": "白黒ドット",
+      "imageName1": "JOFfxCAyIv9v-YEKqvVnK"
+    },
+    {
+      "contributionId": 10,
+      "materialName": "シルク",
+      "imageName1": "e6o-QYQsJMFuZSNaX_afT"
+    },
+    {
+      "contributionId": 11,
+      "materialName": "ストライプ",
+      "imageName1": "4fUUJPA6mC7VsOelbcFHu"
+    },
+    {
+      "contributionId": 12,
+      "materialName": "チェック柄",
+      "imageName1": "cVIT_NDavpLRWkOylbpVk"
+    },
+    {
+      "contributionId": 13,
+      "materialName": "刺繍",
+      "imageName1": "RWPpUUSVJPP0sqIT6MUvy"
+    },
+    {
+      "contributionId": 14,
+      "materialName": "オーガニック素材",
+      "imageName1": "R9QqNyCmCKOmGRebrThsX"
+    },
+    {
+      "contributionId": 15,
+      "materialName": "イエロー無地",
+      "imageName1": "7xvjEgfioKrnBpELQDPIG"
+    },
+    {
+      "contributionId": 16,
+      "materialName": "先染め",
+      "imageName1": "xZ9gpu0fDBZtHLHRqlUex"
+    },
+    {
+      "contributionId": 17,
+      "materialName": "スイミー柄",
+      "imageName1": "sCDrQlsBv5bLTPdB0P0Q7"
+    },
+    {
+      "contributionId": 18,
+      "materialName": "鳥の目",
+      "imageName1": "zNgqrq0mt6SWkHpowJnWn"
+    },
+    {
+      "contributionId": 19,
+      "materialName": "オックスフォード",
+      "imageName1": "WzC-XIbUA-J5EUe0XomVl"
+    },
+    {
+      "contributionId": 20,
+      "materialName": "ペイズリー柄レッド",
+      "imageName1": "jvIF4bU4uYJZUyZOZVegN"
+    },
+    {
+      "contributionId": 21,
+      "materialName": "帆布",
+      "imageName1": "29I5JX13XoRO-Cj4Wrrm3"
+    }
+  ]
+}
+[2022-02-28 01:47:17] info：Starting Nest application...
+[2022-02-28 01:47:17] info：AppModule dependencies initialized
+[2022-02-28 01:47:17] info：UserController {/api/user}:
+[2022-02-28 01:47:17] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 01:47:17] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 01:47:17] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 01:47:17] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 01:47:17] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 01:47:17] info：GroupController {/api/group}:
+[2022-02-28 01:47:17] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 01:47:17] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 01:47:17] info：ContributionController {/api/contribution}:
+[2022-02-28 01:47:17] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 01:47:17] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 01:47:17] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 01:47:17] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 01:47:17] info：Nest application successfully started
+[2022-02-28 01:47:17] info：リクエストURL：/api/contribution/getContributionDetail?contributionId=3
+[2022-02-28 01:47:17] info：リクエストボディ：{}
+[2022-02-28 01:47:17] info：レスポンスデータ：{
+  "statusCode": 200,
+  "contributionInfoDetail": {
+    "contributionId": 3,
+    "materialName": "グリーンリネン",
+    "category": "2",
+    "composition1": "1",
+    "compositionRatio1": 20,
+    "composition2": "2",
+    "compositionRatio2": 30,
+    "composition3": "3",
+    "compositionRatio3": 40,
+    "fabricStructure": "サテン",
+    "color": "8",
+    "pattern": "無地",
+    "processing": "撥水加工",
+    "unitPrice": 740,
+    "supplier": "株式会社 大阪テキスタイル",
+    "comment": "テスト",
+    "imageName": [
+      "8_JL20MaglVXS1FI1TePJ"
+    ]
+  }
+}
+[2022-02-28 01:47:23] info：リクエストURL：/api/contribution/getContributionDetail?contributionId=3
+[2022-02-28 01:47:23] info：リクエストボディ：{}
+[2022-02-28 01:47:23] info：レスポンスデータ：{
+  "statusCode": 200,
+  "contributionInfoDetail": {
+    "contributionId": 3,
+    "materialName": "グリーンリネン",
+    "category": "2",
+    "composition1": "1",
+    "compositionRatio1": 20,
+    "composition2": "2",
+    "compositionRatio2": 30,
+    "composition3": "3",
+    "compositionRatio3": 40,
+    "fabricStructure": "サテン",
+    "color": "8",
+    "pattern": "無地",
+    "processing": "撥水加工",
+    "unitPrice": 740,
+    "supplier": "株式会社 大阪テキスタイル",
+    "comment": "テスト",
+    "imageName": [
+      "8_JL20MaglVXS1FI1TePJ"
+    ]
+  }
+}
+[2022-02-28 23:42:22] info：Starting Nest application...
+[2022-02-28 23:42:22] info：AppModule dependencies initialized
+[2022-02-28 23:42:22] info：UserController {/api/user}:
+[2022-02-28 23:42:22] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 23:42:22] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 23:42:22] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 23:42:22] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 23:42:22] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 23:42:22] info：GroupController {/api/group}:
+[2022-02-28 23:42:22] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 23:42:22] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 23:42:22] info：ContributionController {/api/contribution}:
+[2022-02-28 23:42:22] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 23:42:22] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 23:42:22] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 23:42:22] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 23:42:22] info：Nest application successfully started
+[2022-02-28 23:42:22] info：リクエストURL：/api/user/getUserInfo?userId=yhirookajpn%40gmail.com
+[2022-02-28 23:42:22] info：リクエストボディ：{}
+[2022-02-28 23:42:22] info：レスポンスデータ：{
+  "statusCode": 200,
+  "userInfo": {
+    "userId": "yhirookajpn@gmail.com",
+    "userName": "廣岡佑介",
+    "groupId": "yhirookajpn@gmail.com"
+  }
+}
+[2022-02-28 23:42:23] info：Starting Nest application...
+[2022-02-28 23:42:23] info：AppModule dependencies initialized
+[2022-02-28 23:42:23] info：UserController {/api/user}:
+[2022-02-28 23:42:23] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 23:42:23] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 23:42:23] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 23:42:23] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 23:42:23] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 23:42:23] info：GroupController {/api/group}:
+[2022-02-28 23:42:23] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 23:42:23] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 23:42:23] info：ContributionController {/api/contribution}:
+[2022-02-28 23:42:23] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 23:42:23] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 23:42:23] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 23:42:23] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 23:42:23] info：Nest application successfully started
+[2022-02-28 23:42:23] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com
+[2022-02-28 23:42:23] info：リクエストボディ：{}
+[2022-02-28 23:42:23] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-02-28 23:42:43] info：Starting Nest application...
+[2022-02-28 23:42:43] info：AppModule dependencies initialized
+[2022-02-28 23:42:43] info：UserController {/api/user}:
+[2022-02-28 23:42:43] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 23:42:43] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 23:42:43] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 23:42:43] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 23:42:43] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 23:42:43] info：GroupController {/api/group}:
+[2022-02-28 23:42:43] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 23:42:43] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 23:42:43] info：ContributionController {/api/contribution}:
+[2022-02-28 23:42:43] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 23:42:43] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 23:42:43] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 23:42:43] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 23:42:43] info：Nest application successfully started
+[2022-02-28 23:42:43] info：リクエストURL：/api/group/getAllGroupInfo
+[2022-02-28 23:42:43] info：リクエストボディ：{}
+[2022-02-28 23:42:43] info：レスポンスデータ：{
+  "statusCode": 200,
+  "allGroupInfo": [
+    {
+      "groupId": "thirookajpn@gmail.com",
+      "groupName": "友恵（株）"
+    },
+    {
+      "groupId": "yhirookajpn@gmail.com",
+      "groupName": "株式会社GSI"
+    },
+    {
+      "groupId": "textile@gmail.com",
+      "groupName": "株式会社大阪織物"
+    }
+  ]
+}
+[2022-02-28 23:43:39] info：リクエストURL：/api/group/getAllGroupInfo
+[2022-02-28 23:43:39] info：リクエストボディ：{}
+[2022-02-28 23:43:39] info：レスポンスデータ：{
+  "statusCode": 200,
+  "allGroupInfo": [
+    {
+      "groupId": "thirookajpn@gmail.com",
+      "groupName": "友恵（株）"
+    },
+    {
+      "groupId": "yhirookajpn@gmail.com",
+      "groupName": "株式会社GSI"
+    },
+    {
+      "groupId": "textile@gmail.com",
+      "groupName": "株式会社大阪織物"
+    }
+  ]
+}
+[2022-02-28 23:45:58] info：リクエストURL：/api/group/getAllGroupInfo
+[2022-02-28 23:45:58] info：リクエストボディ：{}
+[2022-02-28 23:45:58] info：レスポンスデータ：{
+  "statusCode": 200,
+  "allGroupInfo": [
+    {
+      "groupId": "thirookajpn@gmail.com",
+      "groupName": "友恵（株）"
+    },
+    {
+      "groupId": "yhirookajpn@gmail.com",
+      "groupName": "株式会社GSI"
+    },
+    {
+      "groupId": "textile@gmail.com",
+      "groupName": "株式会社大阪織物"
+    }
+  ]
+}
+[2022-02-28 23:56:32] info：Starting Nest application...
+[2022-02-28 23:56:32] info：AppModule dependencies initialized
+[2022-02-28 23:56:32] info：UserController {/api/user}:
+[2022-02-28 23:56:32] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 23:56:32] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 23:56:32] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 23:56:32] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 23:56:32] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 23:56:32] info：GroupController {/api/group}:
+[2022-02-28 23:56:32] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 23:56:32] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 23:56:32] info：ContributionController {/api/contribution}:
+[2022-02-28 23:56:32] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 23:56:32] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 23:56:32] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 23:56:32] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 23:56:32] info：Nest application successfully started
+[2022-02-28 23:56:32] info：リクエストURL：/api/user/getUserInfo?userId=yhirookajpn%40gmail.com
+[2022-02-28 23:56:32] info：リクエストボディ：{}
+[2022-02-28 23:56:32] info：レスポンスデータ：{
+  "statusCode": 200,
+  "userInfo": {
+    "userId": "yhirookajpn@gmail.com",
+    "userName": "廣岡佑介",
+    "groupId": "yhirookajpn@gmail.com"
+  }
+}
+[2022-02-28 23:56:33] info：Starting Nest application...
+[2022-02-28 23:56:33] info：AppModule dependencies initialized
+[2022-02-28 23:56:33] info：UserController {/api/user}:
+[2022-02-28 23:56:33] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 23:56:33] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 23:56:33] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 23:56:33] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 23:56:33] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 23:56:33] info：GroupController {/api/group}:
+[2022-02-28 23:56:33] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 23:56:33] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 23:56:33] info：ContributionController {/api/contribution}:
+[2022-02-28 23:56:33] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 23:56:33] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 23:56:33] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 23:56:33] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 23:56:33] info：Nest application successfully started
+[2022-02-28 23:56:33] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com
+[2022-02-28 23:56:33] info：リクエストボディ：{}
+[2022-02-28 23:56:33] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-02-28 23:58:04] info：Starting Nest application...
+[2022-02-28 23:58:04] info：AppModule dependencies initialized
+[2022-02-28 23:58:04] info：UserController {/api/user}:
+[2022-02-28 23:58:04] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 23:58:04] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 23:58:04] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 23:58:04] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 23:58:04] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 23:58:04] info：GroupController {/api/group}:
+[2022-02-28 23:58:04] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 23:58:04] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 23:58:04] info：ContributionController {/api/contribution}:
+[2022-02-28 23:58:04] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 23:58:04] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 23:58:04] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 23:58:04] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 23:58:04] info：Nest application successfully started
+[2022-02-28 23:58:04] info：リクエストURL：/api/contribution/search?groupId=yhirookajpn%40gmail.com&userId=yhirookajpn%40gmail.com
+[2022-02-28 23:58:04] info：リクエストボディ：{}
+[2022-02-28 23:58:04] info：レスポンスデータ：{
+  "statusCode": 200,
+  "totalCount": 0,
+  "contributionInfos": null
+}
+[2022-02-28 23:58:19] info：Starting Nest application...
+[2022-02-28 23:58:19] info：AppModule dependencies initialized
+[2022-02-28 23:58:19] info：UserController {/api/user}:
+[2022-02-28 23:58:19] info：Mapped {/api/user/signup, POST} route
+[2022-02-28 23:58:19] info：Mapped {/api/user/getUserInfo, GET} route
+[2022-02-28 23:58:19] info：Mapped {/api/user/updateUserInfo, PUT} route
+[2022-02-28 23:58:19] info：Mapped {/api/user/delete, DELETE} route
+[2022-02-28 23:58:19] info：Mapped {/api/user/linkUserToGroup, PUT} route
+[2022-02-28 23:58:19] info：GroupController {/api/group}:
+[2022-02-28 23:58:19] info：Mapped {/api/group/createGroup, POST} route
+[2022-02-28 23:58:19] info：Mapped {/api/group/getAllGroupInfo, GET} route
+[2022-02-28 23:58:19] info：ContributionController {/api/contribution}:
+[2022-02-28 23:58:19] info：Mapped {/api/contribution/contribute, POST} route
+[2022-02-28 23:58:19] info：Mapped {/api/contribution/search, GET} route
+[2022-02-28 23:58:19] info：Mapped {/api/contribution/getContributionDetail, GET} route
+[2022-02-28 23:58:19] info：Mapped {/api/contribution/updateContribution, POST} route
+[2022-02-28 23:58:19] info：Nest application successfully started
+[2022-02-28 23:58:19] info：リクエストURL：/api/group/getAllGroupInfo
+[2022-02-28 23:58:19] info：リクエストボディ：{}
+[2022-02-28 23:58:19] info：レスポンスデータ：{
+  "statusCode": 200,
+  "allGroupInfo": [
+    {
+      "groupId": "thirookajpn@gmail.com",
+      "groupName": "友恵（株）"
+    },
+    {
+      "groupId": "yhirookajpn@gmail.com",
+      "groupName": "株式会社GSI"
+    },
+    {
+      "groupId": "textile@gmail.com",
+      "groupName": "株式会社大阪織物"
+    }
+  ]
+}
+[2022-02-28 23:58:23] info：リクエストURL：/api/group/getAllGroupInfo
+[2022-02-28 23:58:23] info：リクエストボディ：{}
+[2022-02-28 23:58:23] info：レスポンスデータ：{
+  "statusCode": 200,
+  "allGroupInfo": [
+    {
+      "groupId": "thirookajpn@gmail.com",
+      "groupName": "友恵（株）"
+    },
+    {
+      "groupId": "yhirookajpn@gmail.com",
+      "groupName": "株式会社GSI"
+    },
+    {
+      "groupId": "textile@gmail.com",
+      "groupName": "株式会社大阪織物"
+    }
+  ]
+}

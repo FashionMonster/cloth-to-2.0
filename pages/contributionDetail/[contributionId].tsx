@@ -65,6 +65,7 @@ const ContributionId: React.VFC = () => {
               imgFileUrl={(query.data as ContributionInfoDetail).imageUrl[0]}
               oneSideLength='484'
               smOneSideLength='352'
+              isMain={true}
             />
             <div className='grid grid-cols-imageSubDisplay gap-3 sm:grid-cols-sm_imageSubDisplay'>
               {(() => {

@@ -55,10 +55,10 @@ const SideNavigation: React.VFC = () => {
                 <SideNavLink href='/search' image='search.png'>
                   一覧/検索
                 </SideNavLink>
-                <SideNavLink href='/contribute' image='contribute.png'>
+                <SideNavLink href='/contribution' image='contribute.png'>
                   投稿
                 </SideNavLink>
-                <SideNavLink href='/edit' image='edit.png'>
+                <SideNavLink href='/contributionHistory' image='edit.png'>
                   履歴/編集
                 </SideNavLink>
                 {/* 設定とサブナビ */}

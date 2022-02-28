@@ -7,7 +7,6 @@ type Props = {
   name: string;
   isDisabled: boolean;
   defaultValue: string;
-  width: string;
   register: LegacyRef<HTMLInputElement> | undefined;
   errors: FieldError | undefined;
 };
@@ -15,12 +14,12 @@ type Props = {
 //素材比率コンポーネント
 const InputCompositionRatio: React.VFC<Props> = (props) => {
   return (
-    <div className={`w-${props.width} h-8`}>
+    <div className='w-100 h-8'>
       <input
         type='number'
         name={props.name}
         id={props.id}
-        className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400`}
+        className='w-100 h-8 border border-solid rounded-sm border-gray-400'
         ref={props.register}
       />
       {props.errors?.type === 'required' && (

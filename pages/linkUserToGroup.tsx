@@ -140,7 +140,6 @@ const LinkUserToGroup: React.VFC = () => {
               name='groupId'
               id='groupId'
               defaultValue=''
-              width='200 sm:w-40'
               register={register({ required: true })}
               errors={errors.groupId}
               allGroupInfo={query.data as GetAllGroupInfoResType}
@@ -151,7 +150,6 @@ const LinkUserToGroup: React.VFC = () => {
             <InputPassword
               name='groupPass'
               id='groupPass'
-              width='200 sm:w-40'
               register={register({
                 required: true,
                 minLength: 6,
@@ -160,7 +158,7 @@ const LinkUserToGroup: React.VFC = () => {
               errors={errors.groupPass}
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
-              <SubmitBtn value='登録/更新' width={'28 sm:w-40'} />
+              <SubmitBtn value='登録/更新' componentName='linkUserToGroup' />
             </div>
           </form>
         </Main>

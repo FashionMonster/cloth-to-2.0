@@ -91,7 +91,7 @@ const ContributionHistory: React.VFC = () => {
             register={register()}
           />
           <SearchInput category={category} register={register} errors={errors} />
-          <SubmitBtn value='検索' width='20' query={query} />
+          <SubmitBtn value='検索' componentName='contributionHistory' query={query} />
         </form>
         {isExistValue(query.data?.contributionInfos) && (
           //PCは１行に５件、スマホは１行に２件表示する

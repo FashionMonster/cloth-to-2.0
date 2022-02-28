@@ -154,9 +154,9 @@ const UserSetting: React.VFC = () => {
               placeholder=''
               register={register({ required: true, maxLength: 20 })}
               errors={errors.userName}
-              width='200 sm:w-40'
               maxLength='20'
               isDisabled={false}
+              componentName='userSetting'
             />
 
             <InputLabel for='groupId'>メールアドレス（ID）</InputLabel>
@@ -171,7 +171,6 @@ const UserSetting: React.VFC = () => {
                 maxLength: 255,
               })}
               errors={errors.userId}
-              width='200 sm:w-40'
             />
 
             <InputLabel for='groupPass'>パスワード</InputLabel>
@@ -184,10 +183,9 @@ const UserSetting: React.VFC = () => {
                 maxLength: 12,
               })}
               errors={errors.password}
-              width='200 sm:w-40'
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
-              <SubmitBtn value='ユーザー情報更新' width={'200 sm:w-40'} />
+              <SubmitBtn value='ユーザー情報更新' componentName='userSetting' />
             </div>
           </form>
         </Main>

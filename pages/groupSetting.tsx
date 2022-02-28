@@ -95,10 +95,10 @@ const GroupSetting: React.VFC = () => {
               defaultValue=''
               maxLength='20'
               placeholder='株式会社○○○'
-              width='200 sm:w-40'
               isDisabled={false}
               register={register({ required: true, maxLength: 20 })}
               errors={errors.groupName}
+              componentName='groupSetting'
             />
 
             <InputLabel for='groupId'>メールアドレス（ID）</InputLabel>
@@ -107,7 +107,6 @@ const GroupSetting: React.VFC = () => {
               id='groupId'
               defaultValue=''
               placeholder='fashion@example.com'
-              width='200 sm:w-40'
               register={register({
                 required: true,
                 pattern: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*.)+[a-zA-Z]{2,}$/,
@@ -120,7 +119,6 @@ const GroupSetting: React.VFC = () => {
             <InputPassword
               name='groupPass'
               id='groupPass'
-              width='200 sm:w-40'
               register={register({
                 required: true,
                 minLength: 6,
@@ -129,7 +127,7 @@ const GroupSetting: React.VFC = () => {
               errors={errors.groupPass}
             />
             <div className='col-start-2 col-end-3 flex justify-center'>
-              <SubmitBtn value='グループ作成' width={'200 sm:w-40'} />
+              <SubmitBtn value='グループ作成' componentName='groupSetting' />
             </div>
           </form>
         </Main>

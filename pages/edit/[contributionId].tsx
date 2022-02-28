@@ -194,6 +194,7 @@ const ContributionId: React.VFC = () => {
                 }
                 oneSideLength='484'
                 smOneSideLength='352'
+                isMain={true}
               />
               <div className='grid grid-cols-imageSubDisplay gap-3 sm:grid-cols-sm_imageSubDisplay'>
                 {(() => {
@@ -236,7 +237,7 @@ const ContributionId: React.VFC = () => {
                 data={query.data}
               />
               <div className='flex justify-around col-start-2 sm:col-start-1'>
-                <SubmitBtn value='更新する' width={'24'} />
+                <SubmitBtn value='更新する' componentName='edit' />
               </div>
             </div>
             <div />

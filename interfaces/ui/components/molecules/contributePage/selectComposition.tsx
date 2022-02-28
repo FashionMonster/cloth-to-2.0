@@ -8,8 +8,6 @@ type Props = {
   name: string;
   isDisabled: boolean;
   defaultValue: string;
-  width: string;
-  smWidth?: string;
   register: LegacyRef<HTMLSelectElement> | undefined;
   errors: FieldError | undefined;
   getValues: any;
@@ -20,7 +18,7 @@ type Props = {
 //素材選択コンポーネント
 const SelectComposition: React.VFC<Props> = (props) => {
   return (
-    <div className={`w-${props.width} h-8`}>
+    <div className='w-16 sm:w-55 h-8'>
       <select
         id={props.id}
         name={props.name}
@@ -30,7 +28,7 @@ const SelectComposition: React.VFC<Props> = (props) => {
         onChange={() =>
           checkCompositionDuplicate(props.getValues, props.setError, props.clearErrors)
         }
-        className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black disabled:opacity-100 sm:w-${props.smWidth}`}
+        className='w-16 sm:w-55 h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black disabled:opacity-100'
       >
         <option value=''></option>
         <option value='1'>綿</option>

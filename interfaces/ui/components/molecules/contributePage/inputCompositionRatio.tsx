@@ -8,8 +8,6 @@ type Props = {
   name: string;
   isDisabled: boolean;
   defaultValue: string;
-  width: string;
-  smWidth?: string;
   register: LegacyRef<HTMLInputElement> | undefined;
   errors: FieldError | undefined;
   getValues: any;
@@ -20,7 +18,7 @@ type Props = {
 //素材比率コンポーネント
 const InputCompositionRatio: React.VFC<Props> = (props) => {
   return (
-    <div className={`w-${props.width} h-8`}>
+    <div className='w-16 sm:w-55 h-8'>
       <input
         type='number'
         id={props.id}
@@ -29,7 +27,7 @@ const InputCompositionRatio: React.VFC<Props> = (props) => {
         defaultValue={props.defaultValue}
         ref={props.register}
         onChange={() => checkCompositionRatio(props.getValues, props.setError, props.clearErrors)}
-        className={`w-${props.width} h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black sm:w-${props.smWidth}`}
+        className='w-16 sm:w-55 h-8 border border-solid rounded-sm border-gray-400 disabled:bg-gray-100 disabled:text-black'
       />
       {props.errors?.type === 'totalRatioMax' && (
         <div className='text-red-600 text-sm w-40 relative'>{props.errors.message}</div>
