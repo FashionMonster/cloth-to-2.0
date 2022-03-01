@@ -96,7 +96,7 @@ const Search: React.VFC = () => {
         {/* 投稿情報を取得した場合 */}
         {isExistValue(query.data?.contributionInfos) && (
           //PCは１行に５件、スマホは１行に２件表示する
-          <div className={`grid grid-cols-5 gap-5 sm:grid-cols-2 sm:gap-3 sm:w-352 sm:mx-auto`}>
+          <div className='grid grid-cols-5 gap-5 sm:grid-cols-2 sm:gap-3 sm:w-352 sm:mx-auto'>
             {(query.data!.contributionInfos as ({ src: string } & SearchResType)[]).map(
               (item: { src: string } & SearchResType) => (
                 <SearchResult

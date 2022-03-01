@@ -95,15 +95,7 @@ const ContributionHistory: React.VFC = () => {
         </form>
         {isExistValue(query.data?.contributionInfos) && (
           //PCは１行に５件、スマホは１行に２件表示する
-          <div
-            className={`grid grid-cols-${DISPLAY_DATA_NUM.ONE_ROW} grid-rows-${getDisplayCount(
-              (query.data!.contributionInfos as ({ src: string } & SearchResType)[]).length,
-              DISPLAY_DATA_NUM.ONE_ROW
-            )} gap-5 sm:grid-cols-${DISPLAY_DATA_NUM.SM_ONE_ROW} sm:grid-rows-${getDisplayCount(
-              (query.data!.contributionInfos as ({ src: string } & SearchResType)[]).length,
-              DISPLAY_DATA_NUM.SM_ONE_ROW
-            )} sm:gap-3 sm:w-352 sm:mx-auto`}
-          >
+          <div className='grid grid-cols-5 gap-5 sm:grid-cols-2 sm:gap-3 sm:w-352 sm:mx-auto'>
             {(query.data!.contributionInfos as ({ src: string } & SearchResType)[]).map(
               (item: { src: string } & SearchResType) => (
                 <SearchResult
