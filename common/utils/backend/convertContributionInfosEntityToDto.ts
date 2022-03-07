@@ -1,4 +1,4 @@
-import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
+import { ContributionInfoDto } from 'domains/dto/contributionInfoDto';
 import { ContributionInfoEntity } from 'domains/entities/contributionInfoEntity';
 
 // 取得した投稿情報EntityをDTOに変換

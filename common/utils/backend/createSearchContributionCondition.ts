@@ -1,5 +1,5 @@
 import { isExistValue } from 'common/utils/isExistValue';
-import { ContributionSelectWhereInputDto } from 'domains/dto/contribution/contributionSelectWhereInputDto';
+import { ContributionSelectWhereInputDto } from 'domains/dto/contributionSelectWhereInputDto';
 
 //検索条件生成
 //https://www.prisma.io/docs/reference/api-reference/prisma-client-reference

@@ -1,4 +1,4 @@
-import { ContributionInfoDetailDto } from 'domains/dto/contribution/contributionInfoDetailDto';
+import { ContributionInfoDetailDto } from 'domains/dto/contributionInfoDetailDto';
 import { ContributionImageEntity } from 'domains/entities/contributionImageEntity';
 import { ContributionInfoDetailEntity } from 'domains/entities/contributionInfoDetailEntity';
 import { isExistValue } from 'common/utils/isExistValue';
