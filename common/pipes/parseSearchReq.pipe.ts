@@ -1,7 +1,7 @@
 import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
 import { isExistValue } from 'common/utils/isExistValue';
 import { ContributionSelectWhereInputDto } from 'domains/dto/contribution/contributionSelectWhereInputDto';
-import { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
+import { SearchReqDto } from 'interfaces/requestDto/contribution/searchReq.dto';
 
 //投稿処理時、一部のデータを数字型に変換する
 @Injectable()

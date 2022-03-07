@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Prisma, PrismaClient } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from './prisma.service';
-import { ContributionImageCreateInputDto } from 'domains/dto/contribution/contributionImageCreateInputDto';
+import { ContributionImageCreateInputDto } from 'domains/dto/contributionImageCreateInputDto';
 import { getDbErrorMessage } from 'common/utils/getDbErrorMessage';
 import { PrismaTransaction } from 'constants/types/prismaTransaction';
 
@@ -15,7 +15,7 @@ export class ContributionImageService {
     data: ContributionImageCreateInputDto
   ): Promise<void> {
     try {
-      //一時的に外部キー制約を無効にする
+      //一時的に外部キー制約を無効にする TODO: 他の方法要検討
       await prismaTran.$queryRaw`SET FOREIGN_KEY_CHECKS = 0;`;
       //投稿画像テーブル登録
       await prismaTran.contributionImage.create({

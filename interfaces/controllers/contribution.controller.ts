@@ -10,24 +10,24 @@ import {
   Body,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { InternalServerErrorExceptionFilter } from 'common/exceptionFilters/internalServerException.filter';
 import { BadRequestExceptionFilter } from 'common/exceptionFilters/badRequestException.filter';
 import { LoggingInterceptor } from 'common/Interceptors/logging.interceptor';
 import { ContributionService } from 'usecases/contribution.service';
 import { ContributionImageService } from 'usecases/contributionImage.service';
-import { isExistValue } from 'common/utils/isExistValue';
-import { ContributeReqDto } from 'domains/dto/contribution/request/contributeReq.dto';
-import { SearchReqDto } from 'domains/dto/contribution/request/searchReq.dto';
-import { ContributionInfoCreateInputDto } from 'domains/dto/contribution/contributionInfoCreateInputDto';
-import { ContributionImageCreateInputDto } from 'domains/dto/contribution/contributionImageCreateInputDto';
-import { ContributionInfoDetailDto } from 'domains/dto/contribution/contributionInfoDetailDto';
-import { UpdateContributionReqDto } from 'domains/dto/contribution/request/updateContributionReq.dto';
-import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
-import { getContributionInfoDetailReqDto } from 'domains/dto/contribution/request/getContributionInfoDetailReq.dto';
-import { Prisma, PrismaClient } from '@prisma/client';
+import { ContributeReqDto } from 'interfaces/requestDto/contribution/contributeReq.dto';
+import { SearchReqDto } from 'interfaces/requestDto/contribution/searchReq.dto';
+import { UpdateContributionReqDto } from 'interfaces/requestDto/contribution/updateContributionReq.dto';
+import { getContributionInfoDetailReqDto } from 'interfaces/requestDto/contribution/getContributionInfoDetailReq.dto';
 import { ParseContributeReqPipe } from 'common/pipes/parseContributeReq.pipe';
 import { ParseSearchReqPipe } from 'common/pipes/parseSearchReq.pipe';
-import { ContributionSelectWhereInputDto } from 'domains/dto/contribution/contributionSelectWhereInputDto';
+import { ContributionInfoDto } from 'domains/dto/contributionInfoDto';
+import { ContributionInfoDetailDto } from 'domains/dto/contributionInfoDetailDto';
+import { ContributionInfoCreateInputDto } from 'domains/dto/contributionInfoCreateInputDto';
+import { ContributionSelectWhereInputDto } from 'domains/dto/contributionSelectWhereInputDto';
+import { ContributionImageCreateInputDto } from 'domains/dto/contributionImageCreateInputDto';
+import { isExistValue } from 'common/utils/isExistValue';
 
 @Controller('contribution')
 @UseFilters(InternalServerErrorExceptionFilter, BadRequestExceptionFilter)

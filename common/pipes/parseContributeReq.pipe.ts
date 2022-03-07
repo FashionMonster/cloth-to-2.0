@@ -1,6 +1,6 @@
 import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
 import { ContributionInfoCreateInputDto } from 'domains/dto/contribution/contributionInfoCreateInputDto';
-import { ContributeReqDto } from 'domains/dto/contribution/request/contributeReq.dto';
+import { ContributeReqDto } from 'interfaces/requestDto/contribution/contributeReq.dto';
 
 //投稿処理時、一部のデータを数字型に変換する
 @Injectable()

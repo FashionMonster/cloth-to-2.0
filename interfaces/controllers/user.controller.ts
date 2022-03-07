@@ -19,11 +19,11 @@ import { LoggingInterceptor } from 'common/Interceptors/logging.interceptor';
 import { UserService } from 'usecases/user.service';
 import { GroupService } from 'usecases/group.service';
 import { UserAccountEntity } from 'domains/entities/userAccountEntity';
-import { SignupReqDto } from 'domains/dto/user/request/signupReq.dto';
-import { GetUserInfoReqDto } from 'domains/dto/user/request/getUserInfoReq.dto';
-import { UpdateUserInfoReqDto } from 'domains/dto/user/request/updateUserInfoReq.dto';
-import { LinkUserToGroupReqDto } from 'domains/dto/user/request/linkUserToGroupReq.dto';
-import { CancelSignupReqDto } from 'domains/dto/user/request/cancelSignupReq.dto';
+import { SignupReqDto } from 'interfaces/requestDto/user/signupReq.dto';
+import { GetUserInfoReqDto } from 'interfaces/requestDto/user/getUserInfoReq.dto';
+import { UpdateUserInfoReqDto } from 'interfaces/requestDto/user/updateUserInfoReq.dto';
+import { LinkUserToGroupReqDto } from 'interfaces/requestDto/user/linkUserToGroupReq.dto';
+import { CancelSignupReqDto } from 'interfaces/requestDto/user/cancelSignupReq.dto';
 import { isVerifyPass } from 'common/utils/backend/isVerifyPass';
 import { RESULT_MSG } from 'constants/resultMsg';
 

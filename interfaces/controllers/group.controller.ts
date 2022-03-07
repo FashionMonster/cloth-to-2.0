@@ -15,7 +15,7 @@ import { BadRequestExceptionFilter } from 'common/exceptionFilters/badRequestExc
 import { LoggingInterceptor } from 'common/Interceptors/logging.interceptor';
 import { GroupService } from 'usecases/group.service';
 import { GroupAccountEntity } from 'domains/entities/groupAccountEntity';
-import { CreateGroupReqDto } from 'domains/dto/group/request/createGroupReq.dto';
+import { CreateGroupReqDto } from 'interfaces/requestDto/group/createGroupReq.dto';
 import { createHashPass } from 'common/utils/backend/createHashPass';
 
 @Controller('group')
