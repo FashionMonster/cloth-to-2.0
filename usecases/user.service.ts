@@ -2,7 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from './prisma.service';
 import { UserAccountEntity } from 'domains/entities/userAccountEntity';
-import { UpdateUserInfoReqDto } from 'domains/dto/user/request/updateUserInfoReq.dto';
+import { UpdateUserInfoReqDto } from 'interfaces/requestDto/user/updateUserInfoReq.dto';
 import { getDbErrorMessage } from 'common/utils/getDbErrorMessage';
 import { DB_ERROR } from 'constants/dbErrorInfo';
 

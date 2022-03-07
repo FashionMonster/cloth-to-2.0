@@ -7,9 +7,9 @@ import { createSearchContributionCondition } from 'common/utils/backend/createSe
 import { convertContributionInfosEntityToDto } from 'common/utils/backend/convertContributionInfosEntityToDto';
 import { ContributionInfoEntity } from 'domains/entities/contributionInfoEntity';
 import { ContributionInfoDetailEntity } from 'domains/entities/contributionInfoDetailEntity';
-import { ContributionInfoDto } from 'domains/dto/contribution/contributionInfoDto';
-import { ContributionInfoDetailDto } from 'domains/dto/contribution/contributionInfoDetailDto';
-import { ContributionSelectWhereInputDto } from 'domains/dto/contribution/contributionSelectWhereInputDto';
+import { ContributionInfoDto } from 'domains/dto/contributionInfoDto';
+import { ContributionInfoDetailDto } from 'domains/dto/contributionInfoDetailDto';
+import { ContributionSelectWhereInputDto } from 'domains/dto/contributionSelectWhereInputDto';
 import { convertContributionInfoDetailEntityToDto } from 'common/utils/backend/convertContributionInfoDetailEntityToDto';
 import { PrismaTransaction } from 'constants/types/prismaTransaction';
 import { DISPLAY_DATA_NUM } from 'constants/dispalyDataNum';
