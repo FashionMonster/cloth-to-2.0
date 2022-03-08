@@ -46,23 +46,24 @@ close to ～(～に接する又は身近な～)と Cloth(服)を掛け合わせ�
 
 #### 技術構成（※１）
 
-| 項目              | 技術                        |
-| ----------------- | --------------------------- |
-| 言語              | TypeScript                  |
-| ライブラリ        | React                       |
-| フレームワーク１  | Next.js                     |
-| フレームワーク２  | Nest.js                     |
-| インフラ系（※２） | docker, AWS(RDS)            |
-| データベース      | MySQL                       |
-| ORM               | Prisma                      |
-| スタイル          | TailwindCSS                 |
-| アーキテクチャ    | クリーンアーキテクチャ      |
-| UI デザイン       | アトミックデザイン          |
-| ソース管理        | Git, Github                 |
-| デプロイツール    | Vercel                      |
-| エディタ          | Visual Studio Code          |
-| タスク進捗管理    | Notion                      |
-| その他設定        | Prettier,ESLint,babel etc.. |
+| 項目              | 技術                              |
+| ----------------- | --------------------------------- |
+| 言語              | TypeScript                        |
+| ライブラリ        | React                             |
+| フレームワーク１  | Next.js                           |
+| フレームワーク２  | Nest.js                           |
+| BaaS              | Firebase (Authentication,Storage) |
+| インフラ系（※２） | docker, AWS(RDS)                  |
+| データベース      | MySQL                             |
+| ORM               | Prisma                            |
+| スタイル          | TailwindCSS                       |
+| アーキテクチャ    | クリーンアーキテクチャ            |
+| UI デザイン       | アトミックデザイン                |
+| ソース管理        | Git, Github                       |
+| デプロイツール    | Vercel                            |
+| エディタ          | Visual Studio Code                |
+| タスク進捗管理    | Notion                            |
+| その他設定        | Prettier,ESLint,babel etc..       |
 
 _※１ 廣岡が作成したサンプルプロジェクトをベースにしています。_  
 https://github.com/FashionMonster/ts-libraries-frameworks-template
