@@ -54,7 +54,7 @@ const ContributionId: React.VFC = () => {
       <FunctionExplain>
         投稿の詳細を確認できます。
         <br />
-        新たなクリエイションに役立てられるかも！
+        新しいものづくりのヒントになるかもしれません
       </FunctionExplain>
       {/* メイン(コンテンツ) */}
       <Main>
@@ -100,6 +100,9 @@ const ContributionId: React.VFC = () => {
             />
             <div className='flex justify-around col-start-2 sm:col-start-1'>
               <BackBtn backType={BACK_PAGE_TYPE.BROWSER} />
+              <div className='py-1 text-purple-700 underline'>
+                投稿者：{(query.data as ContributionInfoDetail).contributer}
+              </div>
             </div>
           </div>
           <div />

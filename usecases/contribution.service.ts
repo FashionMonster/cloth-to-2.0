@@ -143,6 +143,11 @@ export class ContributionService {
             unitPrice: true,
             supplier: true,
             comment: true,
+            relationUserId: {
+              select: {
+                userName: true,
+              },
+            },
             relationContributionImage: {
               select: {
                 imageName1: true,
@@ -154,6 +159,8 @@ export class ContributionService {
             },
           },
         });
+
+      console.log('確認：' + (resultData as ContributionInfoDetailEntity).relationUserId?.userName);
 
       //DTOに詰め直して返却
       return convertContributionInfoDetailEntityToDto(resultData as ContributionInfoDetailEntity);

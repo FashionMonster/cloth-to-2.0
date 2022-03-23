@@ -25,6 +25,7 @@ const convertContributionInfoDetailEntityToDto = (
     supplier: entity.supplier,
     comment: entity.comment,
     imageName: [],
+    contributer: (entity.relationUserId as { userName: string }).userName,
   };
 
   //投稿画像テーブルのバリューを取得

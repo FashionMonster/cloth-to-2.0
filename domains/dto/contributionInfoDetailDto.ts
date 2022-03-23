@@ -17,6 +17,7 @@ type ContributionInfoDetailDto = {
   supplier?: string | null;
   comment?: string | null;
   imageName: string[];
+  contributer: string | null;
 };
 
 export type { ContributionInfoDetailDto };

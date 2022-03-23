@@ -16,6 +16,7 @@ type ContributionInfoDetail = {
   unitPrice?: number | null;
   supplier?: string | null;
   comment?: string | null;
+  contributer?: string | null;
   imageName: string[];
   imageUrl: string[]; //imageNameからdownloadURLを取得した際に使用
 };

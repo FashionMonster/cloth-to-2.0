@@ -18,6 +18,7 @@ type ContributionInfoDetailEntity = {
   readonly supplier: string | null;
   readonly comment: string | null;
   readonly relationContributionImage: ContributionImageEntity | null;
+  readonly relationUserId: { userName: string } | null;
 };
 
 export type { ContributionInfoDetailEntity };
